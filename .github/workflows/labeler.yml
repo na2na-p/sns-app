@@ -6,13 +6,7 @@ jobs:
   triage:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate github token
-        id: generate_token
-        uses: ./.github/actions/github-app-token
-        with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.PRIVATE_KEY }}
       - uses: actions/labeler@v4
         with:
-          repo-token: ${{ steps.generate_token.outputs.token }}
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
           sync-labels: true
