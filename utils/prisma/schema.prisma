@@ -1,9 +1,26 @@
 generator erd {
   provider = "prisma-erd-generator"
   output   = "../out/erd.md"
+  theme    = "forest"
 }
 
 datasource db {
   provider = "postgresql"
   url      = "hoge"
+}
+
+model User {
+  id       String    @id @default(cuid())
+  name     String    @db.VarChar(255) /// あとで質問
+  email    String    @unique @db.VarChar(255)
+  password String    @db.VarChar(32) /// 8 文字以上 32 文字以下
+  posts    Message[]
+}
+
+model Message {
+  id         String   @id @default(cuid())
+  created_at DateTime @default(now())
+  body       String   @db.Text /// 日本語で最大140文字
+  User       User?    @relation(fields: [userId], references: [id])
+  userId     String?
 }
