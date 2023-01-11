@@ -4,6 +4,10 @@ on:
   push:
     paths:
       - "packages/frontend/**"
+  pull_request:
+    types:
+      - opened
+      - reopened
 
 defaults:
   run:
