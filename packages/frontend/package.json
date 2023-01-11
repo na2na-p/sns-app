@@ -5,8 +5,12 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
+		"test": "yarn vitest",
+		"coverage": "vitest run --coverage",
 		"build": "tsc && vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"lint": "yarn eslint --ext .tsx,.ts ./src",
+		"lint:fix": "yarn eslint --ext .tsx,.ts ./src --fix"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.10.5",
