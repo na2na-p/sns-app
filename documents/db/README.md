@@ -1,0 +1,131 @@
+ERD の更新は`make erd-generate`から
+
+<!-- 全体的に型が怪しい -->
+
+<table>
+	<tr>
+		<th colspan="4">
+			User
+		</th>
+	</tr>
+	<tr>
+		<td>
+			id
+		</td>
+		<td>
+			CHAR(32)
+		</td>
+		<td>
+			PK
+		</td>
+		<td>
+			バックエンドでUUID生成
+		</td>
+	</tr>
+	<tr>
+		<td>
+			name
+		</td>
+		<td>
+			VARCHAR(255)
+		</td>
+		<td>
+			&nbsp;
+		</td>
+		<td>
+			日本語英語問わず64文字上限
+		</td>
+	</tr>
+	<tr>
+		<td>
+			email
+		</td>
+		<td>
+			VARCHAR(255)
+		</td>
+		<td>
+			UQ
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td>
+			password
+		</td>
+		<td>
+			VARCHAR(32)
+		</td>
+		<td>
+			&nbsp;
+		</td>
+		<td>
+			8 文字以上 32 文字以下
+		</td>
+	</tr>
+</table>
+
+<table>
+	<tr>
+		<th colspan="4">
+			Message
+		</th>
+	</tr>
+	<tr>
+		<td>
+			id
+		</td>
+		<td>
+			CHAR(32)
+		</td>
+		<td>
+			PK
+		</td>
+		<td>
+			バックエンドでUUID生成
+		</td>
+	</tr>
+	<tr>
+		<td>
+			body
+		</td>
+		<td>
+			TEXT
+		</td>
+		<td>
+			&nbsp;
+		</td>
+		<td>
+			日本語最大140文字
+		</td>
+	</tr>
+	<tr>
+		<td>
+			created_at
+		</td>
+		<td>
+			TIMESTAMP(Z)
+		</td>
+		<td>
+			&nbsp;
+		</td>
+		<td>
+			格納するのはUTC?
+		</td>
+	</tr>
+	<tr>
+		<td>
+			userId
+		</td>
+		<td>
+			CHAR(32)
+		</td>
+		<td>
+			FK
+		</td>
+		<td>
+			User.id
+		</td>
+	</tr>
+</table>
