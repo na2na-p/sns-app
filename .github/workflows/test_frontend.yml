@@ -8,8 +8,6 @@ on:
     types:
       - opened
       - reopened
-    paths:
-      - packages/frontend/**
 
 defaults:
   run:
