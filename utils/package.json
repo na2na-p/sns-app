@@ -1,0 +1,15 @@
+{
+	"name": "utils",
+	"version": "1.0.0",
+	"author": "na2na",
+	"license": "MIT",
+	"private": true,
+	"scripts": {
+		"prisma:generate": "yarn prisma generate"
+	},
+	"devDependencies": {
+		"@mermaid-js/mermaid-cli": "9.3.0",
+		"prisma": "4.8.1",
+		"prisma-erd-generator": "1.2.4"
+	}
+}
