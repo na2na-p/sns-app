@@ -34,6 +34,7 @@
 		"@vitest/coverage-c8": "^0.27.0",
 		"eslint": "^8.28.0",
 		"eslint-config-google": "^0.14.0",
+		"eslint-plugin-import": "^2.26.0",
 		"eslint-plugin-react": "^7.31.11",
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"happy-dom": "^8.0.0",
