@@ -11,8 +11,8 @@ erDiagram
 
   Message {
     String id PK 
-    DateTime created_at  
     String body  
+    DateTime created_at  
     }
   
     Message o{--|o User : "User"
