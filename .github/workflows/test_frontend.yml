@@ -3,14 +3,14 @@ name: Test(Frontend)
 on:
   push:
     paths:
-      - "packages/frontend"
+      - "packages/frontend/**"
 
 defaults:
   run:
     working-directory: packages/frontend
 
 jobs:
-  Lint:
+  Lint-Frontend:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

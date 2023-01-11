@@ -16,6 +16,7 @@ module.exports = {
 		'sourceType': 'module'
 	},
 	'plugins': [
+		'import',
 		'react',
 		'react-hooks',
 		'@typescript-eslint'
@@ -26,6 +27,15 @@ module.exports = {
 			'error',
 			{ ignore: ['css'] }
 		],
+		'no-console': [
+			'error',
+			{
+				'allow': ['error']
+			}
+		],
+		'no-debugger': 'error',
+		'object-shorthand': 2,
+		'react-hooks/exhaustive-deps': 'error',
 		'require-jsdoc': 'off',
 		'react/display-name': 'off',
 		'no-tabs': 'off',
@@ -36,7 +46,40 @@ module.exports = {
 		'object-curly-spacing': ['error', 'always'],
 		'no-unused-vars': 'off',
 		'react/jsx-tag-spacing': 2,
-		'spaced-comment': ['error', 'always', { markers: ['/ <reference'] }]
+		'spaced-comment': ['error', 'always', { markers: ['/ <reference'] }],
+		'sort-imports': [
+			'error',
+			{ 'ignoreCase': true, 'ignoreDeclarationSort': true }
+		],
+		'import/order': [
+			'error',
+			{
+				'groups': [
+					'builtin',
+					'external',
+					'internal',
+					['sibling', 'parent'],
+					'object'
+				],
+				'pathGroups': [
+					{
+						'pattern': '@/**',
+						'group': 'external',
+						'position': 'after'
+					}
+				],
+				'alphabetize': {
+					'order': 'asc',
+					'caseInsensitive': true
+				},
+				'newlines-between': 'always'
+			}
+		],
+		'@typescript-eslint/consistent-type-imports': [
+			'error',
+			{ 'prefer': 'type-imports' }
+		],
+		'import/no-duplicates': 'error'
 	},
 	'settings': {
 		'react': {
