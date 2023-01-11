@@ -11,7 +11,7 @@ datasource db {
 
 model User {
   id       String    @id @default(cuid())
-  name     String    @db.VarChar(255) /// あとで質問
+  name     String    @db.VarChar(255) /// 日本語英語問わず64、登録なしはできない
   email    String    @unique @db.VarChar(255)
   password String    @db.VarChar(32) /// 8 文字以上 32 文字以下
   posts    Message[]
