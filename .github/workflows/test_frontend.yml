@@ -2,12 +2,14 @@ name: Test(Frontend)
 
 on:
   push:
-    paths:
-      - "packages/frontend/**"
+    branches:
+      - main
   pull_request:
     types:
       - opened
       - reopened
+    paths:
+      - packages/frontend/**
 
 defaults:
   run:
