@@ -1,0 +1,9 @@
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "../out/erd.md"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "hoge"
+}
