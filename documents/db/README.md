@@ -4,11 +4,14 @@ ERD の更新は`make erd-generate`から
 
 <table>
 	<tr>
-		<th colspan="4">
+		<th colspan="5">
 			User
 		</th>
 	</tr>
 	<tr>
+		<td>
+			ユーザID
+		</td>
 		<td>
 			id
 		</td>
@@ -24,6 +27,9 @@ ERD の更新は`make erd-generate`から
 	</tr>
 	<tr>
 		<td>
+			ニックネーム
+		</td>
+		<td>
 			name
 		</td>
 		<td>
@@ -38,6 +44,9 @@ ERD の更新は`make erd-generate`から
 	</tr>
 	<tr>
 		<td>
+			メールアドレス
+		</td>
+		<td>
 			email
 		</td>
 		<td>
@@ -51,6 +60,9 @@ ERD の更新は`make erd-generate`から
 		</td>
 	</tr>
 	<tr>
+		<td>
+			パスワード
+		</td>
 		<td>
 			password
 		</td>
@@ -68,11 +80,14 @@ ERD の更新は`make erd-generate`から
 
 <table>
 	<tr>
-		<th colspan="4">
+		<th colspan="5">
 			Message
 		</th>
 	</tr>
 	<tr>
+		<td>
+			メッセージID
+		</td>
 		<td>
 			id
 		</td>
@@ -88,6 +103,9 @@ ERD の更新は`make erd-generate`から
 	</tr>
 	<tr>
 		<td>
+			本文
+		</td>
+		<td>
 			body
 		</td>
 		<td>
@@ -102,6 +120,9 @@ ERD の更新は`make erd-generate`から
 	</tr>
 	<tr>
 		<td>
+			投稿日時
+		</td>
+		<td>
 			created_at
 		</td>
 		<td>
@@ -111,10 +132,14 @@ ERD の更新は`make erd-generate`から
 			&nbsp;
 		</td>
 		<td>
-			格納するのはUTC?
+			格納するのはUTC?<br>
+			表示はJST?端末のLocalTime?
 		</td>
 	</tr>
 	<tr>
+		<td>
+			ユーザID
+		</td>
 		<td>
 			userId
 		</td>
