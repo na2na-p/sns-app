@@ -79,7 +79,14 @@ module.exports = {
 			'error',
 			{ 'prefer': 'type-imports' }
 		],
-		'import/no-duplicates': 'error'
+		'import/no-duplicates': 'error',
+		'@typescript-eslint/naming-convention': [
+			'error',
+			{
+				'selector': 'typeAlias',
+				'format': ['PascalCase']
+			}
+		]
 	},
 	'settings': {
 		'react': {

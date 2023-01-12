@@ -2,7 +2,7 @@ import React from 'react';
 
 import Login from '@/pages/Login';
 
-type routes = {
+type Routes = {
 	path: () => string;
 	component: JSX.Element;
 }
@@ -15,7 +15,7 @@ const routes =
 			component: <Login />
 		}
 	} as const satisfies {
-		[P in Pages]: routes;
+		[P in Pages]: Routes;
 	};
 
 export default routes;
