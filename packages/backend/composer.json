@@ -17,8 +17,8 @@
         "laravel/sail": "^1.18.0",
         "mockery/mockery": "^1.5.1",
         "nunomaduro/collision": "^6.4.0",
-        "nunomaduro/larastan": "^2.3",
-        "phpstan/phpstan": "^1.9",
+        "nunomaduro/larastan": "^2.3.5",
+        "phpstan/phpstan": "^1.9.9",
         "phpunit/phpunit": "^9.5.27",
         "spatie/laravel-ignition": "^1.6.4"
     },
