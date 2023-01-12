@@ -1,0 +1,28 @@
+name: Test(Backend)
+
+on:
+  push:
+  pull_request:
+    types:
+      - opened
+      - reopened
+
+jobs:
+  Test-Backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup CI
+        run: make setup-ci
+      - name: Lint
+        run: make backend-test
+  Lint-Backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup CI
+        run: make setup-ci
+      - name: Lint
+        run: make backend-lint
