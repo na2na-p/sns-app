@@ -69,7 +69,7 @@ MySQL
 			password
 		</td>
 		<td>
-			VARCHAR(355)
+			VARCHAR(255)
 		</td>
 		<td>
 			NN
