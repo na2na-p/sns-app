@@ -2,6 +2,8 @@ ERD の更新は`make erd-generate`から
 
 <!-- 全体的に型が怪しい -->
 
+MySQL
+
 <table>
 	<tr>
 		<th colspan="5">
@@ -126,14 +128,13 @@ ERD の更新は`make erd-generate`から
 			created_at
 		</td>
 		<td>
-			TIMESTAMP(Z)
+			DATETIME
 		</td>
 		<td>
 			&nbsp;
 		</td>
 		<td>
-			格納するのはUTC?<br>
-			表示はJST?端末のLocalTime?
+			JSTで格納する
 		</td>
 	</tr>
 	<tr>
