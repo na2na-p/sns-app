@@ -6,6 +6,8 @@ erDiagram
     String name  
     String email  
     String password  
+    DateTime created_at  
+    DateTime updated_at  
     }
   
 
@@ -13,6 +15,7 @@ erDiagram
     String id PK 
     String body  
     DateTime created_at  
+    DateTime updated_at  
     }
   
     Message o{--|o User : "User"
