@@ -1,0 +1,7 @@
+services:
+  utils:
+    container_name: sns-app-utils
+    build: .
+    volumes:
+      - ../documents/db:/app/out
+      - ./prisma:/app/prisma:ro
