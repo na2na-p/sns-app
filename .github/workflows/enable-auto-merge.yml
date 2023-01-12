@@ -4,6 +4,7 @@ on:
     types:
       - opened
       - reopened
+      - ready_for_review
     branches:
       - main
       - develop
@@ -11,6 +12,7 @@ on:
 
 jobs:
   enable-auto-merge:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

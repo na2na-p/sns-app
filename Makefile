@@ -4,14 +4,19 @@ SAIL=$(shell pwd)/packages/backend/vendor/bin/sail
 setup-local:
 	(cd utils && cp .env_example .env)
 	@make erd-generate
+	@make frontend-setup
 	@make backend-setup
 
 setup-ci:
+	@make frontend-setup
 	@make backend-setup
 	@make backend-up
 
 erd-generate:
 	(cd utils && docker compose run --rm utils yarn prisma:generate)
+
+frontend-setup:
+	(cd packages/frontend && yarn install)
 
 backend-setup:
 	(cd packages/backend && cp .env.example .env)

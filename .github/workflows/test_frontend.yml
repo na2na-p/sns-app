@@ -2,10 +2,16 @@ name: Test(Frontend)
 
 on:
   push:
+    branches:
+      - main
   pull_request:
     types:
       - opened
       - reopened
+      - synchronize
+      - ready_for_review
+    branches:
+      - main
 
 defaults:
   run:
