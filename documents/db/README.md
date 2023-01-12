@@ -35,10 +35,10 @@ MySQL
 			name
 		</td>
 		<td>
-			VARCHAR(255)
+			VARCHAR(64)
 		</td>
 		<td>
-			&nbsp;
+			NN
 		</td>
 		<td>
 			日本語英語問わず64文字上限
@@ -55,10 +55,10 @@ MySQL
 			VARCHAR(255)
 		</td>
 		<td>
-			UQ
+			UQ, NN
 		</td>
 		<td>
-			&nbsp;
+			NN
 		</td>
 	</tr>
 	<tr>
@@ -69,13 +69,48 @@ MySQL
 			password
 		</td>
 		<td>
-			VARCHAR(32)
+			VARCHAR(355)
 		</td>
 		<td>
-			&nbsp;
+			NN
 		</td>
 		<td>
-			8 文字以上 32 文字以下
+			8 文字以上 32 文字以下<br>
+			ハッシュ化するので変わりうる
+		</td>
+	</tr>
+	<tr>
+		<td>
+			登録日時
+		</td>
+		<td>
+			created_at
+		</td>
+		<td>
+			TIMESTAMP
+		</td>
+		<td>
+			NN
+		</td>
+		<td>
+			JSTで格納する
+		</td>
+	</tr>
+	<tr>
+		<td>
+			更新日時
+		</td>
+		<td>
+			updated_at
+		</td>
+		<td>
+			TIMESTAMP
+		</td>
+		<td>
+			NN
+		</td>
+		<td>
+			JSTで格納する
 		</td>
 	</tr>
 </table>
@@ -114,7 +149,7 @@ MySQL
 			TEXT
 		</td>
 		<td>
-			&nbsp;
+			NN
 		</td>
 		<td>
 			日本語最大140文字
@@ -128,10 +163,27 @@ MySQL
 			created_at
 		</td>
 		<td>
-			DATETIME
+			TIMESTAMP
 		</td>
 		<td>
-			&nbsp;
+			NN
+		</td>
+		<td>
+			JSTで格納する
+		</td>
+	</tr>
+	<tr>
+		<td>
+			更新日時
+		</td>
+		<td>
+			updated_at
+		</td>
+		<td>
+			TIMESTAMP
+		</td>
+		<td>
+			NN
 		</td>
 		<td>
 			JSTで格納する
