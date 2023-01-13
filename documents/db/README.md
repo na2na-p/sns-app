@@ -7,7 +7,7 @@ MySQL
 <table>
 	<tr>
 		<th colspan="5">
-			User
+			user
 		</th>
 	</tr>
 	<tr>
@@ -118,7 +118,7 @@ MySQL
 <table>
 	<tr>
 		<th colspan="5">
-			Message
+			message
 		</th>
 	</tr>
 	<tr>
@@ -203,7 +203,7 @@ MySQL
 			FK
 		</td>
 		<td>
-			User.id
+			user.id
 		</td>
 	</tr>
 </table>
