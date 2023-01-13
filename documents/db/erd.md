@@ -1,7 +1,7 @@
 ```mermaid
 erDiagram
 
-  User {
+  users {
     String id PK 
     String name  
     String email  
@@ -11,12 +11,21 @@ erDiagram
     }
   
 
-  Message {
+  messages {
     String id PK 
     String body  
     DateTime created_at  
     DateTime updated_at  
     }
   
-    Message o{--|o User : "User"
+
+  favorites {
+    String id PK 
+    DateTime created_at  
+    DateTime updated_at  
+    }
+  
+    messages o{--|o users : "users"
+    favorites o{--|o users : "users"
+    favorites o{--|o messages : "messages"
 ```
