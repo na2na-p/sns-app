@@ -1,7 +1,8 @@
 generator erd {
   provider = "prisma-erd-generator"
   output   = "../out/erd.md"
-  theme    = "forest"
+  theme    = "forest" // 効いてないっぽい?
+  // TODO: FK表現できないか
 }
 
 datasource db {
@@ -9,31 +10,33 @@ datasource db {
   url      = "hoge"
 }
 
-model user {
-  id         String     @id @db.Char(32) /// バックエンドでUUID生成
-  name       String     @db.VarChar(64) /// 日本語英語問わず64、登録なしはできない
-  email      String     @unique @db.VarChar(255) /// もしUQつけないならIndex貼ったほうがいい
-  password   String     @db.VarChar(255) /// 8 文字以上 32 文字以下(ハッシュ化した後の文字数で決めるのが良さそう)
-  created_at DateTime   @default(now()) @db.Timestamp()
-  updated_at DateTime   @default(now()) @db.Timestamp()
-  posts      message[]
-  favorite   favorite[]
+model users {
+  id         String      @id @db.Char(32) /// バックエンドでUUID生成
+  name       String      @db.VarChar(64) /// 日本語英語問わず64、登録なしはできない
+  email      String      @unique @db.VarChar(255) /// もしUQつけないならIndex貼ったほうがいい
+  password   String      @db.VarChar(255) /// 8 文字以上 32 文字以下(ハッシュ化した後の文字数で決めるのが良さそう)
+  created_at DateTime    @default(now()) @db.Timestamp()
+  updated_at DateTime    @default(now()) @db.Timestamp()
+  posts      messages[]
+  favorites  favorites[]
 }
 
-model message {
-  id         String     @id @db.Char(32) /// バックエンドでUUID生成
-  body       String     @db.Text /// 日本語で最大140文字
-  created_at DateTime   @default(now()) @db.Timestamp() /// Current TimeStamp
-  updated_at DateTime   @default(now()) @db.Timestamp() /// Current TimeStamp
-  User       user?      @relation(fields: [user_id], references: [id])
+model messages {
+  id         String      @id @db.Char(32) /// バックエンドでUUID生成
+  body       String      @db.Text /// 日本語で最大140文字
+  created_at DateTime    @default(now()) @db.Timestamp() /// Current TimeStamp
+  updated_at DateTime    @default(now()) @db.Timestamp() /// Current TimeStamp
+  users      users?      @relation(fields: [user_id], references: [id])
   user_id    String
-  favorite   favorite[]
+  favorites  favorites[]
 }
 
-model favorite {
-  id         String   @id @db.Char(32) /// バックエンドでUUID生成
-  User       user?    @relation(fields: [user_id], references: [id])
+model favorites {
+  id         String    @id @db.Char(32) /// バックエンドでUUID生成
+  created_at DateTime  @default(now()) @db.Timestamp() /// Current TimeStamp
+  updated_at DateTime  @default(now()) @db.Timestamp() /// Current TimeStamp
+  users      users?    @relation(fields: [user_id], references: [id])
   user_id    String
-  Message    message? @relation(fields: [message_id], references: [id])
+  messages   messages? @relation(fields: [message_id], references: [id])
   message_id String
 }

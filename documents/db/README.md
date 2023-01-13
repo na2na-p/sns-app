@@ -7,7 +7,7 @@ MySQL
 <table>
 	<tr>
 		<th colspan="5">
-			user
+			users
 		</th>
 	</tr>
 	<tr>
@@ -118,7 +118,7 @@ MySQL
 <table>
 	<tr>
 		<th colspan="5">
-			message
+			messages
 		</th>
 	</tr>
 	<tr>
@@ -203,7 +203,7 @@ MySQL
 			FK
 		</td>
 		<td>
-			user.id
+			users.id
 		</td>
 	</tr>
 </table>
@@ -211,7 +211,7 @@ MySQL
 <table>
 	<tr>
 		<th colspan="5">
-			favorite
+			favorites
 		</th>
 	</tr>
 	<tr>
@@ -279,7 +279,7 @@ MySQL
 			FK
 		</td>
 		<td>
-			user.id
+			users.id
 		</td>
 	</tr>
 		<td>
@@ -295,7 +295,7 @@ MySQL
 			FK
 		</td>
 		<td>
-			message.id
+			messages.id
 		</td>
 	</tr>
 </table>
