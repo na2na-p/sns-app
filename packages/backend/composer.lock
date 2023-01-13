@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2276881e5a9a244809c06db424904d64",
+    "content-hash": "d692c8cf000a60ac5aaa43efb97e19e0",
     "packages": [
         {
             "name": "brick/math",
@@ -6164,16 +6164,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.9.10",
+            "version": "1.9.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "5d4fe21376ba8ad66ce147fbc89e4fb4b7728de4"
+                "reference": "60f3d68481eef216199eae7a2603cd5fe124d464"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/5d4fe21376ba8ad66ce147fbc89e4fb4b7728de4",
-                "reference": "5d4fe21376ba8ad66ce147fbc89e4fb4b7728de4",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/60f3d68481eef216199eae7a2603cd5fe124d464",
+                "reference": "60f3d68481eef216199eae7a2603cd5fe124d464",
                 "shasum": ""
             },
             "require": {
@@ -6203,7 +6203,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.9.10"
+                "source": "https://github.com/phpstan/phpstan/tree/1.9.11"
             },
             "funding": [
                 {
@@ -6219,7 +6219,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-12T12:57:25+00:00"
+            "time": "2023-01-12T14:04:13+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
