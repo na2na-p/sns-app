@@ -194,7 +194,7 @@ MySQL
 			ユーザID
 		</td>
 		<td>
-			userId
+			user_id
 		</td>
 		<td>
 			CHAR(32)
@@ -204,6 +204,98 @@ MySQL
 		</td>
 		<td>
 			user.id
+		</td>
+	</tr>
+</table>
+
+<table>
+	<tr>
+		<th colspan="5">
+			favorite
+		</th>
+	</tr>
+	<tr>
+		<td>
+			お気に入りID
+		</td>
+		<td>
+			id
+		</td>
+		<td>
+			CHAR(32)
+		</td>
+		<td>
+			PK
+		</td>
+		<td>
+			バックエンドでUUID生成
+		</td>
+	</tr>
+	<tr>
+		<td>
+			登録日時
+		</td>
+		<td>
+			created_at
+		</td>
+		<td>
+			TIMESTAMP
+		</td>
+		<td>
+			NN
+		</td>
+		<td>
+			JSTで格納する
+		</td>
+	</tr>
+	<tr>
+		<td>
+			更新日時
+		</td>
+		<td>
+			updated_at
+		</td>
+		<td>
+			TIMESTAMP
+		</td>
+		<td>
+			NN
+		</td>
+		<td>
+			JSTで格納する
+		</td>
+	</tr>
+	<tr>
+		<td>
+			ユーザID
+		</td>
+		<td>
+			user_id
+		</td>
+		<td>
+			CHAR(32)
+		</td>
+		<td>
+			FK
+		</td>
+		<td>
+			user.id
+		</td>
+	</tr>
+		<td>
+			メッセージID
+		</td>
+		<td>
+			message_id
+		</td>
+		<td>
+			CHAR(32)
+		</td>
+		<td>
+			FK
+		</td>
+		<td>
+			message.id
 		</td>
 	</tr>
 </table>
