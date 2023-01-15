@@ -34,6 +34,7 @@ module.exports = {
 				'allow': ['error']
 			}
 		],
+		'valid-jsdoc': 'off',
 		'no-debugger': 'error',
 		'object-shorthand': 2,
 		'react-hooks/exhaustive-deps': 'error',
