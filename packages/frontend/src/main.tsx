@@ -1,12 +1,27 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
 
-import Header from '@/layout/Header';
+import App from './App';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-	<React.StrictMode>
-		<Header />
-		<h1>sns-app</h1>
-	</React.StrictMode>
-);
+void (async () => {
+	if (import.meta.env.MODE === 'development') {
+		const { worker } = await import('./mocks/browser');
+		await worker.start({
+			serviceWorker: {
+				url: '/mockServiceWorker.js'
+			}
+		});
+	}
+
+	const container = document.getElementById('root');
+	if (!container) {
+		return;
+	}
+	const root = createRoot(container);
+
+	root.render(
+		<React.StrictMode>
+			<App />
+		</React.StrictMode>
+	);
+})();

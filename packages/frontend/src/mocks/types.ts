@@ -1,4 +1,4 @@
-import type { Iso8601 } from '@/utils/iso8601';
+import type { Iso8601 } from '@/utils/formatDate/iso8601';
 
 export type Users = {
 	id: string;
