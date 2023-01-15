@@ -1,4 +1,4 @@
-import Card from '@/components/dataDisplay/Card';
+import Card from './Card';
 
 type MessageCardProps = {
 	userName: string;
@@ -20,3 +20,5 @@ const MessageCard = ({
 		</Card>
 	);
 };
+
+export default MessageCard;
