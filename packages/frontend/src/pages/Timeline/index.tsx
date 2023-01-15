@@ -4,7 +4,7 @@ import React from 'react';
 import usePing from '@/hooks/usePing';
 import isNil from '@/utils/isNil';
 
-export default () => {
+const Timeline = () => {
 	const { data, isLoading } = usePing();
 	if (isNil(isLoading)) return null;
 	console.log(data); // eslint-disable-line no-console
@@ -14,3 +14,5 @@ export default () => {
 		</>
 	);
 };
+
+export default Timeline;
