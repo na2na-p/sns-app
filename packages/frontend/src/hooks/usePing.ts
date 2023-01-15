@@ -5,7 +5,9 @@ import { BASE_URI } from '@/constants/ENDPOINTS_BASE';
 const usePing = () => {
 	const uri = `${BASE_URI}/ping`;
 	const { data, isLoading, error } = useQuery(['ping'], async () => {
-		const res = await fetch(uri);
+		const res = await fetch(uri, {
+			method: 'POST'
+		});
 		return res.json();
 	});
 	return { data, isLoading, error };

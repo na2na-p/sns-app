@@ -15,6 +15,9 @@ const handlers = [
 	rest.get(`${BASE_URI}/ping`, (req, res, ctx) => {
 		return res(ctx.json({ message: 'pong' }));
 	}),
+	rest.post(`${BASE_URI}/ping`, (req, res, ctx) => {
+		return res(ctx.json({ message: 'pong' }));
+	}),
 	rest.post(`${BASE_URI}${ENDPOINTS_BASE.signUp}`, async (req, res, ctx) => {
 		const json = await req.json();
 		handler.createUser(json);
