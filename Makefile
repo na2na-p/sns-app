@@ -33,7 +33,8 @@ backend-generate:
 	@make backend-annotation
 
 backend-up:
-	(cd packages/backend && ${SAIL} up -d --build)
+	(cd packages/backend && ${SAIL} up -d --build && \
+	sleep 15)
 
 backend-down:
 	(cd packages/backend && ${SAIL} down)
