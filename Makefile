@@ -50,3 +50,6 @@ tinker:
 
 backend-bash:
 	(cd packages/backend && ${SAIL} bash)
+
+backend-idehelper:
+	(cd packages/backend && ${SAIL} artisan ide-helper:model -W)
