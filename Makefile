@@ -43,3 +43,8 @@ backend-lint:
 backend-route-check:
 	(cd packages/backend && ${SAIL} artisan route:list)
 
+tinker:
+	(cd packages/backend && ${SAIL} tinker)
+
+backend-bash:
+	(cd packages/backend && ${SAIL} bash)
