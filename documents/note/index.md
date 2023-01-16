@@ -1,6 +1,6 @@
 # Backend
 
-## Tinkerの中でRedis
+## Tinker の中で Redis
 
 ```tinker
 Illuminate\Support\Facades\Redis::keys('*')
@@ -15,7 +15,7 @@ Illuminate\Support\Facades\Redis::keys('*')
 ./vendor/bin/sail test
 ./vendor/bin/sail pint
 
-composer installをいれたい、sailでのやりかた
+composer install をいれたい、sail でのやりかた
 
 ```
 docker run --rm \
@@ -28,5 +28,11 @@ docker run --rm \
 
 ./vendor/bin/sail composer install
 
-@ts-xxxx的なものがある
+@ts-xxxx 的なものがある
 (ジェネリクスが扱えるっぽい)
+
+fillable <-> guarded
+
+vendor/bin/sail artisan ide-helper:model -W
+
+全部 guarded に入れているので連想配列では Update はできない
