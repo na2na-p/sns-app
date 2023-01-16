@@ -21,9 +21,9 @@ frontend-setup:
 backend-setup:
 	(cd packages/backend && cp .env.example .env)
 	(cd packages/backend && \
-	${BACEND_ENV} composer install --ignore-platform-reqs)
+	${BACKEND_ENV} composer install --ignore-platform-reqs)
 	(cd packages/backend && \
-	${BACEND_ENV} php artisan key:generate)
+	${BACKEND_ENV} php artisan key:generate)
 
 backend-up:
 	(cd packages/backend && ${SAIL} up -d --build)
