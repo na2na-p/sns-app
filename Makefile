@@ -47,6 +47,7 @@ backend-test:
 
 backend-lint:
 	(cd packages/backend && ${SAIL} pint)
+	@make backend-phpstan
 
 backend-route-check:
 	(cd packages/backend && ${SAIL} artisan route:list)
@@ -62,3 +63,6 @@ backend-migrate:
 
 backend-annotation:
 	(cd packages/backend && ${SAIL} artisan ide-helper:model --write)
+
+backend-phpstan:
+	(cd packages/backend && ${BACKEND_ENV} vendor/bin/phpstan analyse -c phpstan.neon)
