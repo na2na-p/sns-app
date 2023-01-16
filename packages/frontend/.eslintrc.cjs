@@ -19,6 +19,7 @@ module.exports = {
 		'import',
 		'react',
 		'react-hooks',
+		'react-refresh',
 		'@typescript-eslint'
 	],
 	'rules': {
@@ -33,6 +34,7 @@ module.exports = {
 				'allow': ['error']
 			}
 		],
+		'valid-jsdoc': 'off',
 		'no-debugger': 'error',
 		'object-shorthand': 2,
 		'react-hooks/exhaustive-deps': 'error',
@@ -45,6 +47,7 @@ module.exports = {
 		'comma-dangle': ['error', 'never'],
 		'object-curly-spacing': ['error', 'always'],
 		'no-unused-vars': 'off',
+		'react-refresh/only-export-components': 'warn',
 		'react/jsx-tag-spacing': 2,
 		'spaced-comment': ['error', 'always', { markers: ['/ <reference'] }],
 		'sort-imports': [

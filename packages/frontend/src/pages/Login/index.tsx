@@ -2,7 +2,7 @@ import React from 'react';
 
 import TextFormInput from '@/components/form/labeled/TextFormInput';
 
-export default () => {
+const Login = () => {
 	return (
 		<>
 			<TextFormInput
@@ -11,3 +11,5 @@ export default () => {
 		</>
 	);
 };
+
+export default Login;
