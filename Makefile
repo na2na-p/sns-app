@@ -10,7 +10,6 @@ setup-local:
 setup-ci:
 	@make frontend-setup
 	@make backend-setup
-	@make backend-up
 
 erd-generate:
 	(cd utils && docker compose run --rm utils yarn prisma:generate)
@@ -26,6 +25,12 @@ backend-setup:
 	${BACKEND_ENV} php artisan key:generate)
 	(cd packages/backend && \
 	${BACKEND_ENV} php artisan ide-helper:generate)
+	@make backend-up
+	@make backend-generate
+
+backend-generate:
+	@make backend-migrate
+	@make backend-annotation
 
 backend-up:
 	(cd packages/backend && ${SAIL} up -d --build)
@@ -54,5 +59,5 @@ backend-bash:
 backend-migrate:
 	(cd packages/backend && ${SAIL} artisan migrate)
 
-backend-idehelper:
-	(cd packages/backend && ${SAIL} artisan ide-helper:model -W)
+backend-annotation:
+	(cd packages/backend && ${SAIL} artisan ide-helper:model --write)
