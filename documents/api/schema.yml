@@ -1,0 +1,181 @@
+openapi: 3.1.0
+x-stoplight:
+  id: 4d65f2a7sccv0
+info:
+  title: schema
+  version: "1.0"
+  description: sns-app OpenAPI schema
+  license:
+    name: unlicense
+    identifier: Unlicense
+  contact:
+    name: na2na
+    email: na2na@na2na.dev
+    url: "https://github.com/na2na-p/sns-app"
+servers:
+  - url: "http://localhost/api/v1"
+paths:
+  /ping:
+    get:
+      summary: Your GET endpoint
+      responses:
+        "200":
+          description: pong
+      operationId: get-ping
+      tags:
+        - dev-only
+      description: ping
+    parameters: []
+  /users:
+    post:
+      summary: ""
+      operationId: sigin-up
+      tags:
+        - sign-up
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - name
+                - email
+                - password
+      description: Create user
+      responses:
+        "200":
+          $ref: "#/components/responses/User"
+  /login:
+    post:
+      summary: ""
+      operationId: login
+      tags:
+        - login
+      description: for login use
+      parameters:
+        - schema:
+            type: string
+          in: cookie
+          description: Laravel session Id
+          required: true
+          name: laravel_session
+        - schema:
+            type: string
+          in: cookie
+          name: X-XSRF-TOKEN
+          description: Laravel Sanctum
+          required: true
+      responses:
+        "200":
+          $ref: "#/components/responses/User"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+  /logout:
+    post:
+      summary: ""
+      operationId: logout
+      responses:
+        "200":
+          description: OK
+      tags:
+        - logout
+      description: for logout use
+tags:
+  - name: dev-only
+    description: 開発専用
+  - name: sign-up
+    description: ユーザ作成用
+  - name: login
+    description: ログイン用
+  - name: logout
+    description: ログアウト用
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      examples:
+        - userId: 00ccebbc13e070008b186150ad2d0c05
+          name: Alice Smith
+          email: hoge@example.com
+          created_at: "2023-01-13T10:33:15+9:00"
+          upddate_at: "2023-01-13T10:33:15+9:00"
+      properties:
+        userId:
+          type: string
+          description: ユーザID
+        name:
+          type: string
+          description: ユーザのニックネーム
+        email:
+          type: string
+          description: ユーザのemail
+        created_at:
+          type: string
+          description: 登録日時
+        updated_at:
+          type: string
+      required:
+        - userId
+        - name
+        - email
+        - created_at
+        - updated_at
+      x-tags:
+        - users
+      description: ユーザ
+    Message:
+      title: Message
+      x-stoplight:
+        id: byjkqw35cpck1
+      type: object
+      properties:
+        messageId:
+          type: string
+        body:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        favorited:
+          type: integer
+        isFavorited:
+          type: boolean
+      required:
+        - messageId
+        - body
+        - created_at
+        - updated_at
+        - favorited
+        - isFavorited
+      description: メッセージ1件
+      x-tags:
+        - messages
+  securitySchemes: {}
+  responses:
+    User:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/User"
+x-internal: false
