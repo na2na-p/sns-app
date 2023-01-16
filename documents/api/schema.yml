@@ -32,6 +32,7 @@ paths:
       operationId: sigin-up
       tags:
         - sign-up
+        - user
       requestBody:
         content:
           application/json:
@@ -50,14 +51,43 @@ paths:
                 - password
       description: Create user
       responses:
-        "200":
-          $ref: "#/components/responses/User"
+        "201":
+          description: Example response
+          content:
+            application/json:
+              schema:
+                title: User
+                type: object
+                examples:
+                  - userId: 00ccebbc13e070008b186150ad2d0c05
+                    name: Alice Smith
+                    email: hoge@example.com
+                    created_at: "2023-01-13T10:33:15+9:00"
+                    upddate_at: "2023-01-13T10:33:15+9:00"
+                x-tags:
+                  - users
+                description: ユーザ
+                properties:
+                  userId:
+                    type: string
+                    description: ユーザID
+                  name:
+                    type: string
+                    description: ユーザのニックネーム
+                  email:
+                    type: string
+                    description: ユーザのemail
+                required:
+                  - userId
+                  - name
+                  - email
   /login:
     post:
       summary: ""
       operationId: login
       tags:
         - login
+        - user
       description: for login use
       parameters:
         - schema:
@@ -74,7 +104,35 @@ paths:
           required: true
       responses:
         "200":
-          $ref: "#/components/responses/User"
+          description: Example response
+          content:
+            application/json:
+              schema:
+                title: User
+                type: object
+                examples:
+                  - userId: 00ccebbc13e070008b186150ad2d0c05
+                    name: Alice Smith
+                    email: hoge@example.com
+                    created_at: "2023-01-13T10:33:15+9:00"
+                    upddate_at: "2023-01-13T10:33:15+9:00"
+                x-tags:
+                  - users
+                description: ユーザ
+                properties:
+                  userId:
+                    type: string
+                    description: ユーザID
+                  name:
+                    type: string
+                    description: ユーザのニックネーム
+                  email:
+                    type: string
+                    description: ユーザのemail
+                required:
+                  - userId
+                  - name
+                  - email
       requestBody:
         content:
           application/json:
@@ -98,15 +156,255 @@ paths:
       tags:
         - logout
       description: for logout use
+  /messages:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - message
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      title: Message
+                      x-stoplight:
+                        id: byjkqw35cpck1
+                      type: object
+                      description: メッセージ
+                      x-tags:
+                        - messages
+                      examples:
+                        - messageId: 00ccebbc13e070008b186150ad2d0c05
+                          body: 山路を登りながら
+                          created_at: "2023-01-13T10:33:15+9:00"
+                          updated_at: "2023-01-13T10:33:15+9:00"
+                          favorited: 123
+                          isFavorited: true
+                      properties:
+                        messageId:
+                          type: string
+                        body:
+                          type: string
+                        created_at:
+                          type: string
+                        favorited:
+                          type: integer
+                        isFavorited:
+                          type: boolean
+                      required:
+                        - messageId
+                        - body
+                        - created_at
+                        - favorited
+                        - isFavorited
+                required:
+                  - messages
+      operationId: get-messages
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lastMessageId:
+                  type: string
+                perPage:
+                  type: string
+                  description: default is 10
+      description: for message fetch
+    post:
+      summary: ""
+      operationId: post-message
+      responses:
+        "201":
+          description: Example response
+          content:
+            application/json:
+              schema:
+                title: Message
+                x-stoplight:
+                  id: byjkqw35cpck1
+                type: object
+                description: メッセージ
+                x-tags:
+                  - messages
+                examples:
+                  - messageId: 00ccebbc13e070008b186150ad2d0c05
+                    body: 山路を登りながら
+                    created_at: "2023-01-13T10:33:15+9:00"
+                    updated_at: "2023-01-13T10:33:15+9:00"
+                    favorited: 123
+                    isFavorited: true
+                properties:
+                  messageId:
+                    type: string
+                  body:
+                    type: string
+                  created_at:
+                    type: string
+                  favorited:
+                    type: integer
+                  isFavorited:
+                    type: boolean
+                required:
+                  - messageId
+                  - body
+                  - created_at
+                  - favorited
+                  - isFavorited
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+      tags:
+        - message
+      description: for message post.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+              required:
+                - body
+  "/messages/{messageId}/favorite":
+    parameters:
+      - schema:
+          type: string
+        name: messageId
+        in: path
+        required: true
+        description: messageId
+    put:
+      summary: ""
+      operationId: favorite
+      responses:
+        "200":
+          description: OK
+      description: for favorite
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                isFavorited:
+                  type: boolean
+                  description: 操作後の状態を示す
+              required:
+                - isFavorited
+        description: ""
+      tags:
+        - favorite
+        - message
+  "/users/{userId}/password":
+    parameters:
+      - schema:
+          type: string
+        name: userId
+        in: path
+        required: true
+        description: userId
+    put:
+      summary: passwordUpdate
+      operationId: passwordUpdate
+      responses:
+        "200":
+          description: OK
+      description: for password update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+              required:
+                - password
+      tags:
+        - user
+  "/users/{userId}":
+    parameters:
+      - schema:
+          type: string
+        name: userId
+        in: path
+        required: true
+        description: userId
+    put:
+      summary: ""
+      operationId: user-info-update
+      responses:
+        "200":
+          description: Example response
+          content:
+            application/json:
+              schema:
+                title: User
+                type: object
+                examples:
+                  - userId: 00ccebbc13e070008b186150ad2d0c05
+                    name: Alice Smith
+                    email: hoge@example.com
+                    created_at: "2023-01-13T10:33:15+9:00"
+                    upddate_at: "2023-01-13T10:33:15+9:00"
+                x-tags:
+                  - users
+                description: ユーザ
+                properties:
+                  userId:
+                    type: string
+                    description: ユーザID
+                  name:
+                    type: string
+                    description: ユーザのニックネーム
+                  email:
+                    type: string
+                    description: ユーザのemail
+                required:
+                  - userId
+                  - name
+                  - email
+      description: for user info update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+              required:
+                - name
+                - email
+      tags:
+        - user
 tags:
   - name: dev-only
     description: 開発専用
-  - name: sign-up
-    description: ユーザ作成用
+  - name: favorite
+    description: お気に入り関係
   - name: login
     description: ログイン用
   - name: logout
     description: ログアウト用
+  - name: message
+    description: メッセージ関係
+  - name: sign-up
+    description: 登録
+  - name: user
+    description: ユーザ関係
 components:
   schemas:
     User:
@@ -118,6 +416,9 @@ components:
           email: hoge@example.com
           created_at: "2023-01-13T10:33:15+9:00"
           upddate_at: "2023-01-13T10:33:15+9:00"
+      x-tags:
+        - users
+      description: ユーザ
       properties:
         userId:
           type: string
@@ -128,33 +429,31 @@ components:
         email:
           type: string
           description: ユーザのemail
-        created_at:
-          type: string
-          description: 登録日時
-        updated_at:
-          type: string
       required:
         - userId
         - name
         - email
-        - created_at
-        - updated_at
-      x-tags:
-        - users
-      description: ユーザ
     Message:
       title: Message
       x-stoplight:
         id: byjkqw35cpck1
       type: object
+      description: メッセージ
+      x-tags:
+        - messages
+      examples:
+        - messageId: 00ccebbc13e070008b186150ad2d0c05
+          body: 山路を登りながら
+          created_at: "2023-01-13T10:33:15+9:00"
+          updated_at: "2023-01-13T10:33:15+9:00"
+          favorited: 123
+          isFavorited: true
       properties:
         messageId:
           type: string
         body:
           type: string
         created_at:
-          type: string
-        updated_at:
           type: string
         favorited:
           type: integer
@@ -164,12 +463,8 @@ components:
         - messageId
         - body
         - created_at
-        - updated_at
         - favorited
         - isFavorited
-      description: メッセージ1件
-      x-tags:
-        - messages
   securitySchemes: {}
   responses:
     User:
@@ -177,5 +472,69 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/User"
+            title: User
+            type: object
+            examples:
+              - userId: 00ccebbc13e070008b186150ad2d0c05
+                name: Alice Smith
+                email: hoge@example.com
+                created_at: "2023-01-13T10:33:15+9:00"
+                upddate_at: "2023-01-13T10:33:15+9:00"
+            x-tags:
+              - users
+            description: ユーザ
+            properties:
+              userId:
+                type: string
+                description: ユーザID
+              name:
+                type: string
+                description: ユーザのニックネーム
+              email:
+                type: string
+                description: ユーザのemail
+            required:
+              - userId
+              - name
+              - email
+    Message:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            title: Message
+            x-stoplight:
+              id: byjkqw35cpck1
+            type: object
+            description: メッセージ
+            x-tags:
+              - messages
+            examples:
+              - messageId: 00ccebbc13e070008b186150ad2d0c05
+                body: 山路を登りながら
+                created_at: "2023-01-13T10:33:15+9:00"
+                updated_at: "2023-01-13T10:33:15+9:00"
+                favorited: 123
+                isFavorited: true
+            properties:
+              messageId:
+                type: string
+              body:
+                type: string
+              created_at:
+                type: string
+              favorited:
+                type: integer
+              isFavorited:
+                type: boolean
+            required:
+              - messageId
+              - body
+              - created_at
+              - favorited
+              - isFavorited
+        application/xml:
+          schema:
+            type: object
+            properties: {}
 x-internal: false
