@@ -40,3 +40,6 @@ backend-test:
 backend-lint:
 	(cd packages/backend && ${SAIL} pint)
 
+backend-route-check:
+	(cd packages/backend && ${SAIL} artisan route:list)
+
