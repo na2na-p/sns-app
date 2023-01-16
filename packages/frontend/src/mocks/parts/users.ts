@@ -1,11 +1,9 @@
-import { nullable, oneOf, primaryKey } from '@mswjs/data';
-import type { QuerySelectorWhere } from '@mswjs/data/lib/query/queryTypes';
+import { primaryKey } from '@mswjs/data';
 
 import type { DbType } from '@/mocks/db';
-import type { Users } from '@/mocks/types';
 import { autoIncrement, findCreate } from '@/mocks/utils';
 import commonColumns, { COMMON_DATA } from '@/mocks/utils/commonColumns';
-import type { CreateUserArgs, UserArgs } from '@/types/api';
+import type { CreateUserArgs, UpdateUserArgs, UpdateUserPasswordArgs, UserArgs } from '@/types/api';
 import isNil from '@/utils/isNil';
 
 export const usersDb = {
@@ -64,7 +62,19 @@ export const userHandler = (db: DbType) => {
 				...args
 			});
 		},
-		updateUser: (args: CreateUserArgs, id: string) => {
+		updateUser: (args: UpdateUserArgs, id: string) => {
+			return db.Users.update({
+				where: {
+					id: {
+						equals: id
+					}
+				},
+				data: {
+					...args
+				}
+			});
+		},
+		passwordUpdate: (args: UpdateUserPasswordArgs, id: string) => {
 			return db.Users.update({
 				where: {
 					id: {
