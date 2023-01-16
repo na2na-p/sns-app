@@ -7,6 +7,15 @@ export type CreateUserArgs = {
 	password: string;
 }
 
+export type UpdateUserArgs = {
+	name: string;
+	email: string;
+}
+
+export type UpdateUserPasswordArgs = {
+	password: string;
+}
+
 export type CreateUserReturnType = {
 	userId: string;
 	name: string;
@@ -17,4 +26,13 @@ export type CreateUserReturnType = {
 
 export type UserArgs = {
 	id: string;
+}
+
+export type MessageArgs = {
+	id: string;
+}
+
+export type MessagesArgs = {
+	lastMessageId?: string;
+	perPage?: number;
 }

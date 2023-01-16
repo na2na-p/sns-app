@@ -2,13 +2,17 @@ import { rest } from 'msw';
 
 import ENDPOINTS_BASE, { BASE_URI } from '@/constants/ENDPOINTS_BASE';
 import { db } from '@/mocks/db';
+import { favoriteHandler } from '@/mocks/parts/favorites';
+import { messageHandler } from '@/mocks/parts/messages';
 import { userHandler }	from '@/mocks/parts/users';
 import type { CreateUserReturnType } from '@/types/api';
 import isNil from '@/utils/isNil';
 
 
 const handler = {
-	...userHandler(db)
+	...userHandler(db),
+	...messageHandler(db),
+	...favoriteHandler(db)
 };
 
 const handlers = [
