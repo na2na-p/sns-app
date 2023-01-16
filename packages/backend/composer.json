@@ -10,10 +10,10 @@
         "laravel/framework": "^9.47.0",
         "laravel/sanctum": "^3.2.0",
         "laravel/tinker": "^2.8.0",
-        "predis/predis": "^2.0"
+        "predis/predis": "^2.0.3"
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "^2.12",
+        "barryvdh/laravel-ide-helper": "^2.12.3",
         "fakerphp/faker": "^1.21.0",
         "laravel/pint": "^1.4.0",
         "laravel/sail": "^1.18.0",
