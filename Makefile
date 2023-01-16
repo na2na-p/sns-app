@@ -24,6 +24,8 @@ backend-setup:
 	${BACKEND_ENV} composer install --ignore-platform-reqs)
 	(cd packages/backend && \
 	${BACKEND_ENV} php artisan key:generate)
+	(cd packages/backend && \
+	${BACKEND_ENV} php artisan ide-helper:generate)
 
 backend-up:
 	(cd packages/backend && ${SAIL} up -d --build)
