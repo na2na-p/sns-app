@@ -5,7 +5,7 @@
 ```tinker
 Illuminate\Support\Facades\Redis::keys('*')
 # or
-# \Redis::keys('*') // のように先頭にバックスラッシュをつける?
+# app.phpでエイリアスを設定して\Redis::keys('*') // のように先頭にバックスラッシュをつける?
 ```
 
 ## 書き散らし
