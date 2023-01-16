@@ -51,5 +51,8 @@ tinker:
 backend-bash:
 	(cd packages/backend && ${SAIL} bash)
 
+backend-migrate:
+	(cd packages/backend && ${SAIL} artisan migrate)
+
 backend-idehelper:
 	(cd packages/backend && ${SAIL} artisan ide-helper:model -W)
