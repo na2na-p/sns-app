@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\OpenApi\RequestBodies\SignUpRequestBody;
+use App\OpenApi\Responses\SignUpResponse;
+use App\OpenApi\Responses\WhoAmiResponse;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
@@ -25,6 +27,7 @@ class UsersController extends Controller
      */
     #[OpenApi\Operation]
     #[OpenApi\RequestBody(factory: SignUpRequestBody::class)]
+    #[OpenApi\Response(factory: SignUpResponse::class)]
     public function signUp(Request $request): Response|JsonResponse|Application|ResponseFactory
     {
         $validator = Validator::make($request->all(), [
@@ -48,7 +51,7 @@ class UsersController extends Controller
 
         $request->session()->regenerate();
 
-        return response()->json([
+        return response(null, 201)->json([
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
@@ -62,6 +65,7 @@ class UsersController extends Controller
      * @return Response|JsonResponse|Application|ResponseFactory
      */
     #[OpenApi\Operation]
+    #[OpenApi\Response(factory: WhoAmiResponse::class)]
     public function whoAmI(Request $request): Response|JsonResponse|Application|ResponseFactory
     {
         if ($request->user() === null) {

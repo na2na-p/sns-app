@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\OpenApi\RequestBodies\LoginRequestBody;
+use App\OpenApi\Responses\LoginResponse;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class LoginController extends Controller
      */
     #[OpenApi\Operation]
     #[OpenApi\RequestBody(factory: LoginRequestBody::class)]
+    #[OpenApi\Response(factory: LoginResponse::class)]
     public function login(Request $request): Response|Application|ResponseFactory
     {
         $validator = Validator::make($request->all(), [

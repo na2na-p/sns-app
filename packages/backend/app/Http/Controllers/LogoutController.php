@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\OpenApi\Responses\LogoutResponse;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
@@ -17,6 +18,7 @@ class LogoutController extends Controller
      * @return Response|Application|ResponseFactory
      */
     #[OpenApi\Operation]
+    #[OpenApi\Response(factory: LogoutResponse::class)]
     public function logout(): Response|Application|ResponseFactory
     {
         Auth::logout();

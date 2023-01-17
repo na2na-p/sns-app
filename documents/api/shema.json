@@ -12,7 +12,19 @@
     "paths": {
         "\/api\/v1\/users": {
             "get": {
-                "summary": "ログイン済みかどうかの判定用エンドポイント"
+                "summary": "ログイン済みかどうかの判定用エンドポイント",
+                "responses": {
+                    "200": {
+                        "description": "Check Who am I",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SignUpResponse"
+                                }
+                            }
+                        }
+                    }
+                }
             },
             "post": {
                 "summary": "ユーザ登録用エンドポイント",
@@ -26,6 +38,18 @@
                         }
                     },
                     "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "SignUp Successful",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SignUpResponse"
+                                }
+                            }
+                        }
+                    }
                 }
             }
         },
@@ -42,12 +66,29 @@
                         }
                     },
                     "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login Successful",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/SignUpResponse"
+                                }
+                            }
+                        }
+                    }
                 }
             }
         },
         "\/api\/v1\/logout": {
             "post": {
-                "summary": "ログアウト用エンドポイント"
+                "summary": "ログアウト用エンドポイント",
+                "responses": {
+                    "200": {
+                        "description": "Logout Successful"
+                    }
+                }
             }
         }
     },
@@ -65,6 +106,20 @@
                 }
             },
             "SignUpRequestBody": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                }
+            },
+            "SignUpResponse": {
                 "type": "object",
                 "properties": {
                     "id": {
