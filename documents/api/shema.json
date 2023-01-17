@@ -15,17 +15,68 @@
                 "summary": "ログイン済みかどうかの判定用エンドポイント"
             },
             "post": {
-                "summary": "ユーザ登録用エンドポイント"
+                "summary": "ユーザ登録用エンドポイント",
+                "requestBody": {
+                    "description": "SignUp Request Body",
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/SignUpRequestBody"
+                            }
+                        }
+                    },
+                    "required": true
+                }
             }
         },
         "\/api\/v1\/login": {
             "post": {
-                "summary": "ログイン用エンドポイント"
+                "summary": "ログイン用エンドポイント",
+                "requestBody": {
+                    "description": "Login Request Body",
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/LoginRequestBody"
+                            }
+                        }
+                    },
+                    "required": true
+                }
             }
         },
         "\/api\/v1\/logout": {
             "post": {
                 "summary": "ログアウト用エンドポイント"
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "LoginRequestBody": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "SignUpRequestBody": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                }
             }
         }
     }
