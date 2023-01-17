@@ -23,6 +23,9 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
                     }
                 }
             },
@@ -46,6 +49,16 @@
                             "application\/json": {
                                 "schema": {
                                     "$ref": "#\/components\/schemas\/SignUpResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/BadRequestResponse"
                                 }
                             }
                         }
@@ -77,6 +90,16 @@
                                 }
                             }
                         }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/BadRequestResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -87,6 +110,16 @@
                 "responses": {
                     "200": {
                         "description": "Logout Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/BadRequestResponse"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -94,6 +127,15 @@
     },
     "components": {
         "schemas": {
+            "BadRequestResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                }
+            },
             "LoginRequestBody": {
                 "type": "object",
                 "properties": {
