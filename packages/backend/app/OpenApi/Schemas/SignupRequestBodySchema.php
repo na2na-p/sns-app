@@ -16,9 +16,9 @@ class SignupRequestBodySchema extends SchemaFactory implements Reusable
     {
         return Schema::object('SignupRequestBody')
             ->properties(
-                Schema::string('id'),
                 Schema::string('name'),
                 Schema::string('email'),
+                Schema::string('password'),
             );
     }
 }
