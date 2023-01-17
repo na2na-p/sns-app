@@ -11,33 +11,30 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Messages
+ * App\Models\Message
  *
- * @method static Builder|Messages newModelQuery()
- * @method static Builder|Messages newQuery()
- * @method static Builder|Messages query()
- *
- * @mixin Eloquent
- *
- * @property string $id
+ * @property string $id バックエンドでUUID生成
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
- * @method static Builder|Messages whereCreatedAt($value)
- * @method static Builder|Messages whereId($value)
- * @method static Builder|Messages whereUpdatedAt($value)
- *
  * @property string $body メッセージ本文
  * @property string $user_id ユーザID
  *
- * @method static Builder|Messages whereBody($value)
- * @method static Builder|Messages whereUserId($value)
+ * @method static Builder|Message newModelQuery()
+ * @method static Builder|Message newQuery()
+ * @method static Builder|Message query()
+ * @method static Builder|Message whereBody($value)
+ * @method static Builder|Message whereCreatedAt($value)
+ * @method static Builder|Message whereId($value)
+ * @method static Builder|Message whereUpdatedAt($value)
+ * @method static Builder|Message whereUserId($value)
  *
- * @property-read Collection|Favorites[] $favorites
+ * @mixin Eloquent
+ *
+ * @property-read Collection|Favorite[] $favorites
  * @property-read int|null $favorites_count
- * @property-read Users $user
+ * @property-read User $user
  */
-class Messages extends Model
+class Message extends Model
 {
     public $incrementing = false;
 
@@ -53,11 +50,11 @@ class Messages extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(Users::class);
+        return $this->belongsTo(User::class);
     }
 
     public function favorites(): HasMany
     {
-        return $this->hasMany(Favorites::class);
+        return $this->hasMany(Favorite::class);
     }
 }

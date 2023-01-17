@@ -10,34 +10,33 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * App\Models\Users
- *
- * @method static Builder|Users newModelQuery()
- * @method static Builder|Users newQuery()
- * @method static Builder|Users query()
- *
- * @mixin Eloquent
+ * App\Models\User
  *
  * @property string $id バックエンドでUUID生成
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string $name 日本語英語問わず64、登録なしはできない
- * @property string $email ユーザメールアドレス
  * @property string $password ハッシュ化前は8文字以上 32文字以下
+ * @property string $email ユーザメールアドレス
  *
- * @method static Builder|Users whereCreatedAt($value)
- * @method static Builder|Users whereEmail($value)
- * @method static Builder|Users whereId($value)
- * @method static Builder|Users whereName($value)
- * @method static Builder|Users wherePassword($value)
- * @method static Builder|Users whereUpdatedAt($value)
+ * @method static Builder|User newModelQuery()
+ * @method static Builder|User newQuery()
+ * @method static Builder|User query()
+ * @method static Builder|User whereCreatedAt($value)
+ * @method static Builder|User whereEmail($value)
+ * @method static Builder|User whereId($value)
+ * @method static Builder|User whereName($value)
+ * @method static Builder|User wherePassword($value)
+ * @method static Builder|User whereUpdatedAt($value)
  *
- * @property-read Collection|Favorites[] $favorites
+ * @mixin Eloquent
+ *
+ * @property-read Collection|Favorite[] $favorites
  * @property-read int|null $favorites_count
- * @property-read Collection|Messages[] $messages
+ * @property-read Collection|Message[] $messages
  * @property-read int|null $messages_count
  */
-class Users extends Model
+class User extends Model
 {
     public $incrementing = false;
 
@@ -54,11 +53,11 @@ class Users extends Model
 
     public function messages(): HasMany
     {
-        return $this->hasMany(Messages::class);
+        return $this->hasMany(Message::class);
     }
 
     public function favorites(): HasMany
     {
-        return $this->hasMany(Favorites::class);
+        return $this->hasMany(Favorite::class);
     }
 }
