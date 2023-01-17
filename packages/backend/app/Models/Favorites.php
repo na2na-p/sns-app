@@ -44,6 +44,8 @@ class Favorites extends Model
         'id',
         'created_at',
         'updated_at',
+        'message_id',
+        'user_id',
     ];
 
     public function user(): BelongsTo
