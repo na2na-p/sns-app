@@ -12,7 +12,7 @@ class WhoAmiResponse extends ResponseFactory
     public function build(): Response
     {
         return Response::ok()
-            ->description('Check Who am I')
+            ->description('Check who am I')
             ->content(
                 MediaType::json()->schema(
                     UserResponseSchema::ref()

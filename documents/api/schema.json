@@ -15,7 +15,7 @@
                 "summary": "ログイン済みかどうかの判定用エンドポイント",
                 "responses": {
                     "200": {
-                        "description": "Check Who am I",
+                        "description": "Check who am I",
                         "content": {
                             "application\/json": {
                                 "schema": {
@@ -32,7 +32,7 @@
             "post": {
                 "summary": "ユーザ登録用エンドポイント",
                 "requestBody": {
-                    "description": "SignUp Request Body",
+                    "description": "Signup Request Body",
                     "content": {
                         "application\/json": {
                             "schema": {
@@ -44,7 +44,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "SignUp Successful",
+                        "description": "Signup Successful",
                         "content": {
                             "application\/json": {
                                 "schema": {

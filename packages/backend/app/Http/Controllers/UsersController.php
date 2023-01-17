@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\OpenApi\RequestBodies\SignUpRequestBody;
+use App\OpenApi\RequestBodies\SignupRequestBody;
 use App\OpenApi\Responses\BadRequestResponse;
-use App\OpenApi\Responses\SignUpResponse;
+use App\OpenApi\Responses\SignupResponse;
 use App\OpenApi\Responses\UnauthorizedRequestResponse;
 use App\OpenApi\Responses\WhoAmiResponse;
 use Illuminate\Contracts\Foundation\Application;
@@ -29,8 +29,8 @@ class UsersController extends Controller
      * @return Response|JsonResponse|Application|ResponseFactory
      */
     #[OpenApi\Operation]
-    #[OpenApi\RequestBody(factory: SignUpRequestBody::class)]
-    #[OpenApi\Response(factory: SignUpResponse::class)]
+    #[OpenApi\RequestBody(factory: SignupRequestBody::class)]
+    #[OpenApi\Response(factory: SignupResponse::class)]
     #[OpenApi\Response(factory: BadRequestResponse::class)]
     public function signUp(Request $request): Response|JsonResponse|Application|ResponseFactory
     {

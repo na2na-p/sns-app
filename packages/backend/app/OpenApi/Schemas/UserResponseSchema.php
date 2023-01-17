@@ -14,7 +14,7 @@ class UserResponseSchema extends SchemaFactory implements Reusable
      */
     public function build(): SchemaContract
     {
-        return Schema::object('SignUpResponse')
+        return Schema::object('SignupResponse')
             ->properties(
                 Schema::string('id'),
                 Schema::string('name'),
