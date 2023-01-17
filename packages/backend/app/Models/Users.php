@@ -8,6 +8,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -53,12 +54,12 @@ class Users extends Model
         'updated_at',
     ];
 
-    public function messages()
+    public function messages(): HasMany
     {
         return $this->hasMany(Messages::class);
     }
 
-    public function favorites()
+    public function favorites(): HasMany
     {
         return $this->hasMany(Favorites::class);
     }
