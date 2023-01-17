@@ -25,6 +25,10 @@ class LoginController extends Controller
         if (Auth::attempt($request->all())) {
             $request->session()->regenerate();
 
+            if (! Auth::user()) {
+                return response('Internal Server Error', 500);
+            }
+
             return response([
                 'id' => Auth::user()->id,
                 'name' => Auth::user()->name,
