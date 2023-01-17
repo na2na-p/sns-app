@@ -17,7 +17,6 @@ return new class extends Migration
             $table->char('id', 36)->primary()->comment('バックエンドでUUID生成');
             $table->timestamps();
             $table->text('body')->comment('メッセージ本文');
-            // $table->foreignId('user_id')->constrained('users')->comment('ユーザID'); // bigintカラムになるのでNG
             $table->char('user_id', 36)->comment('ユーザID');
             $table->foreign('user_id')->references('id')->on('users');
         });
