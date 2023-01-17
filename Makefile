@@ -16,6 +16,7 @@ erd-generate:
 
 swagger-ui:
 	(cd utils && docker compose up swagger_ui -d --no-recreate )
+	open http://localhost:8080/
 
 frontend-setup:
 	(cd packages/frontend && yarn install)
