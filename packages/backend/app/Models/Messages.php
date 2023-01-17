@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -16,17 +17,23 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Messages newModelQuery()
  * @method static Builder|Messages newQuery()
  * @method static Builder|Messages query()
- * @mixin \Eloquent
+ *
+ * @mixin Eloquent
+ *
  * @property int $id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static Builder|Messages whereCreatedAt($value)
  * @method static Builder|Messages whereId($value)
  * @method static Builder|Messages whereUpdatedAt($value)
+ *
  * @property string $body メッセージ本文
  * @property string $user_id ユーザID
+ *
  * @method static Builder|Messages whereBody($value)
  * @method static Builder|Messages whereUserId($value)
+ *
  * @property-read Collection|Favorites[] $favorites
  * @property-read int|null $favorites_count
  * @property-read Users $user
@@ -34,7 +41,9 @@ use Illuminate\Support\Carbon;
 class Messages extends Model
 {
     public $incrementing = false;
+
     protected $keyType = 'string';
+
     protected $guarded = [
         'id',
         'body',
