@@ -3,6 +3,7 @@
 namespace App\OpenApi\Schemas;
 
 use GoldSpecDigital\ObjectOrientedOAS\Contracts\SchemaContract;
+use GoldSpecDigital\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Vyuldashev\LaravelOpenApi\Contracts\Reusable;
 use Vyuldashev\LaravelOpenApi\Factories\SchemaFactory;
@@ -14,9 +15,14 @@ class UpdateUserPasswordRequestBodySchema extends SchemaFactory implements Reusa
      */
     public function build(): SchemaContract
     {
-        return Schema::object('UpdateUserPasswordRequestBody')
-            ->properties(
-                Schema::string('password')
-            );
+        try {
+            return Schema::object('UpdateUserPasswordRequestBody')
+                ->properties(
+                    Schema::string('password')
+                )
+                ->required('password');
+        } catch (InvalidArgumentException $e) {
+            dd($e);
+        }
     }
 }

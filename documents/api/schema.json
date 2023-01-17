@@ -233,6 +233,10 @@
             },
             "LoginRequestBody": {
                 "type": "object",
+                "required": [
+                    "email",
+                    "password"
+                ],
                 "properties": {
                     "email": {
                         "type": "string"
@@ -244,6 +248,11 @@
             },
             "SignupRequestBody": {
                 "type": "object",
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
                 "properties": {
                     "name": {
                         "type": "string"
@@ -258,6 +267,9 @@
             },
             "UpdateUserPasswordRequestBody": {
                 "type": "object",
+                "required": [
+                    "password"
+                ],
                 "properties": {
                     "password": {
                         "type": "string"
@@ -266,6 +278,10 @@
             },
             "UpdateUserRequestBody": {
                 "type": "object",
+                "required": [
+                    "name",
+                    "email"
+                ],
                 "properties": {
                     "name": {
                         "type": "string"
@@ -277,6 +293,11 @@
             },
             "UserResponse": {
                 "type": "object",
+                "required": [
+                    "id",
+                    "name",
+                    "email"
+                ],
                 "properties": {
                     "id": {
                         "type": "string"
