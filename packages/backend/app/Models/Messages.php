@@ -19,7 +19,7 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Eloquent
  *
- * @property int $id
+ * @property string $id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
