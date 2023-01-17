@@ -43,4 +43,17 @@ class UsersController extends Controller
             'email' => $user->email,
         ]);
     }
+
+    public function whoAmI(Request $request): Response|JsonResponse|Application|ResponseFactory
+    {
+        if ($request->user() === null) {
+            return response(null, 401);
+        }
+
+        return response()->json([
+            'id' => $request->user()->id,
+            'name' => $request->user()->name,
+            'email' => $request->user()->email,
+        ]);
+    }
 }
