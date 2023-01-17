@@ -11,18 +11,18 @@ datasource db {
 }
 
 model users {
-  id         String      @id @db.Char(32) /// バックエンドでUUID生成
+  id         String      @id @db.Char(36) /// バックエンドでUUID生成
   name       String      @db.VarChar(64) /// 日本語英語問わず64、登録なしはできない
   email      String      @unique @db.VarChar(255) /// もしUQつけないならIndex貼ったほうがいい
   password   String      @db.VarChar(255) /// 8 文字以上 32 文字以下(ハッシュ化した後の文字数で決めるのが良さそう)
   created_at DateTime    @default(now()) @db.Timestamp()
   updated_at DateTime    @default(now()) @db.Timestamp()
-  posts      messages[]
+  messages   messages[]
   favorites  favorites[]
 }
 
 model messages {
-  id         String      @id @db.Char(32) /// バックエンドでUUID生成
+  id         String      @id @db.Char(36) /// バックエンドでUUID生成
   body       String      @db.Text /// 日本語で最大140文字
   created_at DateTime    @default(now()) @db.Timestamp() /// Current TimeStamp
   updated_at DateTime    @default(now()) @db.Timestamp() /// Current TimeStamp
@@ -32,7 +32,7 @@ model messages {
 }
 
 model favorites {
-  id         String    @id @db.Char(32) /// バックエンドでUUID生成
+  id         String    @id @db.Char(36) /// バックエンドでUUID生成
   created_at DateTime  @default(now()) @db.Timestamp() /// Current TimeStamp
   updated_at DateTime  @default(now()) @db.Timestamp() /// Current TimeStamp
   users      users?    @relation(fields: [user_id], references: [id])

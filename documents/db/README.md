@@ -18,7 +18,7 @@ MySQL
 			id
 		</td>
 		<td>
-			CHAR(32)
+			CHAR(36)
 		</td>
 		<td>
 			PK
@@ -129,7 +129,7 @@ MySQL
 			id
 		</td>
 		<td>
-			CHAR(32)
+			CHAR(36)
 		</td>
 		<td>
 			PK
@@ -197,7 +197,7 @@ MySQL
 			user_id
 		</td>
 		<td>
-			CHAR(32)
+			CHAR(36)
 		</td>
 		<td>
 			FK
@@ -222,7 +222,7 @@ MySQL
 			id
 		</td>
 		<td>
-			CHAR(32)
+			CHAR(36)
 		</td>
 		<td>
 			PK
@@ -273,7 +273,7 @@ MySQL
 			user_id
 		</td>
 		<td>
-			CHAR(32)
+			CHAR(36)
 		</td>
 		<td>
 			FK
@@ -289,7 +289,7 @@ MySQL
 			message_id
 		</td>
 		<td>
-			CHAR(32)
+			CHAR(36)
 		</td>
 		<td>
 			FK
