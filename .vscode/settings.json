@@ -1,8 +1,11 @@
 {
 	"cSpell.words": [
 		"autoload",
+		"Autoloaded",
 		"autoloader",
 		"barryvdh",
+		"bigdecimal",
+		"bignum",
 		"dont",
 		"fakerphp",
 		"guzzlehttp",
@@ -10,6 +13,7 @@
 		"laravelsail",
 		"mswjs",
 		"nunomaduro",
+		"openapi",
 		"pestphp",
 		"Phantomic",
 		"phpstan",
@@ -17,6 +21,7 @@
 		"predis",
 		"reqs",
 		"spatie",
-		"tanstack"
+		"tanstack",
+		"Vyuldashev"
 	]
 }
