@@ -3,25 +3,33 @@
 namespace App\Models;
 
 // use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Messages
  *
- * @method static \Illuminate\Database\Eloquent\Builder|Messages newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Messages newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Messages query()
+ * @method static Builder|Messages newModelQuery()
+ * @method static Builder|Messages newQuery()
+ * @method static Builder|Messages query()
  * @mixin \Eloquent
  * @property int $id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|Messages whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Messages whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Messages whereUpdatedAt($value)
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|Messages whereCreatedAt($value)
+ * @method static Builder|Messages whereId($value)
+ * @method static Builder|Messages whereUpdatedAt($value)
  * @property string $body メッセージ本文
  * @property string $user_id ユーザID
- * @method static \Illuminate\Database\Eloquent\Builder|Messages whereBody($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Messages whereUserId($value)
+ * @method static Builder|Messages whereBody($value)
+ * @method static Builder|Messages whereUserId($value)
+ * @property-read Collection|Favorites[] $favorites
+ * @property-read int|null $favorites_count
+ * @property-read Users $user
  */
 class Messages extends Model
 {
@@ -33,12 +41,14 @@ class Messages extends Model
         'created_at',
         'updated_at',
     ];
-    public function user()
+
+    public function user(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(Users::class);
     }
-    public function favorites()
+
+    public function favorites(): HasMany
     {
-        return $this->hasMany('App\Models\Favorites');
+        return $this->hasMany(Favorites::class);
     }
 }

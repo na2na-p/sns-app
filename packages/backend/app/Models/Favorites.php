@@ -3,25 +3,31 @@
 namespace App\Models;
 
 // use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Favorites
  *
- * @method static \Illuminate\Database\Eloquent\Builder|Favorites newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Favorites newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Favorites query()
- * @mixin \Eloquent
+ * @method static Builder|Favorites newModelQuery()
+ * @method static Builder|Favorites newQuery()
+ * @method static Builder|Favorites query()
+ * @mixin Eloquent
  * @property int $id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|Favorites whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Favorites whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Favorites whereUpdatedAt($value)
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|Favorites whereCreatedAt($value)
+ * @method static Builder|Favorites whereId($value)
+ * @method static Builder|Favorites whereUpdatedAt($value)
  * @property string $user_id ユーザID
  * @property string $message_id メッセージID
- * @method static \Illuminate\Database\Eloquent\Builder|Favorites whereMessageId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Favorites whereUserId($value)
+ * @method static Builder|Favorites whereMessageId($value)
+ * @method static Builder|Favorites whereUserId($value)
+ * @property-read Messages $message
+ * @property-read Users $user
  */
 class Favorites extends Model
 {
@@ -32,12 +38,14 @@ class Favorites extends Model
         'created_at',
         'updated_at',
     ];
-    public function user()
+
+    public function user(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(Users::class);
     }
-    public function message()
+
+    public function message(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Messages');
+        return $this->belongsTo(Messages::class);
     }
 }

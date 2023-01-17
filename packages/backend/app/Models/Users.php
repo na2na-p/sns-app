@@ -4,27 +4,34 @@ namespace App\Models;
 
 //use Illuminate\Database\Eloquent\Concerns\HasUuids;
 // use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Users
  *
- * @method static \Illuminate\Database\Eloquent\Builder|Users newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Users newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Users query()
+ * @method static Builder|Users newModelQuery()
+ * @method static Builder|Users newQuery()
+ * @method static Builder|Users query()
  * @mixin \Eloquent
  * @property string $id バックエンドでUUID生成
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string $name 日本語英語問わず64、登録なしはできない
  * @property string $email ユーザメールアドレス
  * @property string $password ハッシュ化前は8文字以上 32文字以下
- * @method static \Illuminate\Database\Eloquent\Builder|Users whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Users whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Users whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Users whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Users wherePassword($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Users whereUpdatedAt($value)
+ * @method static Builder|Users whereCreatedAt($value)
+ * @method static Builder|Users whereEmail($value)
+ * @method static Builder|Users whereId($value)
+ * @method static Builder|Users whereName($value)
+ * @method static Builder|Users wherePassword($value)
+ * @method static Builder|Users whereUpdatedAt($value)
+ * @property-read Collection|Favorites[] $favorites
+ * @property-read int|null $favorites_count
+ * @property-read Collection|Messages[] $messages
+ * @property-read int|null $messages_count
  */
 class Users extends Model
 {
@@ -38,12 +45,14 @@ class Users extends Model
         'created_at',
         'updated_at',
     ];
+
     public function messages()
     {
-        return $this->hasMany('App\Models\Messages');
+        return $this->hasMany(Messages::class);
     }
+
     public function favorites()
     {
-        return $this->hasMany('App\Models\Favorites');
+        return $this->hasMany(Favorites::class);
     }
 }
