@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.2",
     "info": {
-        "title": "Laravel",
+        "title": "sns-app",
         "version": "1.0.0"
     },
     "servers": [
@@ -19,7 +19,7 @@
                         "content": {
                             "application\/json": {
                                 "schema": {
-                                    "$ref": "#\/components\/schemas\/SignUpResponse"
+                                    "$ref": "#\/components\/schemas\/SignupResponse"
                                 }
                             }
                         }
@@ -36,7 +36,7 @@
                     "content": {
                         "application\/json": {
                             "schema": {
-                                "$ref": "#\/components\/schemas\/SignUpRequestBody"
+                                "$ref": "#\/components\/schemas\/SignupRequestBody"
                             }
                         }
                     },
@@ -48,7 +48,7 @@
                         "content": {
                             "application\/json": {
                                 "schema": {
-                                    "$ref": "#\/components\/schemas\/SignUpResponse"
+                                    "$ref": "#\/components\/schemas\/SignupResponse"
                                 }
                             }
                         }
@@ -86,7 +86,7 @@
                         "content": {
                             "application\/json": {
                                 "schema": {
-                                    "$ref": "#\/components\/schemas\/SignUpResponse"
+                                    "$ref": "#\/components\/schemas\/SignupResponse"
                                 }
                             }
                         }
@@ -147,7 +147,7 @@
                     }
                 }
             },
-            "SignUpRequestBody": {
+            "SignupRequestBody": {
                 "type": "object",
                 "properties": {
                     "id": {
@@ -161,7 +161,7 @@
                     }
                 }
             },
-            "SignUpResponse": {
+            "SignupResponse": {
                 "type": "object",
                 "properties": {
                     "id": {

@@ -25,7 +25,7 @@ class UsersController extends Controller
     /**
      * ユーザ登録用エンドポイント
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Response|JsonResponse|Application|ResponseFactory
      */
     #[OpenApi\Operation]
@@ -66,7 +66,7 @@ class UsersController extends Controller
     /**
      * ログイン済みかどうかの判定用エンドポイント
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Response|JsonResponse|Application|ResponseFactory
      */
     #[OpenApi\Operation]
