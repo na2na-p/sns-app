@@ -36,3 +36,12 @@ export type MessagesArgs = {
 	lastMessageId?: string;
 	perPage?: number;
 }
+
+export type MessagesReturnType = {
+	id: string;
+	body: string;
+	created_by: string;
+	created_at: string;
+	favorited: number;
+	isFavorited: boolean;
+}[];

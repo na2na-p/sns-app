@@ -6,7 +6,7 @@ const FavoriteButton = ({
 	isFavorited
 }: {
 	count: number,
-	isFavorited: boolean
+	isFavorited: boolean,
 }) => {
 	return (
 		<Button
