@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\OpenApi\RequestBodies\SignupRequestBody;
+use App\OpenApi\RequestBodies\UpdateUserRequestBody;
 use App\OpenApi\Responses\BadRequestResponse;
 use App\OpenApi\Responses\SignupResponse;
 use App\OpenApi\Responses\UnauthorizedRequestResponse;
+use App\OpenApi\Responses\UpdateUserResponse;
 use App\OpenApi\Responses\WhoAmiResponse;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -82,6 +84,44 @@ class UsersController extends Controller
             'id' => $request->user()->id,
             'name' => $request->user()->name,
             'email' => $request->user()->email,
+        ]);
+    }
+
+    /**
+     * ユーザ情報更新用エンドポイント
+     *
+     * @param  Request  $request
+     * @return Response|JsonResponse|Application|ResponseFactory
+     */
+    #[OpenApi\Operation]
+    #[OpenApi\RequestBody(factory: UpdateUserRequestBody::class)]
+    #[OpenApi\Response(factory: UpdateUserResponse::class)]
+    #[OpenApi\Response(factory: BadRequestResponse::class)]
+    #[OpenApi\Response(factory: UnauthorizedRequestResponse::class)]
+    public function updateUser(Request $request): Response|JsonResponse|Application|ResponseFactory
+    {
+        if ($request->user() === null) {
+            return response('Unauthorized', 401);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:64'],
+            'email' => ['required', 'email', 'unique:users'],
+        ]);
+
+        if ($validator->fails()) {
+            return response(null, 400);
+        }
+
+        $user = $request->user();
+        $user->name = $validator->getData()['name'];
+        $user->email = $validator->getData()['email'];
+        $user->save();
+
+        return response([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
         ]);
     }
 }
