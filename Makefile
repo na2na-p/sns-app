@@ -34,7 +34,7 @@ backend-generate:
 
 backend-up:
 	(cd packages/backend && ${SAIL} up -d --build && \
-	sleep 15)
+	sleep 10)
 
 backend-down:
 	(cd packages/backend && ${SAIL} down)
