@@ -41,6 +41,7 @@ backend-generate:
 backend-up:
 	(cd packages/backend && ${SAIL} up -d --build && \
 	sleep 10)
+	@make backend-migrate
 
 backend-down:
 	(cd packages/backend && ${SAIL} down)
