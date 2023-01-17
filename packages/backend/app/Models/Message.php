@@ -48,11 +48,17 @@ class Message extends Model
         'user_id',
     ];
 
+    /**
+     * @return BelongsTo<User, self>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return HasMany<Favorite>
+     */
     public function favorites(): HasMany
     {
         return $this->hasMany(Favorite::class);

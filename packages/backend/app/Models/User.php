@@ -51,11 +51,17 @@ class User extends Model
         'updated_at',
     ];
 
+    /**
+     * @return HasMany<Message>
+     */
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
     }
 
+    /**
+     * @return HasMany<Favorite>
+     */
     public function favorites(): HasMany
     {
         return $this->hasMany(Favorite::class);

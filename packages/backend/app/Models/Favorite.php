@@ -45,11 +45,17 @@ class Favorite extends Model
         'user_id',
     ];
 
+    /**
+     * @return BelongsTo<User, self>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return BelongsTo<Message, self>
+     */
     public function message(): BelongsTo
     {
         return $this->belongsTo(Message::class);
