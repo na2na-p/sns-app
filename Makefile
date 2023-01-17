@@ -14,6 +14,9 @@ setup-ci:
 erd-generate:
 	(cd utils && docker compose run --rm utils yarn prisma:generate)
 
+swagger-ui:
+	(cd utils && docker compose up swagger_ui -d --no-recreate )
+
 frontend-setup:
 	(cd packages/frontend && yarn install)
 

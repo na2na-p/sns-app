@@ -5,3 +5,14 @@ services:
     volumes:
       - ../documents/db:/app/out
       - ./prisma:/app/prisma:ro
+
+  swagger_ui:
+    image: swaggerapi/swagger-ui
+    container_name: swagger-ui
+    ports:
+      - 8080:8080
+    volumes:
+      - ../documents/api/schema.json:/schema.json:ro
+    environment:
+      - SWAGGER_JSON=/schema.json
+      - API_URL=/schema.json
