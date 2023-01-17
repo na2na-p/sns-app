@@ -218,6 +218,40 @@
                     }
                 }
             }
+        },
+        "\/api\/v1\/messages": {
+            "post": {
+                "summary": "メッセージ投稿用エンドポイント",
+                "requestBody": {
+                    "description": "Message Create Request Body",
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/MessageCreateBody"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Message Create Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/BadRequestResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -242,6 +276,17 @@
                         "type": "string"
                     },
                     "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "MessageCreateBody": {
+                "type": "object",
+                "required": [
+                    "body"
+                ],
+                "properties": {
+                    "body": {
                         "type": "string"
                     }
                 }

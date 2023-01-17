@@ -8,7 +8,7 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Vyuldashev\LaravelOpenApi\Contracts\Reusable;
 use Vyuldashev\LaravelOpenApi\Factories\SchemaFactory;
 
-class LoginRequestBodySchema extends SchemaFactory implements Reusable
+class MessageCreateRequestBodySchema extends SchemaFactory implements Reusable
 {
     /**
      * @return SchemaContract
@@ -16,12 +16,11 @@ class LoginRequestBodySchema extends SchemaFactory implements Reusable
     public function build(): SchemaContract
     {
         try {
-            return Schema::object('LoginRequestBody')
+            return Schema::object('MessageCreateBody')
                 ->properties(
-                    Schema::string('email'),
-                    Schema::string('password'),
+                    Schema::string('body')
                 )
-                ->required('email', 'password');
+                ->required('body');
         } catch (InvalidArgumentException $e) {
             dd($e);
         }

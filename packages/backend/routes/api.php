@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,4 @@ Route::put('/v1/users/{userId}', [UsersController::class, 'updateUser']);
 Route::put('/v1/users/{userId}/password', [UsersController::class, 'updatePassword']);
 Route::post('/v1/login', [LoginController::class, 'login']);
 Route::post('/v1/logout', [LogoutController::class, 'logout']);
+Route::post('/v1/messages', [MessagesController::class, 'messageCreate']);
