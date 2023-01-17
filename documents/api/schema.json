@@ -291,6 +291,51 @@
                     }
                 }
             }
+        },
+        "\/api\/v1\/messages\/{messageId}\/favorite": {
+            "put": {
+                "summary": "お気に入り登録用エンドポイント",
+                "parameters": [
+                    {
+                        "name": "messageId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "FavoriteReverse Request Body",
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/FavoriteReverseRequestBody"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "FavoriteReverse Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/BadRequestResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -301,6 +346,17 @@
                     "message": {
                         "type": "string",
                         "nullable": true
+                    }
+                }
+            },
+            "FavoriteReverseRequestBody": {
+                "type": "object",
+                "required": [
+                    "isFavorite"
+                ],
+                "properties": {
+                    "isFavorite": {
+                        "type": "boolean"
                     }
                 }
             },

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MessagesController;
@@ -30,3 +31,4 @@ Route::post('/v1/login', [LoginController::class, 'login']);
 Route::post('/v1/logout', [LogoutController::class, 'logout']);
 Route::post('/v1/messages', [MessagesController::class, 'messageCreate']);
 Route::get('/v1/messages', [MessagesController::class, 'messageList']);
+Route::put('/v1/messages/{messageId}/favorite', [FavoriteController::class, 'addFavorite']);
