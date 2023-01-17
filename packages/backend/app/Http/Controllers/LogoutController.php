@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\OpenApi\Responses\BadRequestResponse;
 use App\OpenApi\Responses\LogoutResponse;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -19,8 +20,14 @@ class LogoutController extends Controller
      */
     #[OpenApi\Operation]
     #[OpenApi\Response(factory: LogoutResponse::class)]
+    #[OpenApi\Response(factory: BadRequestResponse::class)]
     public function logout(): Response|Application|ResponseFactory
     {
+//        ログインしていなければ400を返す
+        if (! Auth::check()) {
+            return response('Not logged in yet.', 400);
+        }
+
         Auth::logout();
 
         return response(null, 200);
