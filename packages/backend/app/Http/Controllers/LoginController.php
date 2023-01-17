@@ -19,15 +19,19 @@ class LoginController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response(null, 400);
+            return response('Authentication failed', 400);
         }
 
         if (Auth::attempt($request->all())) {
             $request->session()->regenerate();
 
-            return response(null, 200);
+            return response([
+                'id' => Auth::user()->id,
+                'name' => Auth::user()->name,
+                'email' => Auth::user()->email,
+            ], 200);
         }
 
-        return response(null, 400);
+        return response('Authentication failed', 400);
     }
 }

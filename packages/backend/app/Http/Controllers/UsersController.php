@@ -37,6 +37,10 @@ class UsersController extends Controller
 
         $request->session()->regenerate();
 
-        return response()->json(['message' => 'ok']);
+        return response()->json([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+        ]);
     }
 }
