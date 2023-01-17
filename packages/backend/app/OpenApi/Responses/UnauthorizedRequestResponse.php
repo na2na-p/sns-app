@@ -5,7 +5,7 @@ namespace App\OpenApi\Responses;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Response;
 use Vyuldashev\LaravelOpenApi\Factories\ResponseFactory;
 
-class UnauthorisedRequestResponse extends ResponseFactory
+class UnauthorizedRequestResponse extends ResponseFactory
 {
     public function build(): Response
     {

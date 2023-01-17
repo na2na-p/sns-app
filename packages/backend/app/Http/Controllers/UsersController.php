@@ -6,7 +6,7 @@ use App\Models\User;
 use App\OpenApi\RequestBodies\SignUpRequestBody;
 use App\OpenApi\Responses\BadRequestResponse;
 use App\OpenApi\Responses\SignUpResponse;
-use App\OpenApi\Responses\UnauthorisedRequestResponse;
+use App\OpenApi\Responses\UnauthorizedRequestResponse;
 use App\OpenApi\Responses\WhoAmiResponse;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -25,7 +25,7 @@ class UsersController extends Controller
     /**
      * ユーザ登録用エンドポイント
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return Response|JsonResponse|Application|ResponseFactory
      */
     #[OpenApi\Operation]
@@ -66,16 +66,16 @@ class UsersController extends Controller
     /**
      * ログイン済みかどうかの判定用エンドポイント
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return Response|JsonResponse|Application|ResponseFactory
      */
     #[OpenApi\Operation]
     #[OpenApi\Response(factory: WhoAmiResponse::class)]
-    #[OpenApi\Response(factory: UnauthorisedRequestResponse::class)]
+    #[OpenApi\Response(factory: UnauthorizedRequestResponse::class)]
     public function whoAmI(Request $request): Response|JsonResponse|Application|ResponseFactory
     {
         if ($request->user() === null) {
-            return response('Unauthorised', 401);
+            return response('Unauthorized', 401);
         }
 
         return response([
