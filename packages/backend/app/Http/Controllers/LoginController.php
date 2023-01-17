@@ -8,9 +8,18 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
 
+#[OpenApi\PathItem]
 class LoginController extends Controller
 {
+    /**
+     * ログイン用エンドポイント
+     *
+     * @param  Request  $request
+     * @return Response|Application|ResponseFactory
+     */
+    #[OpenApi\Operation]
     public function login(Request $request): Response|Application|ResponseFactory
     {
         $validator = Validator::make($request->all(), [

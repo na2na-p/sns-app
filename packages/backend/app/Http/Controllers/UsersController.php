@@ -11,9 +11,18 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
+use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
 
+#[OpenApi\PathItem]
 class UsersController extends Controller
 {
+    /**
+     * ユーザ登録用エンドポイント
+     *
+     * @param  Request  $request
+     * @return Response|JsonResponse|Application|ResponseFactory
+     */
+    #[OpenApi\Operation]
     public function signUp(Request $request): Response|JsonResponse|Application|ResponseFactory
     {
         $validator = Validator::make($request->all(), [
@@ -44,6 +53,13 @@ class UsersController extends Controller
         ]);
     }
 
+    /**
+     * ログイン済みかどうかの判定用エンドポイント
+     *
+     * @param  Request  $request
+     * @return Response|JsonResponse|Application|ResponseFactory
+     */
+    #[OpenApi\Operation]
     public function whoAmI(Request $request): Response|JsonResponse|Application|ResponseFactory
     {
         if ($request->user() === null) {

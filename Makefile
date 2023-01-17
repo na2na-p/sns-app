@@ -32,6 +32,7 @@ backend-generate:
 	${BACKEND_ENV} php artisan ide-helper:generate)
 	@make backend-migrate
 	@make backend-annotation
+	@make backend-oas-generate
 
 backend-up:
 	(cd packages/backend && ${SAIL} up -d --build && \
@@ -49,6 +50,9 @@ backend-test:
 backend-lint:
 	(cd packages/backend && ${SAIL} pint)
 	@make backend-phpstan
+
+backend-oas-generate:
+	(cd packages/backend && ${SAIL} artisan openapi:generate > $(shell pwd)/documents/api/shema.json)
 
 backend-route-check:
 	(cd packages/backend && ${SAIL} artisan route:list)
