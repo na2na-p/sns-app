@@ -117,6 +117,50 @@
                 }
             }
         },
+        "\/api\/v1\/users\/{userId}\/password": {
+            "put": {
+                "summary": "パスワード更新用エンドポイント",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update user password Request Body",
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/UpdateUserPasswordRequestBody"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Password Update Successful"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/BadRequestResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "\/api\/v1\/login": {
             "post": {
                 "summary": "ログイン用エンドポイント",
@@ -207,6 +251,14 @@
                     "email": {
                         "type": "string"
                     },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UpdateUserPasswordRequestBody": {
+                "type": "object",
+                "properties": {
                     "password": {
                         "type": "string"
                     }

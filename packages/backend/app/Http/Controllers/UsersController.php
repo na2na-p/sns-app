@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\OpenApi\RequestBodies\SignupRequestBody;
+use App\OpenApi\RequestBodies\UpdateUserPasswordRequestBody;
 use App\OpenApi\RequestBodies\UpdateUserRequestBody;
 use App\OpenApi\Responses\BadRequestResponse;
 use App\OpenApi\Responses\SignupResponse;
 use App\OpenApi\Responses\UnauthorizedRequestResponse;
+use App\OpenApi\Responses\UpdateUserPasswordResponse;
 use App\OpenApi\Responses\UpdateUserResponse;
 use App\OpenApi\Responses\WhoAmiResponse;
 use Illuminate\Contracts\Foundation\Application;
@@ -123,5 +125,37 @@ class UsersController extends Controller
             'name' => $user->name,
             'email' => $user->email,
         ]);
+    }
+
+    /**
+     * パスワード更新用エンドポイント
+     *
+     * @param  Request  $request
+     * @return Response|JsonResponse|Application|ResponseFactory
+     */
+    #[OpenApi\Operation]
+    #[OpenApi\RequestBody(factory: UpdateUserPasswordRequestBody::class)]
+    #[OpenApi\Response(factory: UpdateUserPasswordResponse::class)]
+    #[OpenApi\Response(factory: BadRequestResponse::class)]
+    #[OpenApi\Response(factory: UnauthorizedRequestResponse::class)]
+    public function updatePassword(Request $request): Response|JsonResponse|Application|ResponseFactory
+    {
+        if ($request->user() === null) {
+            return response('Unauthorized', 401);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'password' => ['required', 'string', 'min:8', 'max:32'],
+        ]);
+
+        if ($validator->fails()) {
+            return response(null, 400);
+        }
+
+        $user = $request->user();
+        $user->password = Hash::make($validator->getData()['password']);
+        $user->save();
+
+        return response(null, 200);
     }
 }
