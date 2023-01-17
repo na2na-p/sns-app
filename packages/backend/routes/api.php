@@ -29,3 +29,4 @@ Route::put('/v1/users/{userId}/password', [UsersController::class, 'updatePasswo
 Route::post('/v1/login', [LoginController::class, 'login']);
 Route::post('/v1/logout', [LogoutController::class, 'logout']);
 Route::post('/v1/messages', [MessagesController::class, 'messageCreate']);
+Route::get('/v1/messages', [MessagesController::class, 'messageList']);

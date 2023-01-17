@@ -251,6 +251,45 @@
                         "description": "Unauthorized"
                     }
                 }
+            },
+            "get": {
+                "summary": "メッセージ取得用エンドポイント",
+                "requestBody": {
+                    "description": "Message Create Request Body",
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/MessageCreateBody"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Get Message List",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/MessageListResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/BadRequestResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
             }
         }
     },
@@ -288,6 +327,51 @@
                 "properties": {
                     "body": {
                         "type": "string"
+                    }
+                }
+            },
+            "MessageListRequestBody": {
+                "type": "object",
+                "properties": {
+                    "perPage": {
+                        "type": "integer"
+                    },
+                    "lastMessageId": {
+                        "type": "string"
+                    }
+                }
+            },
+            "MessageListResponse": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "required": [
+                        "id",
+                        "user_id",
+                        "body",
+                        "created_at",
+                        "isFavorite",
+                        "favoritesCount"
+                    ],
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "user_id": {
+                            "type": "string"
+                        },
+                        "body": {
+                            "type": "string"
+                        },
+                        "created_at": {
+                            "type": "string"
+                        },
+                        "isFavorite": {
+                            "type": "boolean"
+                        },
+                        "favoritesCount": {
+                            "type": "integer"
+                        }
                     }
                 }
             },

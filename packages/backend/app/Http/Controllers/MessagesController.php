@@ -6,6 +6,7 @@ use App\Models\Message;
 use App\OpenApi\RequestBodies\MessageCreateRequestBody;
 use App\OpenApi\Responses\BadRequestResponse;
 use App\OpenApi\Responses\MessageCreateResponse;
+use App\OpenApi\Responses\MessageListResponse;
 use App\OpenApi\Responses\UnauthorizedRequestResponse;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -51,5 +52,51 @@ class MessagesController extends Controller
         $message->save();
 
         return response(null, 201);
+    }
+
+    /**
+     * メッセージ取得用エンドポイント
+     *
+     * @param  Request  $request
+     * @return Response|JsonResponse|Application|ResponseFactory
+     */
+    #[OpenApi\Operation]
+    #[OpenApi\RequestBody(factory: MessageCreateRequestBody::class)]
+    #[OpenApi\Response(factory: MessageListResponse::class)]
+    #[OpenApi\Response(factory: BadRequestResponse::class)]
+    #[OpenApi\Response(factory: UnauthorizedRequestResponse::class)]
+    public function messageList(Request $request): Response|JsonResponse|Application|ResponseFactory
+    {
+        if ($request->user() === null) {
+            return response('Unauthorized', 401);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'lastMessageId' => ['string'],
+            'perPage' => ['integer'],
+        ]);
+
+        if ($validator->fails()) {
+            return response(null, 400);
+        }
+
+        $perPage = $validator->getData()['perPage'] ?? 10;
+
+        $messages = Message::query()
+            ->select(['id', 'user_id', 'body', 'created_at'])
+            ->where('user_id', $request->user()->id)
+            ->when($validator->getData()['lastMessageId'] ?? null, function ($query, $lastMessageId) {
+                return $query->where('id', '<', $lastMessageId);
+            })
+            ->orderByDesc('id')
+            ->limit($perPage)
+            ->get();
+
+        $messages->each(function ($message) use ($request) {
+            $message->isFavorite = $message->favorites()->where('user_id', $request->user()->id)->exists();
+            $message->favoritesCount = $message->favorites()->count();
+        });
+
+        return response()->json($messages);
     }
 }
