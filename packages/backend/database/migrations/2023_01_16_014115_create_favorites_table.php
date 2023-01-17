@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->char('message_id', 36)->comment('メッセージID');
             $table->foreign('message_id')->references('id')->on('messages');
+            $table->unique(['user_id', 'message_id'])->comment('単一ユーザーは同じメッセージに複数Favできない');
         });
     }
 
