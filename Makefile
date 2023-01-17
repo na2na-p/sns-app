@@ -25,6 +25,7 @@ backend-setup:
 	${BACKEND_ENV} php artisan key:generate)
 	(cd packages/backend && \
 	${BACKEND_ENV} php artisan ide-helper:generate)
+	(cd packages/backend && ${SAIL} pint)
 	@make backend-up
 	@make backend-generate
 
