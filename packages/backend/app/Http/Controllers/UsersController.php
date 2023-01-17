@@ -11,6 +11,7 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
@@ -50,12 +51,13 @@ class UsersController extends Controller
         $user->save();
 
         $request->session()->regenerate();
+        Auth::login($user);
 
-        return response(null, 201)->json([
+        return response([
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-        ]);
+        ], 201);
     }
 
     /**
@@ -72,7 +74,7 @@ class UsersController extends Controller
             return response(null, 401);
         }
 
-        return response()->json([
+        return response([
             'id' => $request->user()->id,
             'name' => $request->user()->name,
             'email' => $request->user()->email,
