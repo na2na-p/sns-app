@@ -16,8 +16,6 @@ return new class extends Migration
         Schema::create('favorites', static function (Blueprint $table) {
             $table->char('id', 36)->primary()->comment('バックエンドでUUID生成');
             $table->timestamps();
-            // $table->foreignId('user_id')->constrained('users')->comment('ユーザID');
-            // $table->foreignId('message_id')->constrained('messages')->comment('メッセージID');
             $table->char('user_id', 36)->comment('ユーザID');
             $table->foreign('user_id')->references('id')->on('users');
             $table->char('message_id', 36)->comment('メッセージID');
