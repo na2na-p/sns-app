@@ -14,7 +14,7 @@ const FavoriteButton = ({
 			startIcon={<StarIcon
 				variant={isFavorited ? 'filled' : 'outlined'}
 			/>}
-			label={`${count}`}
+			label={count.toString()}
 			color='primary'
 		/>
 	);

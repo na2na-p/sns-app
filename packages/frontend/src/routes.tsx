@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Login from '@/pages/Login';
 import Timeline from '@/pages/Timeline';
 import kebabCase from '@/utils/kebabCase';

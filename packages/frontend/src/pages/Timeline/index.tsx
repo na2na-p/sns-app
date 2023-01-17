@@ -1,5 +1,4 @@
-import MessageCard from '@components/dataDisplay/MessageCard/'; // TODO: MessageCardに置換
-import React from 'react';
+import MessageCard from '@components/dataDisplay/MessageCard/';
 
 import ScrollContainer from '@/components/dataDisplay/ScrollContainer';
 import Typography from '@/components/dataDisplay/Typography';
