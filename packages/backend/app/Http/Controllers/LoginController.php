@@ -8,7 +8,6 @@ use App\OpenApi\Responses\BadRequestResponse;
 use App\OpenApi\Responses\LoginResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
 
 #[OpenApi\PathItem]
