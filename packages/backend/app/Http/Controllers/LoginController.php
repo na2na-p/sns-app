@@ -24,7 +24,7 @@ class LoginController extends Controller
 
         if ($validator->fails()) {
             return response([
-                'message' => 'Authentication failed',
+                'message' => 'Bad request',
             ], 400);
         }
 
@@ -37,15 +37,11 @@ class LoginController extends Controller
                 ], 500);
             }
 
-            return response([
-                'id' => Auth::user()->id,
-                'name' => Auth::user()->name,
-                'email' => Auth::user()->email,
-            ], 200);
+            return response(null, 200);
         }
 
         return response([
             'message' => 'Authentication failed',
-        ], 400);
+        ], 403);
     }
 }
