@@ -17,7 +17,7 @@ class MessagesController extends Controller
     /**
      * メッセージ投稿用エンドポイント
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Response
      */
     public function createMessage(Request $request): Response
@@ -51,7 +51,7 @@ class MessagesController extends Controller
     /**
      * メッセージ取得用エンドポイント
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse|Response
      */
     public function listMessage(Request $request): JsonResponse|Response
@@ -79,17 +79,16 @@ class MessagesController extends Controller
 
         $perPage = $validator->getData()['perPage'] ?? self::DEFAULT_PER_PAGE;
 
-        $messages = Message::where('user_id', $request->user()->id)
-            ->when(
-                $validator->getData()['lastMessageId'] ?? null,
-                fn(Builder $query): Builder => $query->where('id', '<', $lastMessageId)
-            )
+        $messages = Message::when(
+            $validator->getData()['lastMessageId'] ?? null,
+            fn (Builder $query): Builder => $query->where('id', '<', $lastMessageId)
+        )
             ->orderByDesc('id')
             ->limit($perPage)
-            ->with(['favorites' => fn(Builder $query): Builder => $query->where('user_id', $userId)])
+            ->with(['favorites' => fn (Builder $query): Builder => $query->where('user_id', $userId)])
             ->get();
 
-        $response = $messages->map(fn(Message $message): array => [
+        $response = $messages->map(fn (Message $message): array => [
             'id' => $message->id,
             'user_id' => $message->user_id,
             'body' => $message->body,
