@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
-use Illuminate\Contracts\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -79,13 +79,15 @@ class MessagesController extends Controller
 
         $perPage = $validator->getData()['perPage'] ?? self::DEFAULT_PER_PAGE;
 
-        $messages = Message::when(
-            $validator->getData()['lastMessageId'] ?? null,
-            fn (Builder $query): Builder => $query->where('id', '<', $lastMessageId)
-        )
-            ->orderByDesc('id')
-            ->limit($perPage)
-            ->with(['favorites' => fn (Builder $query): Builder => $query->where('user_id', $userId)])
+        $messages = Message::with('favorites')
+            ->withCount(['favorites' => function (Builder $query) use ($userId) {
+                $query->where('user_id', $userId);
+            }])
+            ->when($lastMessageId, function (Builder $query) use ($lastMessageId) {
+                $query->where('id', '<', $lastMessageId);
+            })
+            ->orderBy('id', 'desc')
+            ->take($perPage)
             ->get();
 
         $response = $messages->map(fn (Message $message): array => [
