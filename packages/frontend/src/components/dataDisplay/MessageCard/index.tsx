@@ -1,9 +1,9 @@
+import Card from '@/components/dataDisplay/Card';
+import CardContent from '@/components/dataDisplay/Card/CardContent';
+import CardHeader from '@/components/dataDisplay/Card/CardHeader';
 import Typography from '@/components/dataDisplay/Typography';
 import Box from '@/components/layout/Box';
 
-import Card from './Card';
-import CardContent from './CardContent';
-import CardHeader from './CardHeader';
 import FavoriteButton from './FavoriteButton';
 
 
