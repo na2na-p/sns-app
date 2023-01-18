@@ -75,6 +75,7 @@ class MessagesController extends Controller
         }
 
         $lastMessageId = $validator->getData()['lastMessageId'] ?? null;
+        $userId = $request->user()->id;
 
         $perPage = $validator->getData()['perPage'] ?? self::DEFAULT_PER_PAGE;
 
@@ -85,6 +86,7 @@ class MessagesController extends Controller
             )
             ->orderByDesc('id')
             ->limit($perPage)
+            ->with(['favorites' => fn(Builder $query): Builder => $query->where('user_id', $userId)])
             ->get();
 
         $response = $messages->map(fn(Message $message): array => [
@@ -92,8 +94,8 @@ class MessagesController extends Controller
             'user_id' => $message->user_id,
             'body' => $message->body,
             'created_at' => $message->created_at,
-            'isFavorite' => $message->favorites()->where('user_id', $request->user()->id)->exists(),
-            'favoritesCount' => $message->favorites()->count(),
+            'isFavorite' => $message->favorites->isNotEmpty(),
+            'favoritesCount' => $message->favorites->count(),
         ]);
 
         return response()->json($response);
