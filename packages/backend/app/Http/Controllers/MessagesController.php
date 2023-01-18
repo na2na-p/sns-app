@@ -76,9 +76,7 @@ class MessagesController extends Controller
 
         $perPage = $validator->getData()['perPage'] ?? self::DEFAULT_PER_PAGE;
 
-        $messages = Message::query()
-            ->select(['id', 'user_id', 'body', 'created_at'])
-            ->where('user_id', $request->user()->id)
+        $messages = Message::where('user_id', $request->user()->id)
             ->when(
                 $validator->getData()['lastMessageId'] ?? null,
                 fn(Builder $query, string $lastMessageId): Builder => $query->where('id', '<', $lastMessageId)
@@ -87,7 +85,7 @@ class MessagesController extends Controller
             ->limit($perPage)
             ->get();
 
-        $messages->each(function (Message $message) use (Request $request) {
+        $messages->each(function (Message $message) use ( $request) {
             $message->isFavorite = $message->favorites()->where('user_id', $request->user()->id)->exists();
             $message->favoritesCount = $message->favorites()->count();
         });
