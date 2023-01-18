@@ -34,8 +34,8 @@ Route::prefix('/v1')->group(function () {
         });
         Route::prefix('/messages')->group(function () {
             Route::controller(MessagesController::class)->group(function () {
-                Route::post('/', 'messageCreate');
-                Route::get('/', 'messageList');
+                Route::post('/', 'createMessage');
+                Route::get('/', 'listMessage');
             });
         });
     });

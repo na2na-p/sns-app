@@ -19,7 +19,7 @@ class MessagesController extends Controller
      * @param  Request  $request
      * @return Response|JsonResponse|Application|ResponseFactory
      */
-    public function messageCreate(Request $request): Response|JsonResponse|Application|ResponseFactory
+    public function createMessage(Request $request): Response|JsonResponse|Application|ResponseFactory
     {
         if ($request->user() === null) {
             return response(null, 401);
@@ -30,7 +30,10 @@ class MessagesController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response(null, 400);
+            return response([
+                'message' => 'Validation Failed',
+                'errors' => $validator->errors(),
+            ], 400);
         }
 
         $message = new Message();
@@ -48,10 +51,12 @@ class MessagesController extends Controller
      * @param  Request  $request
      * @return Response|JsonResponse|Application|ResponseFactory
      */
-    public function messageList(Request $request): Response|JsonResponse|Application|ResponseFactory
+    public function listMessage(Request $request): Response|JsonResponse|Application|ResponseFactory
     {
         if ($request->user() === null) {
-            return response(null, 401);
+            return response([
+                'message' => 'Unauthorized',
+            ], 401);
         }
 
         $validator = Validator::make($request->all(), [
@@ -60,7 +65,10 @@ class MessagesController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response(null, 400);
+            return response([
+                'message' => 'Validation Failed',
+                'errors' => $validator->errors(),
+            ], 400);
         }
 
         $perPage = $validator->getData()['perPage'] ?? 10;
