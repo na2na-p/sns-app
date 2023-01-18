@@ -60,16 +60,13 @@ class UsersController extends Controller
      */
     public function findUser(Request $request): Response
     {
-        if (is_null($request->user())) {
-            return response([
-                'message' => 'Internal Server Error',
-            ], 500);
-        }
+        $user = $request->user();
+        assert($user !== null);
 
         return response([
-            'id' => $request->user()->id,
-            'name' => $request->user()->name,
-            'email' => $request->user()->email,
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
         ]);
     }
 }

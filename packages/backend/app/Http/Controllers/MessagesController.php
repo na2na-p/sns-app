@@ -22,11 +22,8 @@ class MessagesController extends Controller
      */
     public function createMessage(Request $request): Response
     {
-        if (is_null($request->user())) {
-            return response([
-                'message' => 'Internal Server Error',
-            ], 500);
-        }
+        $user = $request->user();
+        assert($user !== null);
 
         $validator = Validator::make($request->all(), [
             'body' => ['required', 'string', 'max:140'],
@@ -41,7 +38,7 @@ class MessagesController extends Controller
 
         $message = new Message();
         $message->id = Uuid::uuid7()->toString();
-        $message->user_id = $request->user()->id;
+        $message->user_id = $user->id;
         $message->body = $validator->getData()['body'];
         $message->save();
 
@@ -56,11 +53,8 @@ class MessagesController extends Controller
      */
     public function listMessage(Request $request): JsonResponse|Response
     {
-        if (is_null($request->user())) {
-            return response([
-                'message' => 'Internal Server Error',
-            ], 500);
-        }
+        $user = $request->user();
+        assert($user !== null);
 
         $validator = Validator::make($request->all(), [
             'lastMessageId' => ['string'],
@@ -75,7 +69,7 @@ class MessagesController extends Controller
         }
 
         $lastMessageId = $validator->getData()['lastMessageId'] ?? null;
-        $userId = $request->user()->id;
+        $userId = $user->id;
 
         $perPage = $validator->getData()['perPage'] ?? self::DEFAULT_PER_PAGE;
 
