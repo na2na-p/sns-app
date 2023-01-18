@@ -23,7 +23,6 @@ class LogoutController extends Controller
     #[OpenApi\Response(factory: BadRequestResponse::class)]
     public function logout(): Response|Application|ResponseFactory
     {
-//        ログインしていなければ400を返す
         if (! Auth::check()) {
             return response([
                 'message' => 'ログインしていません',

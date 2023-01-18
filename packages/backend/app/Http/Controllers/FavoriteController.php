@@ -46,8 +46,6 @@ class FavoriteController extends Controller
             return response(null, 401);
         }
 
-//        $messageId = $request->route('messageId');
-
         $message = Message::find($messageId);
         if ($message === null) {
             return response([
