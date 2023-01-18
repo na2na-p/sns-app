@@ -11,7 +11,7 @@ class LogoutController extends Controller
 {
     public function logout(): Response|Application|ResponseFactory
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return response([
                 'message' => 'ログインしていません',
             ], 400);
