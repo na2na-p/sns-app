@@ -1,3 +1,27 @@
 {
-	"cSpell.words": ["mswjs", "Phantomic", "tanstack"]
+	"cSpell.words": [
+		"autoload",
+		"Autoloaded",
+		"autoloader",
+		"barryvdh",
+		"bigdecimal",
+		"bignum",
+		"dont",
+		"fakerphp",
+		"guzzlehttp",
+		"larastan",
+		"laravelsail",
+		"mswjs",
+		"nunomaduro",
+		"openapi",
+		"pestphp",
+		"Phantomic",
+		"phpstan",
+		"phpunit",
+		"predis",
+		"reqs",
+		"spatie",
+		"tanstack",
+		"Vyuldashev"
+	]
 }
