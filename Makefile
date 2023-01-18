@@ -75,4 +75,4 @@ backend-annotation:
 	(cd packages/backend && ${SAIL} artisan ide-helper:model --write)
 
 backend-phpstan:
-	(cd packages/backend && ${BACKEND_ENV} vendor/bin/phpstan analyse -c phpstan.neon)
+	(cd packages/backend && ${BACKEND_ENV} vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=2G)
