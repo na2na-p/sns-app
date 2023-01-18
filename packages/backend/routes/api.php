@@ -3,6 +3,8 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\MessagesController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::prefix('/v1')->group(function () {
     Route::prefix('/users')->group(function () {
         Route::controller(UsersController::class)->group(function () {
@@ -27,6 +30,12 @@ Route::prefix('/v1')->group(function () {
         Route::prefix('/users')->group(function () {
             Route::controller(UsersController::class)->group(function () {
                 Route::get('/me', 'findUser');
+            });
+        });
+        Route::prefix('/messages')->group(function () {
+            Route::controller(MessagesController::class)->group(function () {
+                Route::post('/', 'messageCreate');
+                Route::get('/', 'messageList');
             });
         });
     });
