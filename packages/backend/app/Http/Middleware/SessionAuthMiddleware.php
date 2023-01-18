@@ -21,6 +21,7 @@ class SessionAuthMiddleware
                 'message' => 'Unauthorized',
             ], 401);
         }
+
         return $next($request);
     }
 }
