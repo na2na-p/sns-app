@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\addFavoriteRequest;
 use App\Models\Favorite;
 use App\Models\Message;
 use Exception;
@@ -15,28 +16,13 @@ class FavoriteController extends Controller
     /**
      * お気に入り登録用エンドポイント
      *
-     * @param  Request  $request
-     * @param  string  $messageId
+     * @param addFavoriteRequest $request
+     * @param string $messageId
      * @return Response
      */
-    public function addFavorite(Request $request, string $messageId): Response
+    public function addFavorite(addFavoriteRequest $request, string $messageId): Response
     {
-        if ($request->user() === null) {
-            return response([
-                'message' => 'Unauthorized',
-            ], 401);
-        }
-
-        $validator = Validator::make($request->all(), [
-            'isFavorite' => ['required', 'boolean'],
-        ]);
-
-        if ($validator->fails()) {
-            return response([
-                'message' => 'Validation Error',
-                'errors' => $validator->errors(),
-            ], 400);
-        }
+        $validated = $request->validated();
 
         $message = Message::find($messageId);
         if ($message === null) {
@@ -45,7 +31,7 @@ class FavoriteController extends Controller
             ], 404);
         }
 
-        if ($request->input('isFavorite')) {
+        if ($validated['isFavorite']) {
             $uuid = Uuid::uuid7();
 
             $favorite = new Favorite();
