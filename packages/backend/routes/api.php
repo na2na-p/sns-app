@@ -30,6 +30,8 @@ Route::prefix('/v1')->group(function () {
         Route::prefix('/users')->group(function () {
             Route::controller(UsersController::class)->group(function () {
                 Route::get('/me', 'findUser');
+                Route::put('/{userId}', 'updateUser');
+                Route::put('/{userId}/password', 'updatePassword');
             });
         });
         Route::prefix('/messages')->group(function () {
