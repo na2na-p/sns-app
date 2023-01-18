@@ -21,10 +21,6 @@ class MessagesController extends Controller
      */
     public function createMessage(Request $request): Response|JsonResponse|Application|ResponseFactory
     {
-        if ($request->user() === null) {
-            return response(null, 401);
-        }
-
         $validator = Validator::make($request->all(), [
             'body' => ['required', 'string', 'max:140'],
         ]);
@@ -53,12 +49,6 @@ class MessagesController extends Controller
      */
     public function listMessage(Request $request): Response|JsonResponse|Application|ResponseFactory
     {
-        if ($request->user() === null) {
-            return response([
-                'message' => 'Unauthorized',
-            ], 401);
-        }
-
         $validator = Validator::make($request->all(), [
             'lastMessageId' => ['string'],
             'perPage' => ['integer'],
