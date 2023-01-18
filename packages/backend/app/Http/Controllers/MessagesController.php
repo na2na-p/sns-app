@@ -11,10 +11,10 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 
-const DEFAULT_PER_PAGE = 10;
-
 class MessagesController extends Controller
 {
+    private const DEFAULT_PER_PAGE = 10;
+
     /**
      * メッセージ投稿用エンドポイント
      *
@@ -75,7 +75,7 @@ class MessagesController extends Controller
             ], 400);
         }
 
-        $perPage = $validator->getData()['perPage'] ?? DEFAULT_PER_PAGE;
+        $perPage = $validator->getData()['perPage'] ?? self::DEFAULT_PER_PAGE;
 
         $messages = Message::query()
             ->select(['id', 'user_id', 'body', 'created_at'])
