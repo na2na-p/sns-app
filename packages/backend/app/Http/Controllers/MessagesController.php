@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -80,7 +81,7 @@ class MessagesController extends Controller
             ->where('user_id', $request->user()->id)
             ->when(
                 $validator->getData()['lastMessageId'] ?? null,
-                fn(Builder $query, int $lastMessageId): Builder => $query->where('id', '<', $lastMessageId)
+                fn(Builder $query, string $lastMessageId): Builder => $query->where('id', '<', $lastMessageId)
             )
             ->orderByDesc('id')
             ->limit($perPage)
