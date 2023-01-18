@@ -16,7 +16,7 @@ class LogoutController extends Controller
     {
         if (! Auth::check()) {
             return response([
-                'message' => 'ログインしていません',
+                'message' => 'Not logged in',
             ], 400);
         }
 

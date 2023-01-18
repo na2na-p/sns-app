@@ -2,38 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
     /**
      * ログイン用エンドポイント
      *
-     * @param  Request  $request
+     * @param  LoginRequest  $request
      * @return Response
      */
-    public function login(Request $request): Response
+    public function login(LoginRequest $request): Response
     {
         if (Auth::check()) {
             $request->session()->regenerate();
         }
 
-        $validator = Validator::make($request->all(), [
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string', 'min:8', 'max:32'],
-        ]);
+        $validated = $request->validated();
 
-        if ($validator->fails()) {
-            return response([
-                'message' => 'Bad request',
-                'errors' => $validator->errors(),
-            ], 400);
-        }
-
-        if (Auth::attempt($request->all())) {
+        if (Auth::attempt($validated)) {
             $request->session()->regenerate();
 
             return response(null, 200);
