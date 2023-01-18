@@ -27,7 +27,9 @@ class UsersController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response(null, 400);
+            return response([
+                'message' => 'Validation Error',
+            ], 400);
         }
 
         $uuid = Uuid::uuid7();
@@ -58,7 +60,9 @@ class UsersController extends Controller
     public function whoAmI(Request $request): Response
     {
         if (is_null($request->user())) {
-            return response(null, 401);
+            return response([
+                'message' => 'Unauthorized',
+            ], 401);
         }
 
         return response([
