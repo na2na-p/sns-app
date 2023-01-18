@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Auth;
 
 class LogoutController extends Controller
 {
+    /**
+     * ログアウト用エンドポイント
+     *
+     * @return Response
+     */
     public function logout(): Response
     {
         if (! Auth::check()) {

@@ -12,6 +12,12 @@ use Ramsey\Uuid\Uuid;
 
 class UsersController extends Controller
 {
+    /**
+     * ユーザ登録用エンドポイント
+     *
+     * @param  Request  $request
+     * @return Response
+     */
     public function signUp(Request $request): Response
     {
         $validator = Validator::make($request->all(), [
@@ -43,6 +49,12 @@ class UsersController extends Controller
         ], 201);
     }
 
+    /**
+     * ログイン済みかどうかの判定用エンドポイント
+     *
+     * @param  Request  $request
+     * @return Response
+     */
     public function whoAmI(Request $request): Response
     {
         if (is_null($request->user())) {

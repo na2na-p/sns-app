@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
+    /**
+     * ログイン用エンドポイント
+     *
+     * @param  Request  $request
+     * @return Response
+     */
     public function login(Request $request): Response
     {
         if (Auth::check()) {
