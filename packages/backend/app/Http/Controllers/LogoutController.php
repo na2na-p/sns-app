@@ -25,7 +25,9 @@ class LogoutController extends Controller
     {
 //        ログインしていなければ400を返す
         if (! Auth::check()) {
-            return response('Not logged in yet.', 400);
+            return response([
+                'message' => 'ログインしていません',
+            ], 400);
         }
 
         Auth::logout();

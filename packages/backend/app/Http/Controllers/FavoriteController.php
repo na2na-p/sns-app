@@ -50,7 +50,9 @@ class FavoriteController extends Controller
 
         $message = Message::find($messageId);
         if ($message === null) {
-            return response('Bad Request', 400);
+            return response([
+                'message' => 'Bad Request',
+            ], 400);
         }
 
         if ($request->input('isFavorite')) {

@@ -34,14 +34,18 @@ class LoginController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response('Authentication failed', 400);
+            return response([
+                'message' => 'Authentication failed',
+            ], 400);
         }
 
         if (Auth::attempt($request->all())) {
             $request->session()->regenerate();
 
             if (! Auth::user()) {
-                return response('Internal Server Error', 500);
+                return response([
+                    'message' => 'Internal Server Error',
+                ], 500);
             }
 
             return response([
@@ -51,6 +55,8 @@ class LoginController extends Controller
             ], 200);
         }
 
-        return response('Authentication failed', 400);
+        return response([
+            'message' => 'Authentication failed',
+        ], 400);
     }
 }

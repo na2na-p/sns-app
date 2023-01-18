@@ -103,7 +103,7 @@ class UsersController extends Controller
     public function updateUser(Request $request): Response|JsonResponse|Application|ResponseFactory
     {
         if ($request->user() === null) {
-            return response('Unauthorized', 401);
+            return response(null, 401);
         }
 
         $validator = Validator::make($request->all(), [
@@ -141,7 +141,7 @@ class UsersController extends Controller
     public function updatePassword(Request $request): Response|JsonResponse|Application|ResponseFactory
     {
         if ($request->user() === null) {
-            return response('Unauthorized', 401);
+            return response(null, 401);
         }
 
         $validator = Validator::make($request->all(), [

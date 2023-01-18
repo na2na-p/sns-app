@@ -34,7 +34,7 @@ class MessagesController extends Controller
     public function messageCreate(Request $request): Response|JsonResponse|Application|ResponseFactory
     {
         if ($request->user() === null) {
-            return response('Unauthorized', 401);
+            return response(null, 401);
         }
 
         $validator = Validator::make($request->all(), [
@@ -68,7 +68,7 @@ class MessagesController extends Controller
     public function messageList(Request $request): Response|JsonResponse|Application|ResponseFactory
     {
         if ($request->user() === null) {
-            return response('Unauthorized', 401);
+            return response(null, 401);
         }
 
         $validator = Validator::make($request->all(), [
