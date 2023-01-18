@@ -13,6 +13,12 @@ class LoginController extends Controller
 {
     public function login(Request $request): Response|Application|ResponseFactory
     {
+        if (Auth::check()) {
+            return response([
+                'message' => 'Already logged in',
+            ], 400);
+        }
+
         $validator = Validator::make($request->all(), [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string', 'min:8', 'max:32'],
