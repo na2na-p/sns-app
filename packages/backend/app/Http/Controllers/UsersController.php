@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +12,7 @@ use Ramsey\Uuid\Uuid;
 
 class UsersController extends Controller
 {
-    public function signUp(Request $request): Response|JsonResponse|Application|ResponseFactory
+    public function signUp(Request $request): Response
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:64'],
@@ -46,7 +43,7 @@ class UsersController extends Controller
         ], 201);
     }
 
-    public function whoAmI(Request $request): Response|JsonResponse|Application|ResponseFactory
+    public function whoAmI(Request $request): Response
     {
         if ($request->user() === null) {
             return response(null, 401);
