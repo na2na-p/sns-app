@@ -18,9 +18,7 @@ class LoginController extends Controller
     public function login(Request $request): Response
     {
         if (Auth::check()) {
-            return response([
-                'message' => 'Already logged in',
-            ], 400);
+            $request->session()->regenerate();
         }
 
         $validator = Validator::make($request->all(), [
