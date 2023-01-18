@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,10 +16,10 @@ class MessagesController extends Controller
     /**
      * メッセージ投稿用エンドポイント
      *
-     * @param  Request  $request
-     * @return Response|JsonResponse|Application|ResponseFactory
+     * @param Request $request
+     * @return Response
      */
-    public function createMessage(Request $request): Response|JsonResponse|Application|ResponseFactory
+    public function createMessage(Request $request): Response
     {
         if (is_null($request->user())) {
             return response([
@@ -52,10 +50,10 @@ class MessagesController extends Controller
     /**
      * メッセージ取得用エンドポイント
      *
-     * @param  Request  $request
-     * @return Response|JsonResponse|Application|ResponseFactory
+     * @param Request $request
+     * @return JsonResponse|Response
      */
-    public function listMessage(Request $request): Response|JsonResponse|Application|ResponseFactory
+    public function listMessage(Request $request): JsonResponse|Response
     {
         if (is_null($request->user())) {
             return response([
