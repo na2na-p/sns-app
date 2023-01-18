@@ -45,7 +45,7 @@ class UsersController extends Controller
 
     public function whoAmI(Request $request): Response
     {
-        if ($request->user() === null) {
+        if (is_null($request->user())) {
             return response(null, 401);
         }
 
