@@ -3,7 +3,6 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\UsersController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,8 +15,13 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::get('/v1/users/me', [UsersController::class, 'whoAmI']);
-Route::post('/v1/users', [UsersController::class, 'signUp']);
-Route::post('/v1/login', [LoginController::class, 'login']);
-Route::post('/v1/logout', [LogoutController::class, 'logout']);
+Route::prefix('/v1')->group(function () {
+    Route::prefix('/users')->group(function () {
+        Route::controller(UsersController::class)->group(function () {
+            Route::post('/', 'signUp');
+            Route::get('/me', 'whoAmI');
+        });
+    });
+    Route::post('/login', [LoginController::class, 'login']);
+    Route::post('/logout', [LogoutController::class, 'logout']);
+});
