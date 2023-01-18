@@ -23,11 +23,11 @@ const routes =
 			component: <></>
 		},
 		passwordUpdate: {
-			path: () => `/password/update`,
+			path: () => `/users/:userId/password`,
 			component: <></>
 		},
 		userInfoUpdate: {
-			path: () => `/user/info/update`,
+			path: () => `/user/:userId/edit`,
 			component: <></>
 		}
 	} as const satisfies {
