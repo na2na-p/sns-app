@@ -78,9 +78,10 @@ class MessagesController extends Controller
         $messages = Message::query()
             ->select(['id', 'user_id', 'body', 'created_at'])
             ->where('user_id', $request->user()->id)
-            ->when($validator->getData()['lastMessageId'] ?? null, function ($query, $lastMessageId) {
-                return $query->where('id', '<', $lastMessageId);
-            })
+            ->when(
+                $validator->getData()['lastMessageId'] ?? null,
+                fn(Builder $query, int $lastMessageId): Builder => $query->where('id', '<', $lastMessageId)
+            )
             ->orderByDesc('id')
             ->limit($perPage)
             ->get();
