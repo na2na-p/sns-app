@@ -23,6 +23,12 @@ class MessagesController extends Controller
      */
     public function createMessage(Request $request): Response|JsonResponse|Application|ResponseFactory
     {
+        if (is_null($request->user())) {
+            return response([
+                'message' => 'Internal Server Error',
+            ], 500);
+        }
+
         $validator = Validator::make($request->all(), [
             'body' => ['required', 'string', 'max:140'],
         ]);
@@ -51,6 +57,12 @@ class MessagesController extends Controller
      */
     public function listMessage(Request $request): Response|JsonResponse|Application|ResponseFactory
     {
+        if (is_null($request->user())) {
+            return response([
+                'message' => 'Internal Server Error',
+            ], 500);
+        }
+
         $validator = Validator::make($request->all(), [
             'lastMessageId' => ['string'],
             'perPage' => ['integer'],
