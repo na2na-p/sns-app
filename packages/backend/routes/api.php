@@ -19,7 +19,7 @@ Route::prefix('/v1')->group(function () {
     Route::prefix('/users')->group(function () {
         Route::controller(UsersController::class)->group(function () {
             Route::post('/', 'signUp');
-            Route::get('/me', 'whoAmI');
+            Route::get('/me', 'findUser');
         });
     });
     Route::post('/login', [LoginController::class, 'login']);

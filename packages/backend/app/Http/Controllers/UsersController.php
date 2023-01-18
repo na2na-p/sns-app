@@ -57,7 +57,7 @@ class UsersController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function whoAmI(Request $request): Response
+    public function findUser(Request $request): Response
     {
         if (is_null($request->user())) {
             return response([
