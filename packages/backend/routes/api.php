@@ -36,8 +36,8 @@ Route::prefix('/v1')->group(function () {
             Route::controller(MessagesController::class)->group(function () {
                 Route::post('/', 'createMessage');
                 Route::get('/', 'listMessage');
-                Route::put('/{messageId}/favorite', [FavoriteController::class, 'addFavorite']);
             });
+            Route::put('/{messageId}/favorite', [FavoriteController::class, 'addFavorite']);
         });
     });
 });
