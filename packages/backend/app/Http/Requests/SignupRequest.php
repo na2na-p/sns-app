@@ -19,7 +19,7 @@ final class SignupRequest extends ApiRequest
         return [
             'name' => ['required', 'string', 'max:64'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'max:32', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'max:32'],
         ];
     }
 }
