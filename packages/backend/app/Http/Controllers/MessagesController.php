@@ -74,12 +74,14 @@ class MessagesController extends Controller
             ], 400);
         }
 
+        $lastMessageId = $validator->getData()['lastMessageId'] ?? null;
+
         $perPage = $validator->getData()['perPage'] ?? self::DEFAULT_PER_PAGE;
 
         $messages = Message::where('user_id', $request->user()->id)
             ->when(
                 $validator->getData()['lastMessageId'] ?? null,
-                fn(Builder $query, string $lastMessageId): Builder => $query->where('id', '<', $lastMessageId)
+                fn(Builder $query): Builder => $query->where('id', '<', $lastMessageId)
             )
             ->orderByDesc('id')
             ->limit($perPage)
