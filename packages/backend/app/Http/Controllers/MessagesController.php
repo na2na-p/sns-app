@@ -86,7 +86,7 @@ class MessagesController extends Controller
             ->limit($perPage)
             ->get();
 
-        $messages->each(function ($message) use ($request) {
+        $messages->each(function (Message $message) use (Request $request) {
             $message->isFavorite = $message->favorites()->where('user_id', $request->user()->id)->exists();
             $message->favoritesCount = $message->favorites()->count();
         });
