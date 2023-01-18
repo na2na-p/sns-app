@@ -87,11 +87,15 @@ class MessagesController extends Controller
             ->limit($perPage)
             ->get();
 
-        $messages->each(function (Message $message) use ( $request) {
-            $message->isFavorite = $message->favorites()->where('user_id', $request->user()->id)->exists();
-            $message->favoritesCount = $message->favorites()->count();
-        });
+        $response = $messages->map(fn(Message $message): array => [
+            'id' => $message->id,
+            'user_id' => $message->user_id,
+            'body' => $message->body,
+            'created_at' => $message->created_at,
+            'isFavorite' => $message->favorites()->where('user_id', $request->user()->id)->exists(),
+            'favoritesCount' => $message->favorites()->count(),
+        ]);
 
-        return response()->json($messages);
+        return response()->json($response);
     }
 }
