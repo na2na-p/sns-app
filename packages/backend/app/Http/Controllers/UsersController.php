@@ -60,12 +60,6 @@ class UsersController extends Controller
      */
     public function findUser(Request $request): Response
     {
-        if (is_null($request->user())) {
-            return response([
-                'message' => 'Unauthorized',
-            ], 401);
-        }
-
         return response([
             'id' => $request->user()->id,
             'name' => $request->user()->name,
