@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ListMessageRequest;
+use App\Http\Requests\MessageCreateRequest;
 use App\Models\Message;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 
 class MessagesController extends Controller
@@ -17,29 +17,20 @@ class MessagesController extends Controller
     /**
      * メッセージ投稿用エンドポイント
      *
-     * @param  Request  $request
+     * @param  MessageCreateRequest  $request
      * @return Response
      */
-    public function createMessage(Request $request): Response
+    public function createMessage(MessageCreateRequest $request): Response
     {
         $user = $request->user();
         assert($user !== null);
 
-        $validator = Validator::make($request->all(), [
-            'body' => ['required', 'string', 'max:140'],
-        ]);
-
-        if ($validator->fails()) {
-            return response([
-                'message' => 'Validation Failed',
-                'errors' => $validator->errors(),
-            ], 400);
-        }
+        $validated = $request->validated();
 
         $message = new Message();
         $message->id = Uuid::uuid7()->toString();
         $message->user_id = $user->id;
-        $message->body = $validator->getData()['body'];
+        $message->body = $validated['body'];
         $message->save();
 
         return response(null, 201);
@@ -48,30 +39,20 @@ class MessagesController extends Controller
     /**
      * メッセージ取得用エンドポイント
      *
-     * @param  Request  $request
+     * @param  ListMessageRequest  $request
      * @return JsonResponse|Response
      */
-    public function listMessage(Request $request): JsonResponse|Response
+    public function listMessage(ListMessageRequest $request): JsonResponse|Response
     {
         $user = $request->user();
         assert($user !== null);
 
-        $validator = Validator::make($request->all(), [
-            'lastMessageId' => ['string'],
-            'perPage' => ['integer'],
-        ]);
+        $validated = $request->validated();
 
-        if ($validator->fails()) {
-            return response([
-                'message' => 'Validation Failed',
-                'errors' => $validator->errors(),
-            ], 400);
-        }
-
-        $lastMessageId = $validator->getData()['lastMessageId'] ?? null;
+        $lastMessageId = $validated['lastMessageId'] ?? null;
         $userId = $user->id;
 
-        $perPage = $validator->getData()['perPage'] ?? self::DEFAULT_PER_PAGE;
+        $perPage = $validated['perPage'] ?? self::DEFAULT_PER_PAGE;
 
         $messages = Message::with('favorites')
             ->withCount(['favorites' => function (Builder $query) use ($userId) {
