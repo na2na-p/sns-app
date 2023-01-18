@@ -10,7 +10,7 @@
         }
     ],
     "paths": {
-        "\/api\/v1\/users": {
+        "\/api\/v1\/users\/me": {
             "get": {
                 "summary": "ログイン済みかどうかの判定用エンドポイント",
                 "responses": {
@@ -28,7 +28,9 @@
                         "description": "Unauthorized"
                     }
                 }
-            },
+            }
+        },
+        "\/api\/v1\/users": {
             "post": {
                 "summary": "ユーザ登録用エンドポイント",
                 "requestBody": {
@@ -428,6 +430,15 @@
                         "favoritesCount": {
                             "type": "integer"
                         }
+                    }
+                }
+            },
+            "NotFoundResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "nullable": true
                     }
                 }
             },
