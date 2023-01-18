@@ -29,6 +29,7 @@ class UsersController extends Controller
         if ($validator->fails()) {
             return response([
                 'message' => 'Validation Error',
+                'errors' => $validator->errors(),
             ], 400);
         }
 

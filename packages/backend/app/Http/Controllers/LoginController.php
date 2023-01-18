@@ -29,6 +29,7 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return response([
                 'message' => 'Bad request',
+                'errors' => $validator->errors(),
             ], 400);
         }
 
