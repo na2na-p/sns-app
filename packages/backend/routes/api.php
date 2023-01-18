@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\UsersController;
-use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,4 +41,3 @@ Route::prefix('/v1')->group(function () {
         });
     });
 });
-

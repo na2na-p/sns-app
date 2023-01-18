@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Favorite;
 use App\Models\Message;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -19,27 +17,32 @@ class FavoriteController extends Controller
      *
      * @param  Request  $request
      * @param  string  $messageId
-     * @return Response|Application|ResponseFactory
+     * @return Response
      */
-    public function addFavorite(Request $request, string $messageId): Response|Application|ResponseFactory
+    public function addFavorite(Request $request, string $messageId): Response
     {
+        if ($request->user() === null) {
+            return response([
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+
         $validator = Validator::make($request->all(), [
             'isFavorite' => ['required', 'boolean'],
         ]);
 
         if ($validator->fails()) {
-            return response(null, 400);
-        }
-
-        if ($request->user() === null) {
-            return response(null, 401);
+            return response([
+                'message' => 'Validation Error',
+                'errors' => $validator->errors(),
+            ], 400);
         }
 
         $message = Message::find($messageId);
         if ($message === null) {
             return response([
-                'message' => 'Bad Request',
-            ], 400);
+                'message' => 'Message Not Found',
+            ], 404);
         }
 
         if ($request->input('isFavorite')) {
