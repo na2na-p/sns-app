@@ -65,7 +65,7 @@ class UsersController extends Controller
     #[OpenApi\Response(factory: UnauthorizedRequestResponse::class)]
     public function findUser(Request $request): Response
     {
-        $user = $request->user();
+        $user = Auth::user();
         assert($user !== null);
 
         return response([
