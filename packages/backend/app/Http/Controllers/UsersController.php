@@ -7,10 +7,14 @@ use App\Http\Requests\SignupRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\OpenApi\RequestBodies\SignupRequestBody;
+use App\OpenApi\RequestBodies\UpdateUserPasswordRequestBody;
+use App\OpenApi\RequestBodies\UpdateUserRequestBody;
 use App\OpenApi\Responses\BadRequestResponse;
 use App\OpenApi\Responses\FindUserResponse;
 use App\OpenApi\Responses\SignupResponse;
 use App\OpenApi\Responses\UnauthorizedRequestResponse;
+use App\OpenApi\Responses\UpdateUserPasswordResponse;
+use App\OpenApi\Responses\UpdateUserResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -81,6 +85,11 @@ class UsersController extends Controller
      * @param  UpdateUserRequest  $request
      * @return Response
      */
+    #[OpenApi\Operation]
+    #[OpenApi\RequestBody(factory: UpdateUserRequestBody::class)]
+    #[OpenApi\Response(factory: UpdateUserResponse::class)]
+    #[OpenApi\Response(factory: BadRequestResponse::class)]
+    #[OpenApi\Response(factory: UnauthorizedRequestResponse::class)]
     public function updateUser(UpdateUserRequest $request): Response
     {
         $user = Auth::user();
@@ -105,6 +114,11 @@ class UsersController extends Controller
      * @param  PasswordUpdateRequest  $request
      * @return Response
      */
+    #[OpenApi\Operation]
+    #[OpenApi\RequestBody(factory: UpdateUserPasswordRequestBody::class)]
+    #[OpenApi\Response(factory: UpdateUserPasswordResponse::class)]
+    #[OpenApi\Response(factory: BadRequestResponse::class)]
+    #[OpenApi\Response(factory: UnauthorizedRequestResponse::class)]
     public function updatePassword(PasswordUpdateRequest $request): Response
     {
         $user = Auth::user();
