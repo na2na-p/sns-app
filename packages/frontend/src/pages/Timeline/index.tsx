@@ -7,11 +7,15 @@ import Stack from '@/components/layout/Stack';
 import SpeedDial from '@/components/navigation/SpeedDial';
 import GrayContainer from '@/layout/GrayContainer';
 
+import { useHooks } from './hooks';
 import InfiniteMessages from './InfiniteMessages';
+import PostModal from './PostModal';
 
 const Timeline = () => {
+	const { openModal, handleOpen, handleClose } = useHooks();
 	return (
 		<>
+			<PostModal openModal={openModal} handleClose={handleClose} />
 			<SpeedDial
 				ariaLabel="Menu"
 				icon={<SpeedDialIcon />}
@@ -24,6 +28,7 @@ const Timeline = () => {
 					key={'openModal'}
 					icon={<EditIcon />}
 					tooltipTitle="投稿する"
+					onClick={handleOpen}
 				/>
 			</SpeedDial>
 			<Stack

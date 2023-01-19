@@ -8,34 +8,40 @@ import type Message from '@/types/models/Message';
 import getSchemeAndHost from '@/utils/getSchemeAndHost';
 import uniqBy from '@/utils/uniqBy';
 
-
-const sleep = (sec: number) => new Promise((resolve) => setTimeout(resolve, sec * 1000));
+const sleep = (sec: number) =>
+	new Promise((resolve) => setTimeout(resolve, sec * 1000));
 
 const InfiniteMessages = () => {
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [hasMore, setHasMore] = useState(true);
 	const [lastMessageId, setLastMessageId] = useState<Message['id']>();
 
-	const loadMessages = useCallback(async (lastMessageId?: Message['id']) => {
-		if (hasMore === false) return;
-		const URL = `${getSchemeAndHost()}${BASE_URI}${ENDPOINTS_BASE.messages}${lastMessageId ? `?lastMessageId=${lastMessageId}` : ''}`;
+	const loadMessages = useCallback(
+		async (lastMessageId?: Message['id']) => {
+			if (hasMore === false) return;
+			const URL = `${getSchemeAndHost()}${BASE_URI}${ENDPOINTS_BASE.messages}${
+				lastMessageId ? `?lastMessageId=${lastMessageId}` : ''
+			}`;
 
-		await sleep(1.0);
-		const response = await axios.get(URL, {
-			withCredentials: true
-		});
-		const messagesData = response.data as Message[];
-		const count = messagesData.length;
-		// messagesDataのidの中で一番小さいものを取得
-		setLastMessageId(messagesData.reduce((prev, current) => {
-			return prev.id < current.id ? prev : current;
-		}).id);
-
-
-		// message.idが重複しないようにsetMessagesを使う
-		setMessages(uniqBy([...messages, ...messagesData], 'id'));
-		setHasMore(count > 0);
-	}, [hasMore, messages]);
+			await sleep(1.0);
+			const response = await axios.get(URL, {
+				withCredentials: true
+			});
+			const messagesData = response.data as Message[];
+			const count = messagesData.length;
+			setLastMessageId(
+				count > 0 ?
+					messagesData.reduce((prev, current) =>
+						prev.id < current.id ? prev : current
+					).id :
+					undefined
+			);
+			// message.idが重複しないようにsetMessagesを使う
+			setMessages(uniqBy([...messages, ...messagesData], 'id'));
+			setHasMore(count > 0);
+		},
+		[hasMore, messages]
+	);
 
 	useEffect(() => {
 		loadMessages(lastMessageId);
@@ -54,8 +60,7 @@ const InfiniteMessages = () => {
 						favoriteCount={message.favoritesCount}
 						isFavorited={message.isFavorite}
 					/>
-				))
-			}
+				))}
 		</>
 	);
 };
