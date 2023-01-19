@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ListMessageRequest;
 use App\Http\Requests\MessageCreateRequest;
 use App\Models\Message;
+use App\OpenApi\Parameters\ListMessagesParameters;
 use App\OpenApi\RequestBodies\MessageCreateRequestBody;
-use App\OpenApi\RequestBodies\MessageListRequestBody;
 use App\OpenApi\Responses\BadRequestResponse;
 use App\OpenApi\Responses\MessageCreateResponse;
 use App\OpenApi\Responses\MessageListResponse;
@@ -57,7 +57,7 @@ class MessagesController extends Controller
      * @return JsonResponse|Response
      */
     #[OpenApi\Operation]
-    #[OpenApi\RequestBody(factory: MessageListRequestBody::class)]
+    #[OpenApi\Parameters(factory: ListMessagesParameters::class)]
     #[OpenApi\Response(factory: MessageListResponse::class)]
     #[OpenApi\Response(factory: BadRequestResponse::class)]
     #[OpenApi\Response(factory: UnauthorizedRequestResponse::class)]
