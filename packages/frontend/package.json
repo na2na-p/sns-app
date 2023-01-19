@@ -2,14 +2,14 @@
 	"name": "frontend",
 	"private": true,
 	"version": "0.0.0",
-	"type": "module",
 	"scripts": {
 		"postinstall": "npx msw init public --save && yarn generate-client",
 		"dev": "vite",
 		"test": "yarn vitest",
 		"coverage": "vitest run --coverage",
 		"build": "tsc && vite build",
-		"preview": "vite preview",
+		"preview": "vite preview --port 3000",
+		"e2e": "playwright test --fully-parallel",
 		"lint": "yarn eslint --ext .tsx,.ts ./src",
 		"lint:fix": "yarn eslint --ext .tsx,.ts ./src --fix",
 		"generate-client": "orval --config ./orval.config.ts"
@@ -33,6 +33,7 @@
 	},
 	"devDependencies": {
 		"@mswjs/data": "^0.11.1",
+		"@playwright/test": "^1.29.2",
 		"@testing-library/jest-dom": "^5.16.5",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
