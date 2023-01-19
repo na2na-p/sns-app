@@ -1,535 +1,535 @@
 {
-    "openapi": "3.0.2",
-    "info": {
-        "title": "sns-app",
-        "version": "1.0.0"
-    },
-    "servers": [
-        {
-            "url": "http:\/\/localhost"
-        }
-    ],
-    "paths": {
-        "\/api\/v1\/users": {
-            "post": {
-                "summary": "ユーザ登録用エンドポイント",
-                "requestBody": {
-                    "description": "Signup Request Body",
-                    "content": {
-                        "application\/json": {
-                            "schema": {
-                                "type": "object",
-                                "required": [
-                                    "name",
-                                    "email",
-                                    "password"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "201": {
-                        "description": "Signup Successful",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "$ref": "#\/components\/schemas\/UserResponse"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "nullable": true
-                                        },
-                                        "errors": {
-                                            "type": "object",
-                                            "nullable": true
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "\/api\/v1\/login": {
-            "post": {
-                "summary": "ログイン用エンドポイント",
-                "requestBody": {
-                    "description": "Login Request Body",
-                    "content": {
-                        "application\/json": {
-                            "schema": {
-                                "type": "object",
-                                "required": [
-                                    "email",
-                                    "password"
-                                ],
-                                "properties": {
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Login Successful"
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "nullable": true
-                                        },
-                                        "errors": {
-                                            "type": "object",
-                                            "nullable": true
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "nullable": true
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "\/api\/v1\/logout": {
-            "post": {
-                "summary": "ログアウト用エンドポイント",
-                "responses": {
-                    "200": {
-                        "description": "Logout Successful"
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "nullable": true
-                                        },
-                                        "errors": {
-                                            "type": "object",
-                                            "nullable": true
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "\/api\/v1\/users\/me": {
-            "get": {
-                "summary": "ログイン済みかどうかの判定用エンドポイント",
-                "responses": {
-                    "200": {
-                        "description": "Check who am I",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "$ref": "#\/components\/schemas\/UserResponse"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
-            "put": {
-                "summary": "ユーザ情報更新用エンドポイント",
-                "requestBody": {
-                    "description": " Update user info Request Body",
-                    "content": {
-                        "application\/json": {
-                            "schema": {
-                                "type": "object",
-                                "required": [
-                                    "name",
-                                    "email"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Update Successful",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "$ref": "#\/components\/schemas\/UserResponse"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "nullable": true
-                                        },
-                                        "errors": {
-                                            "type": "object",
-                                            "nullable": true
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            }
-        },
-        "\/api\/v1\/users\/me\/password": {
-            "put": {
-                "summary": "パスワード更新用エンドポイント",
-                "requestBody": {
-                    "description": "Update user password Request Body",
-                    "content": {
-                        "application\/json": {
-                            "schema": {
-                                "type": "object",
-                                "required": [
-                                    "currentPassword",
-                                    "newPassword"
-                                ],
-                                "properties": {
-                                    "currentPassword": {
-                                        "type": "string"
-                                    },
-                                    "newPassword": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Password Update Successful"
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "nullable": true
-                                        },
-                                        "errors": {
-                                            "type": "object",
-                                            "nullable": true
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            }
-        },
-        "\/api\/v1\/messages": {
-            "post": {
-                "summary": "メッセージ投稿用エンドポイント",
-                "requestBody": {
-                    "description": "Message Create Request Body",
-                    "content": {
-                        "application\/json": {
-                            "schema": {
-                                "type": "object",
-                                "required": [
-                                    "body"
-                                ],
-                                "properties": {
-                                    "body": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "201": {
-                        "description": "Message Create Successful"
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "nullable": true
-                                        },
-                                        "errors": {
-                                            "type": "object",
-                                            "nullable": true
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
-            "get": {
-                "summary": "メッセージ取得用エンドポイント",
-                "requestBody": {
-                    "description": "Message List Request Body",
-                    "content": {
-                        "application\/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "perPage": {
-                                        "type": "integer"
-                                    },
-                                    "lastMessageId": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Get Message List",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "object",
-                                        "required": [
-                                            "id",
-                                            "user_id",
-                                            "body",
-                                            "created_at",
-                                            "isFavorite",
-                                            "favoritesCount"
-                                        ],
-                                        "properties": {
-                                            "id": {
-                                                "type": "string"
-                                            },
-                                            "user_id": {
-                                                "type": "string"
-                                            },
-                                            "body": {
-                                                "type": "string"
-                                            },
-                                            "created_at": {
-                                                "type": "string"
-                                            },
-                                            "isFavorite": {
-                                                "type": "boolean"
-                                            },
-                                            "favoritesCount": {
-                                                "type": "integer"
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "nullable": true
-                                        },
-                                        "errors": {
-                                            "type": "object",
-                                            "nullable": true
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            }
-        },
-        "\/api\/v1\/messages\/{messageId}\/favorite": {
-            "put": {
-                "summary": "お気に入り登録用エンドポイント",
-                "parameters": [
-                    {
-                        "name": "messageId",
-                        "in": "path",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "FavoriteReverse Request Body",
-                    "content": {
-                        "application\/json": {
-                            "schema": {
-                                "type": "object",
-                                "required": [
-                                    "isFavorite"
-                                ],
-                                "properties": {
-                                    "isFavorite": {
-                                        "type": "boolean"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "FavoriteReverse Successful"
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "nullable": true
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            }
-        }
-    },
-    "components": {
-        "schemas": {
-            "UserResponse": {
-                "type": "object",
-                "required": [
-                    "id",
-                    "name",
-                    "email"
-                ],
-                "properties": {
-                    "id": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "string"
-                    }
-                }
-            }
-        }
-    }
+	"openapi": "3.0.2",
+	"info": {
+			"title": "sns-app",
+			"version": "1.0.0"
+	},
+	"servers": [
+			{
+					"url": "http:\/\/localhost"
+			}
+	],
+	"paths": {
+			"\/api\/v1\/users": {
+					"post": {
+							"summary": "ユーザ登録用エンドポイント",
+							"requestBody": {
+									"description": "Signup Request Body",
+									"content": {
+											"application\/json": {
+													"schema": {
+															"type": "object",
+															"required": [
+																	"name",
+																	"email",
+																	"password"
+															],
+															"properties": {
+																	"name": {
+																			"type": "string"
+																	},
+																	"email": {
+																			"type": "string"
+																	},
+																	"password": {
+																			"type": "string"
+																	}
+															}
+													}
+											}
+									},
+									"required": true
+							},
+							"responses": {
+									"201": {
+											"description": "Signup Successful",
+											"content": {
+													"application\/json": {
+															"schema": {
+																	"$ref": "#\/components\/schemas\/UserResponse"
+															}
+													}
+											}
+									},
+									"400": {
+											"description": "Bad Request",
+											"content": {
+													"application\/json": {
+															"schema": {
+																	"type": "object",
+																	"properties": {
+																			"message": {
+																					"type": "string",
+																					"nullable": true
+																			},
+																			"errors": {
+																					"type": "object",
+																					"nullable": true
+																			}
+																	}
+															}
+													}
+											}
+									}
+							}
+					}
+			},
+			"\/api\/v1\/login": {
+					"post": {
+							"summary": "ログイン用エンドポイント",
+							"requestBody": {
+									"description": "Login Request Body",
+									"content": {
+											"application\/json": {
+													"schema": {
+															"type": "object",
+															"required": [
+																	"email",
+																	"password"
+															],
+															"properties": {
+																	"email": {
+																			"type": "string"
+																	},
+																	"password": {
+																			"type": "string"
+																	}
+															}
+													}
+											}
+									},
+									"required": true
+							},
+							"responses": {
+									"200": {
+											"description": "Login Successful"
+									},
+									"400": {
+											"description": "Bad Request",
+											"content": {
+													"application\/json": {
+															"schema": {
+																	"type": "object",
+																	"properties": {
+																			"message": {
+																					"type": "string",
+																					"nullable": true
+																			},
+																			"errors": {
+																					"type": "object",
+																					"nullable": true
+																			}
+																	}
+															}
+													}
+											}
+									},
+									"403": {
+											"description": "Forbidden",
+											"content": {
+													"application\/json": {
+															"schema": {
+																	"type": "object",
+																	"properties": {
+																			"message": {
+																					"type": "string",
+																					"nullable": true
+																			}
+																	}
+															}
+													}
+											}
+									}
+							}
+					}
+			},
+			"\/api\/v1\/logout": {
+					"post": {
+							"summary": "ログアウト用エンドポイント",
+							"responses": {
+									"200": {
+											"description": "Logout Successful"
+									},
+									"400": {
+											"description": "Bad Request",
+											"content": {
+													"application\/json": {
+															"schema": {
+																	"type": "object",
+																	"properties": {
+																			"message": {
+																					"type": "string",
+																					"nullable": true
+																			},
+																			"errors": {
+																					"type": "object",
+																					"nullable": true
+																			}
+																	}
+															}
+													}
+											}
+									}
+							}
+					}
+			},
+			"\/api\/v1\/users\/me": {
+					"get": {
+							"summary": "ログイン済みかどうかの判定用エンドポイント",
+							"responses": {
+									"200": {
+											"description": "Check who am I",
+											"content": {
+													"application\/json": {
+															"schema": {
+																	"$ref": "#\/components\/schemas\/UserResponse"
+															}
+													}
+											}
+									},
+									"401": {
+											"description": "Unauthorized"
+									}
+							}
+					},
+					"put": {
+							"summary": "ユーザ情報更新用エンドポイント",
+							"requestBody": {
+									"description": " Update user info Request Body",
+									"content": {
+											"application\/json": {
+													"schema": {
+															"type": "object",
+															"required": [
+																	"name",
+																	"email"
+															],
+															"properties": {
+																	"name": {
+																			"type": "string"
+																	},
+																	"email": {
+																			"type": "string"
+																	}
+															}
+													}
+											}
+									},
+									"required": true
+							},
+							"responses": {
+									"200": {
+											"description": "Update Successful",
+											"content": {
+													"application\/json": {
+															"schema": {
+																	"$ref": "#\/components\/schemas\/UserResponse"
+															}
+													}
+											}
+									},
+									"400": {
+											"description": "Bad Request",
+											"content": {
+													"application\/json": {
+															"schema": {
+																	"type": "object",
+																	"properties": {
+																			"message": {
+																					"type": "string",
+																					"nullable": true
+																			},
+																			"errors": {
+																					"type": "object",
+																					"nullable": true
+																			}
+																	}
+															}
+													}
+											}
+									},
+									"401": {
+											"description": "Unauthorized"
+									}
+							}
+					}
+			},
+			"\/api\/v1\/users\/me\/password": {
+					"put": {
+							"summary": "パスワード更新用エンドポイント",
+							"requestBody": {
+									"description": "Update user password Request Body",
+									"content": {
+											"application\/json": {
+													"schema": {
+															"type": "object",
+															"required": [
+																	"currentPassword",
+																	"newPassword"
+															],
+															"properties": {
+																	"currentPassword": {
+																			"type": "string"
+																	},
+																	"newPassword": {
+																			"type": "string"
+																	}
+															}
+													}
+											}
+									},
+									"required": true
+							},
+							"responses": {
+									"200": {
+											"description": "Password Update Successful"
+									},
+									"400": {
+											"description": "Bad Request",
+											"content": {
+													"application\/json": {
+															"schema": {
+																	"type": "object",
+																	"properties": {
+																			"message": {
+																					"type": "string",
+																					"nullable": true
+																			},
+																			"errors": {
+																					"type": "object",
+																					"nullable": true
+																			}
+																	}
+															}
+													}
+											}
+									},
+									"401": {
+											"description": "Unauthorized"
+									}
+							}
+					}
+			},
+			"\/api\/v1\/messages": {
+					"post": {
+							"summary": "メッセージ投稿用エンドポイント",
+							"requestBody": {
+									"description": "Message Create Request Body",
+									"content": {
+											"application\/json": {
+													"schema": {
+															"type": "object",
+															"required": [
+																	"body"
+															],
+															"properties": {
+																	"body": {
+																			"type": "string"
+																	}
+															}
+													}
+											}
+									},
+									"required": true
+							},
+							"responses": {
+									"201": {
+											"description": "Message Create Successful"
+									},
+									"400": {
+											"description": "Bad Request",
+											"content": {
+													"application\/json": {
+															"schema": {
+																	"type": "object",
+																	"properties": {
+																			"message": {
+																					"type": "string",
+																					"nullable": true
+																			},
+																			"errors": {
+																					"type": "object",
+																					"nullable": true
+																			}
+																	}
+															}
+													}
+											}
+									},
+									"401": {
+											"description": "Unauthorized"
+									}
+							}
+					},
+					"get": {
+							"summary": "メッセージ取得用エンドポイント",
+							"requestBody": {
+									"description": "Message List Request Body",
+									"content": {
+											"application\/json": {
+													"schema": {
+															"type": "object",
+															"properties": {
+																	"perPage": {
+																			"type": "integer"
+																	},
+																	"lastMessageId": {
+																			"type": "string"
+																	}
+															}
+													}
+											}
+									}
+							},
+							"responses": {
+									"200": {
+											"description": "Get Message List",
+											"content": {
+													"application\/json": {
+															"schema": {
+																	"type": "array",
+																	"items": {
+																			"type": "object",
+																			"required": [
+																					"id",
+																					"user_id",
+																					"body",
+																					"created_at",
+																					"isFavorite",
+																					"favoritesCount"
+																			],
+																			"properties": {
+																					"id": {
+																							"type": "string"
+																					},
+																					"user_id": {
+																							"type": "string"
+																					},
+																					"body": {
+																							"type": "string"
+																					},
+																					"created_at": {
+																							"type": "string"
+																					},
+																					"isFavorite": {
+																							"type": "boolean"
+																					},
+																					"favoritesCount": {
+																							"type": "integer"
+																					}
+																			}
+																	}
+															}
+													}
+											}
+									},
+									"400": {
+											"description": "Bad Request",
+											"content": {
+													"application\/json": {
+															"schema": {
+																	"type": "object",
+																	"properties": {
+																			"message": {
+																					"type": "string",
+																					"nullable": true
+																			},
+																			"errors": {
+																					"type": "object",
+																					"nullable": true
+																			}
+																	}
+															}
+													}
+											}
+									},
+									"401": {
+											"description": "Unauthorized"
+									}
+							}
+					}
+			},
+			"\/api\/v1\/messages\/{messageId}\/favorite": {
+					"put": {
+							"summary": "お気に入り登録用エンドポイント",
+							"parameters": [
+									{
+											"name": "messageId",
+											"in": "path",
+											"description": "",
+											"required": true,
+											"schema": {
+													"type": "string"
+											}
+									}
+							],
+							"requestBody": {
+									"description": "FavoriteReverse Request Body",
+									"content": {
+											"application\/json": {
+													"schema": {
+															"type": "object",
+															"required": [
+																	"isFavorite"
+															],
+															"properties": {
+																	"isFavorite": {
+																			"type": "boolean"
+																	}
+															}
+													}
+											}
+									},
+									"required": true
+							},
+							"responses": {
+									"200": {
+											"description": "FavoriteReverse Successful"
+									},
+									"404": {
+											"description": "Not Found",
+											"content": {
+													"application\/json": {
+															"schema": {
+																	"type": "object",
+																	"properties": {
+																			"message": {
+																					"type": "string",
+																					"nullable": true
+																			}
+																	}
+															}
+													}
+											}
+									},
+									"401": {
+											"description": "Unauthorized"
+									}
+							}
+					}
+			}
+	},
+	"components": {
+			"schemas": {
+					"UserResponse": {
+							"type": "object",
+							"required": [
+									"id",
+									"name",
+									"email"
+							],
+							"properties": {
+									"id": {
+											"type": "string"
+									},
+									"name": {
+											"type": "string"
+									},
+									"email": {
+											"type": "string"
+									}
+							}
+					}
+			}
+	}
 }
