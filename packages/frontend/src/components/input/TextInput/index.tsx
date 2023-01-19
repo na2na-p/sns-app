@@ -1,6 +1,6 @@
-import type { TextFieldProps } from '@mui/material/TextField';
+import type { TextFieldProps as MuiTextFieldProps } from '@mui/material';
 import TextField from '@mui/material/TextField';
 
-export type { TextFieldProps };
+export type TextInputProps = MuiTextFieldProps;
 
 export default TextField;

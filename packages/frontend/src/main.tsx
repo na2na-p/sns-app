@@ -5,12 +5,12 @@ import App from './App';
 
 void (async () => {
 	if (import.meta.env.MODE === 'development') {
-		const { worker } = await import('./mocks/browser');
-		await worker.start({
-			serviceWorker: {
-				url: '/mockServiceWorker.js'
-			}
-		});
+		// const { worker } = await import('./mocks/browser');
+		// await worker.start({
+		// 	serviceWorker: {
+		// 		url: '/mockServiceWorker.js'
+		// 	}
+		// });
 	}
 
 	const container = document.getElementById('root');

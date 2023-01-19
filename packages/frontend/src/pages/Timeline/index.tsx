@@ -7,12 +7,7 @@ import StackRest from '@/components/layout/StackRest';
 import GrayContainer from '@/layout/GrayContainer';
 import isNil from '@/utils/isNil';
 
-import { useHooks } from './hooks';
-
 const Timeline = () => {
-	const { data, isLoading } = useHooks();
-	if (isNil(isLoading)) return null;
-	console.log(data); // eslint-disable-line no-console
 	return (
 		<Stack spacing={0} height="100%" sx={{
 			minHeight: 0

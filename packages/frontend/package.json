@@ -4,7 +4,7 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"postinstall": "npx msw init public --save && yarn generate-client",
+		"postinstall": "npx msw init public --save && yarn generate-client && ./scripts/orvalMod.sh",
 		"dev": "vite",
 		"test": "yarn vitest",
 		"coverage": "vitest run --coverage",
