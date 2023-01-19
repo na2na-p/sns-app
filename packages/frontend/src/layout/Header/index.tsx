@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 
-import Typography from '@/components/dataDisplay/Typography';
 import EditIcon from '@/components/icons/EditIcon';
 import KeyIcon from '@/components/icons/KeyIcon';
 import LogoutIcon from '@/components/icons/LogoutIcon';
@@ -23,9 +22,19 @@ const Header = () => {
 		<Box>
 			<AppBar position="static">
 				<Toolbar>
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						{APP_NAME}
-					</Typography>
+					<Box
+						sx={{
+							flexGrow: 1
+						}}
+					>
+						<Button
+							color="inherit"
+							label={APP_NAME}
+							onClick={() => {
+								navigate(routes.timeline.path());
+							}}
+						/>
+					</Box>
 					{isAuthenticated && (
 						<Stack direction="row">
 							<Button
@@ -33,7 +42,6 @@ const Header = () => {
 								label="パスワード変更"
 								startIcon={<KeyIcon />}
 								onClick={() => {
-									// history.pushState(null, '', routes.userInfoUpdate.path());
 									navigate(routes.passwordUpdate.path());
 								}}
 							/>
@@ -42,7 +50,6 @@ const Header = () => {
 								label="情報編集"
 								startIcon={<EditIcon />}
 								onClick={() => {
-									// history.pushState(null, '', routes.userInfoUpdate.path());
 									navigate(routes.userInfoUpdate.path());
 								}}
 							/>
