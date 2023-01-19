@@ -4,8 +4,8 @@ SAIL=$(shell pwd)/packages/backend/vendor/bin/sail
 setup-local:
 	(cd utils && cp .env_example .env)
 	@make erd-generate
-	@make frontend-setup
 	@make backend-setup
+	@make frontend-setup
 
 setup-ci:
 	@make frontend-setup
