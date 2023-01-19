@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Favorite;
 use App\Models\Message;
+use App\OpenApi\RequestBodies\AddFavoriteRequestBody;
+use App\OpenApi\Responses\AddFavoriteResponse;
+use App\OpenApi\Responses\NotFoundResponse;
+use App\OpenApi\Responses\UnauthorizedRequestResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Ramsey\Uuid\Uuid;
+use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
 
+#[OpenApi\PathItem]
 class FavoriteController extends Controller
 {
     /**
@@ -16,6 +22,11 @@ class FavoriteController extends Controller
      * @param  string  $messageId
      * @return Response
      */
+    #[OpenApi\Operation]
+    #[OpenApi\RequestBody(factory: AddFavoriteRequestBody::class)]
+    #[OpenApi\Response(factory: AddFavoriteResponse::class)]
+    #[OpenApi\Response(factory: NotFoundResponse::class)]
+    #[OpenApi\Response(factory: UnauthorizedRequestResponse::class)]
     public function addFavorite(string $messageId): Response
     {
         $user = Auth::user();
