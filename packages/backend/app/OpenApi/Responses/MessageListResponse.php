@@ -32,7 +32,7 @@ class MessageListResponse extends ResponseFactory
                                     Schema::boolean('isFavorite'),
                                     Schema::integer('favoritesCount'),
                                 )
-                                ->required('id', 'user_id', 'body', 'created_at', 'isFavorite', 'favoritesCount')
+                                ->required('id', 'user_id', 'body', 'created_by', 'created_at', 'isFavorite', 'favoritesCount')
                         )
                 )
             );

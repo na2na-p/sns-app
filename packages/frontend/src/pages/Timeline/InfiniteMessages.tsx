@@ -34,8 +34,7 @@ const InfiniteMessages = () => {
 
 		// message.idが重複しないようにsetMessagesを使う
 		setMessages(uniqBy([...messages, ...messagesData], 'id'));
-
-		setHasMore(count > 0); // ← ⑧
+		setHasMore(count > 0);
 	}, [hasMore, messages]);
 
 	useEffect(() => {
@@ -49,7 +48,7 @@ const InfiniteMessages = () => {
 					<MessageCard
 						key={message.id}
 						id={message.id}
-						userName={message.user_id}
+						userName={message.created_by}
 						created_at={new Date(message.created_at)}
 						body={message.body}
 						favoriteCount={message.favoritesCount}
