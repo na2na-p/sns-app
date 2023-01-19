@@ -5,3 +5,4 @@ default.yml
 files
 .idea
 .DS_Store
+generated
