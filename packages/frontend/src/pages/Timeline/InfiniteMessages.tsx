@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 import MessageCard from '@components/dataDisplay/MessageCard/';
 import axios from 'axios';
+import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
 import ENDPOINTS_BASE, { BASE_URI } from '@/constants/ENDPOINTS_BASE';
@@ -11,8 +12,15 @@ import uniqBy from '@/utils/uniqBy';
 const sleep = (sec: number) =>
 	new Promise((resolve) => setTimeout(resolve, sec * 1000));
 
-const InfiniteMessages = () => {
-	const [messages, setMessages] = useState<Message[]>([]);
+type InfiniteMessagesProps = {
+	messages: Message[];
+	setMessages: Dispatch<SetStateAction<Message[]>>
+}
+
+const InfiniteMessages = ({
+	messages,
+	setMessages
+}: InfiniteMessagesProps) => {
 	const [hasMore, setHasMore] = useState(true);
 	const [lastMessageId, setLastMessageId] = useState<Message['id']>();
 
@@ -40,7 +48,7 @@ const InfiniteMessages = () => {
 			setMessages(uniqBy([...messages, ...messagesData], 'id'));
 			setHasMore(count > 0);
 		},
-		[hasMore, messages]
+		[hasMore, messages, setMessages]
 	);
 
 	useEffect(() => {

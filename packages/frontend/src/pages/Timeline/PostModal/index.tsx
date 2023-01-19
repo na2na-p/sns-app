@@ -1,29 +1,43 @@
+import type { Dispatch } from 'react';
+
 import Card from '@/components/dataDisplay/Card';
 import Modal from '@/components/dataDisplay/Modal';
 import Button from '@/components/input/Button';
 import TextInput from '@/components/input/TextInput';
 import Box from '@/components/layout/Box';
 import Stack from '@/components/layout/Stack';
+import type Message from '@/types/models/Message';
 
 import { useHooks } from './hooks';
 
 export type PostModalProps = {
 	openModal: boolean;
 	handleClose: () => void;
+	messages: Message[];
+	setMessages: Dispatch<React.SetStateAction<Message[]>>;
 };
 
-const PostModal = ({ openModal, handleClose }: PostModalProps) => {
+const PostModal = ({
+	openModal,
+	handleClose,
+	messages,
+	setMessages
+}: PostModalProps) => {
 	const { register, handleSubmit, errors, isValid, onSubmit } = useHooks({
-		handleClose
+		handleClose,
+		messages,
+		setMessages
 	});
 	return (
-		<Modal open={openModal} onClose={handleClose} >
-			<Box sx={{
-				position: 'absolute',
-				top: '50%',
-				left: '50%',
-				transform: 'translate(-50%,-50%)'
-			}}>
+		<Modal open={openModal} onClose={handleClose}>
+			<Box
+				sx={{
+					position: 'absolute',
+					top: '50%',
+					left: '50%',
+					transform: 'translate(-50%,-50%)'
+				}}
+			>
 				<Card
 					sx={{
 						width: 500,

@@ -12,10 +12,16 @@ import InfiniteMessages from './InfiniteMessages';
 import PostModal from './PostModal';
 
 const Timeline = () => {
-	const { openModal, handleOpen, handleClose } = useHooks();
+	const { openModal, handleOpen, handleClose, messages, setMessages } =
+		useHooks();
 	return (
 		<>
-			<PostModal openModal={openModal} handleClose={handleClose} />
+			<PostModal
+				openModal={openModal}
+				handleClose={handleClose}
+				messages={messages}
+				setMessages={setMessages}
+			/>
 			<SpeedDial
 				ariaLabel="Menu"
 				icon={<SpeedDialIcon />}
@@ -23,7 +29,8 @@ const Timeline = () => {
 					position: 'fixed',
 					right: 50,
 					bottom: 50
-				}}>
+				}}
+			>
 				<SpeedDialAction
 					key={'openModal'}
 					icon={<EditIcon />}
@@ -42,7 +49,7 @@ const Timeline = () => {
 				<GrayContainer width="100%" height="100%">
 					<ScrollContainer>
 						<Stack spacing={2}>
-							<InfiniteMessages />
+							<InfiniteMessages messages={messages} setMessages={setMessages} />
 						</Stack>
 					</ScrollContainer>
 				</GrayContainer>
