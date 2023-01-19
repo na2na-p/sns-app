@@ -5,7 +5,7 @@ import { useAuth } from '@/hooks/useAuth';
 import routes from '.';
 
 type AuthRouterProps = {
-  children: React.ReactNode;
+	children: React.ReactNode;
 };
 
 export const PrivateRoute = ({ children }: AuthRouterProps) => {

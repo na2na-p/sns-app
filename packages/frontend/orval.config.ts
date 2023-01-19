@@ -5,8 +5,7 @@ const config = defineConfig({
 		input: '../../documents/api/schema.json',
 		output: {
 			mode: 'tags-split',
-			target: './src/generated/api.ts',
-			schemas: './src/generated/models',
+			schemas: './src/generated/',
 			client: 'react-query',
 			clean: true,
 			override: {

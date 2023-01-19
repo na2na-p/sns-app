@@ -5,17 +5,15 @@ const FavoriteButton = ({
 	count,
 	isFavorited
 }: {
-	count: number,
-	isFavorited: boolean,
+	count: number;
+	isFavorited: boolean;
 }) => {
 	return (
 		<Button
 			variant="text"
-			startIcon={<StarIcon
-				variant={isFavorited ? 'filled' : 'outlined'}
-			/>}
+			startIcon={<StarIcon variant={isFavorited ? 'filled' : 'outlined'} />}
 			label={count.toString()}
-			color='primary'
+			color="primary"
 		/>
 	);
 };

@@ -6,7 +6,6 @@ import Box from '@/components/layout/Box';
 
 import FavoriteButton from './FavoriteButton';
 
-
 type MessageCardProps = {
 	userName: string;
 	created_by: string;
@@ -14,7 +13,7 @@ type MessageCardProps = {
 	body: string;
 	favoriteCount: number;
 	isFavorited: boolean;
-}
+};
 
 const MessageCard = (message: MessageCardProps) => {
 	return (
@@ -25,14 +24,14 @@ const MessageCard = (message: MessageCardProps) => {
 				subheader={message.created_at.toLocaleString()}
 			/>
 			<CardContent>
-				<Typography variant='body1'>
-					{message.body}
-				</Typography>
-				<Box sx={{
-					display: 'flex',
-					justifyContent: 'flex-end',
-					alignItems: 'center'
-				}}>
+				<Typography variant="body1">{message.body}</Typography>
+				<Box
+					sx={{
+						display: 'flex',
+						justifyContent: 'flex-end',
+						alignItems: 'center'
+					}}
+				>
 					<FavoriteButton
 						count={message.favoriteCount}
 						isFavorited={message.isFavorited}

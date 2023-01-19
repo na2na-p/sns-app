@@ -4,9 +4,7 @@ import MuiCardHeader from '@mui/material/CardHeader';
 export type CardHeaderProps = MuiCardHeaderProps;
 
 const CardHeader = ({ children, ...rest }: CardHeaderProps) => (
-	<MuiCardHeader {...rest}>
-		{children}
-	</MuiCardHeader>
+	<MuiCardHeader {...rest}>{children}</MuiCardHeader>
 );
 
 export default CardHeader;

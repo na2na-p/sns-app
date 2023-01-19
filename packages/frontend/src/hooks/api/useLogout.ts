@@ -7,7 +7,11 @@ import { BASE_URI } from '@/constants/ENDPOINTS_BASE';
 import getSchemeAndHost from '@/utils/getSchemeAndHost';
 
 const logout = async (): Promise<[]> => {
-	const { data } = await axios.post(`${getSchemeAndHost()}${BASE_URI}/logout`, {}, { withCredentials: true });
+	const { data } = await axios.post(
+		`${getSchemeAndHost()}${BASE_URI}/logout`,
+		{},
+		{ withCredentials: true }
+	);
 	return data;
 };
 

@@ -4,7 +4,6 @@ import type { StackProps as MuiStackProps } from '@mui/material/Stack';
 import Box from '@/components/layout/Box';
 import mergeSx from '@/utils/mergeSx';
 
-
 const DEFAULT_SX = {
 	overflowY: 'auto',
 	height: '100%'

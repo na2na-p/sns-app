@@ -52,7 +52,7 @@ backend-lint:
 	@make backend-phpstan
 
 backend-oas-generate:
-	(cd packages/backend && ${SAIL} artisan openapi:generate > $(shell pwd)/documents/api/schema-wip.json)
+	(cd packages/backend && ${SAIL} artisan openapi:generate > $(shell pwd)/documents/api/schema.json)
 
 backend-route-check:
 	(cd packages/backend && ${SAIL} artisan route:list)

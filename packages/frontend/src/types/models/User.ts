@@ -1,6 +1,4 @@
-import type {
-	UserResponse
-} from '@/generated/models';
+import type { UserResponse } from '@/generated';
 
 type User = UserResponse;
 

@@ -4,9 +4,7 @@ import MuiCard from '@mui/material/Card';
 export type CardProps = MuiCardProps;
 
 const Card = ({ children, ...rest }: CardProps) => (
-	<MuiCard {...rest}>
-		{children}
-	</MuiCard>
+	<MuiCard {...rest}>{children}</MuiCard>
 );
 
 export default Card;

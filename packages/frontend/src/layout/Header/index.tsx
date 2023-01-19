@@ -1,5 +1,3 @@
-import { redirect, useNavigate } from 'react-router-dom';
-
 import Typography from '@/components/dataDisplay/Typography';
 import EditIcon from '@/components/icons/EditIcon';
 import LogoutIcon from '@/components/icons/LogoutIcon';
