@@ -36,7 +36,7 @@ const useLogin = (): UseMutationResult<
 		onSuccess: (data) => {
 			queryClient.setQueryData(['user'], data);
 			navigate(routes.timeline.path());
-			// location.reload();
+			location.reload();
 		}
 	});
 };
