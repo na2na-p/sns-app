@@ -8,7 +8,6 @@ import FavoriteButton from './FavoriteButton';
 
 type MessageCardProps = {
 	userName: string;
-	created_by: string;
 	created_at: Date;
 	body: string;
 	favoriteCount: number;
