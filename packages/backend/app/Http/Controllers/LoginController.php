@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\OpenApi\RequestBodies\LoginRequestBody;
+use App\OpenApi\Responses\BadRequestResponse;
+use App\OpenApi\Responses\ForbiddenResponse;
+use App\OpenApi\Responses\LoginResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
 
+#[OpenApi\PathItem]
 class LoginController extends Controller
 {
     /**
@@ -14,6 +20,11 @@ class LoginController extends Controller
      * @param  LoginRequest  $request
      * @return Response
      */
+    #[OpenApi\Operation]
+    #[OpenApi\RequestBody(factory: LoginRequestBody::class)]
+    #[OpenApi\Response(factory: LoginResponse::class)]
+    #[OpenApi\Response(factory: BadRequestResponse::class)]
+    #[OpenApi\Response(factory: ForbiddenResponse::class)]
     public function login(LoginRequest $request): Response
     {
         if (Auth::check()) {
