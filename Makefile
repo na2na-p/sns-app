@@ -17,6 +17,12 @@ erd-generate:
 frontend-setup:
 	(cd packages/frontend && yarn install)
 
+frontend-up-dev:
+	(cd packages/frontend && NODE_ENV=development && yarn dev)
+
+frontend-build:
+	(cd packages/frontend && yarn build)
+
 backend-setup:
 	(cd packages/backend && cp .env.example .env)
 	(cd packages/backend && \
