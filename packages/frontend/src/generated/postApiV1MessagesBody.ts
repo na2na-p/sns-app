@@ -5,4 +5,6 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type BadRequestResponseErrors = { [key: string]: any };
+export type PostApiV1MessagesBody = {
+  body: string;
+};

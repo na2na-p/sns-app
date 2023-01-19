@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import Card from '@/components/dataDisplay/Card';
+import Typography from '@/components/dataDisplay/Typography';
 import Button from '@/components/input/Button';
 import TextInput from '@/components/input/TextInput';
 import Box from '@/components/layout/Box';
@@ -13,8 +14,8 @@ import { useHooks } from './hooks';
 const SignUp = () => {
 	const { register, handleSubmit, onSubmit, errors } = useHooks();
 	const navigate = useNavigate();
-	const loginNavigate = () => {
-		navigate(routes.login.path());
+	const timelineNavigate = () => {
+		navigate(routes.timeline.path());
 	};
 	return (
 		<Box sx={{
@@ -24,10 +25,11 @@ const SignUp = () => {
 			transform: 'translate(-50%,-50%)'
 		}}>
 			<Stack>
+				<Typography variant="h4">パスワード更新</Typography>
 				<Card
 					sx={{
 						width: 500,
-						height: 500,
+						height: 350,
 						radius: 4,
 						border: `solid 1px #E4E5E6`,
 						boxShadow: SHADOW,
@@ -37,34 +39,26 @@ const SignUp = () => {
 					<Stack height="100%" spacing={5}>
 						<TextInput
 							required
-							type="email"
-							placeholder="メールアドレスを入力"
-							{...register('email')}
-							error={'email' in errors}
-							helperText={errors.email?.message}
-						/>
-						<TextInput
-							required
-							type='text'
-							placeholder="ニックネームを入力"
-							{...register('name')}
-							error={'Nickname' in errors}
-							helperText={errors.email?.message}
-						/>
-						<TextInput
-							required
 							type="password"
-							placeholder="パスワードを入力"
-							{...register('password')}
-							error={'password' in errors}
+							placeholder="現在のパスワードを入力"
+							{...register('currentPassword')}
+							error={'currentPassword' in errors}
 							helperText={errors.password?.message}
 						/>
 						<TextInput
 							required
 							type="password"
-							placeholder="パスワードを再入力"
-							{...register('passwordConfirm')}
-							error={'passwordConfirm' in errors}
+							placeholder="新しいパスワードを入力"
+							{...register('newPassword')}
+							error={'newPassword' in errors}
+							helperText={errors.password?.message}
+						/>
+						<TextInput
+							required
+							type="password"
+							placeholder="新しいパスワードを再入力"
+							{...register('newPasswordConfirmation')}
+							error={'newPasswordConfirmation' in errors}
 							helperText={errors.password?.message}
 						/>
 					</Stack>
@@ -75,7 +69,7 @@ const SignUp = () => {
 					<Button
 						label='戻る'
 						variant="outlined"
-						onClick={loginNavigate}
+						onClick={timelineNavigate}
 						sx={{
 							width: '100%'
 						}}

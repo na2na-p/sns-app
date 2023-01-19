@@ -1,6 +1,8 @@
 import Login from '@/pages/Login';
+import PasswordUpdate from '@/pages/PasswordUpdate';
 import SignUp from '@/pages/SignUp';
 import Timeline from '@/pages/Timeline';
+import UserInfoUpdate from '@/pages/UserInfoUpdate';
 import kebabCase from '@/utils/kebabCase';
 
 type Routes = {
@@ -28,12 +30,12 @@ const routes = {
 		component: <SignUp />
 	},
 	passwordUpdate: {
-		path: () => `/users/:userId/password`,
-		component: <></>
+		path: () => `/users/me/password`,
+		component: <PasswordUpdate />
 	},
 	userInfoUpdate: {
-		path: () => `/user/:userId/edit`,
-		component: <></>
+		path: () => `/user/me/edit`,
+		component: <UserInfoUpdate />
 	}
 } as const satisfies {
 	[P in Pages]: Routes;

@@ -1,21 +1,15 @@
-import { useNavigate } from 'react-router-dom';
-
 import Card from '@/components/dataDisplay/Card';
 import Button from '@/components/input/Button';
 import TextInput from '@/components/input/TextInput';
 import Box from '@/components/layout/Box';
 import Stack from '@/components/layout/Stack';
-import routes from '@/routes';
+import SHADOW from '@/constants/SHADOW';
 
 import { useHooks } from './hooks';
-import SHADOW from './SHADOW';
 
 const Login = () => {
-	const { register, handleSubmit, onSubmit, errors } = useHooks();
-	const navigate = useNavigate();
-	const signUpNavigate = () => {
-		navigate(routes.signUp.path());
-	};
+	const { signUpNavigate, register, handleSubmit, onSubmit, errors } = useHooks();
+
 	return (
 		<Box sx={{
 			position: 'absolute',

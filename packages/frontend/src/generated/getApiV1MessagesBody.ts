@@ -5,6 +5,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export interface ForbiddenResponse {
-  message?: string | null;
-}
+export type GetApiV1MessagesBody = {
+  perPage?: number;
+  lastMessageId?: string;
+};
