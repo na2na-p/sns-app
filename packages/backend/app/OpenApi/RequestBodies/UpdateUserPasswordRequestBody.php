@@ -24,9 +24,10 @@ class UpdateUserPasswordRequestBody extends RequestBodyFactory
                 MediaType::json()->schema(
                     Schema::object('UpdateUserPasswordRequestBody')
                         ->properties(
-                            Schema::string('password')
+                            Schema::string('currentPassword'),
+                            Schema::string('newPassword')
                         )
-                        ->required('password')
+                        ->required('currentPassword', 'newPassword')
                 )
             );
     }
