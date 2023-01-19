@@ -23,6 +23,10 @@ const App = () => {
 							element={<GuestRoute>{routes.login.component}</GuestRoute>}
 						/>
 						<Route
+							path={routes.signUp.path()}
+							element={<GuestRoute>{routes.signUp.component}</GuestRoute>}
+						/>
+						<Route
 							path={routes.timeline.path()}
 							element={<PrivateRoute>{routes.timeline.component}</PrivateRoute>}
 						/>

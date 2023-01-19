@@ -1,4 +1,5 @@
 import Login from '@/pages/Login';
+import SignUp from '@/pages/SignUp';
 import Timeline from '@/pages/Timeline';
 import kebabCase from '@/utils/kebabCase';
 
@@ -24,7 +25,7 @@ const routes = {
 	},
 	signUp: {
 		path: () => `/${kebabCase('signUp')}`,
-		component: <></>
+		component: <SignUp />
 	},
 	passwordUpdate: {
 		path: () => `/users/:userId/password`,
