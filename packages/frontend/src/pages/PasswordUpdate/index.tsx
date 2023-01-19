@@ -43,7 +43,7 @@ const SignUp = () => {
 							placeholder="現在のパスワードを入力"
 							{...register('currentPassword')}
 							error={'currentPassword' in errors}
-							helperText={errors.password?.message}
+							helperText={errors.currentPassword?.message}
 						/>
 						<TextInput
 							required
@@ -51,7 +51,7 @@ const SignUp = () => {
 							placeholder="新しいパスワードを入力"
 							{...register('newPassword')}
 							error={'newPassword' in errors}
-							helperText={errors.password?.message}
+							helperText={errors.newPassword?.message}
 						/>
 						<TextInput
 							required
@@ -59,7 +59,7 @@ const SignUp = () => {
 							placeholder="新しいパスワードを再入力"
 							{...register('newPasswordConfirmation')}
 							error={'newPasswordConfirmation' in errors}
-							helperText={errors.password?.message}
+							helperText={errors.newPasswordConfirmation?.message}
 						/>
 					</Stack>
 				</Card>
