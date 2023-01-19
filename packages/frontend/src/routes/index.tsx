@@ -1,4 +1,5 @@
 import Login from '@/pages/Login';
+import PasswordUpdate from '@/pages/PasswordUpdate';
 import SignUp from '@/pages/SignUp';
 import Timeline from '@/pages/Timeline';
 import UserInfoUpdate from '@/pages/UserInfoUpdate';
@@ -30,7 +31,7 @@ const routes = {
 	},
 	passwordUpdate: {
 		path: () => `/users/me/password`,
-		component: <></>
+		component: <PasswordUpdate />
 	},
 	userInfoUpdate: {
 		path: () => `/user/me/edit`,

@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Typography from '@/components/dataDisplay/Typography';
 import EditIcon from '@/components/icons/EditIcon';
+import KeyIcon from '@/components/icons/KeyIcon';
 import LogoutIcon from '@/components/icons/LogoutIcon';
 import Button from '@/components/input/Button';
 import Box from '@/components/layout/Box';
@@ -27,6 +28,15 @@ const Header = () => {
 					</Typography>
 					{isAuthenticated && (
 						<Stack direction="row">
+							<Button
+								color="inherit"
+								label="パスワード変更"
+								startIcon={<KeyIcon />}
+								onClick={() => {
+									// history.pushState(null, '', routes.userInfoUpdate.path());
+									navigate(routes.passwordUpdate.path());
+								}}
+							/>
 							<Button
 								color="inherit"
 								label="情報編集"

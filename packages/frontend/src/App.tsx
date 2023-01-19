@@ -27,6 +27,10 @@ const App = () => {
 							element={<GuestRoute>{routes.signUp.component}</GuestRoute>}
 						/>
 						<Route
+							path={routes.passwordUpdate.path()}
+							element={<PrivateRoute>{routes.passwordUpdate.component}</PrivateRoute>}
+						/>
+						<Route
 							path={routes.userInfoUpdate.path()}
 							element={<PrivateRoute>{routes.userInfoUpdate.component}</PrivateRoute>}
 						/>
