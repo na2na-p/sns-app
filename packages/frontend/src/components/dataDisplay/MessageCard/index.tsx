@@ -7,6 +7,7 @@ import Box from '@/components/layout/Box';
 import FavoriteButton from './FavoriteButton';
 
 type MessageCardProps = {
+	id: string;
 	userName: string;
 	created_at: Date;
 	body: string;
@@ -34,6 +35,7 @@ const MessageCard = (message: MessageCardProps) => {
 					<FavoriteButton
 						count={message.favoriteCount}
 						isFavorited={message.isFavorited}
+						messageId={message.id}
 					/>
 				</Box>
 			</CardContent>

@@ -48,6 +48,7 @@ const InfiniteMessages = () => {
 				messages.map((message) => (
 					<MessageCard
 						key={message.id}
+						id={message.id}
 						userName={message.user_id}
 						created_at={new Date(message.created_at)}
 						body={message.body}
