@@ -23,6 +23,9 @@ frontend-up-dev:
 frontend-build:
 	(cd packages/frontend && yarn build)
 
+frontend-build-cloudflare:
+	(cd packages/frontend && corepack enable yarn && yarn install && yarn build)
+
 backend-setup:
 	(cd packages/backend && cp .env.example .env)
 	(cd packages/backend && \
