@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Favorite;
 use App\Models\Message;
-use App\OpenApi\RequestBodies\AddFavoriteRequestBody;
 use App\OpenApi\Responses\AddFavoriteResponse;
 use App\OpenApi\Responses\NotFoundResponse;
 use App\OpenApi\Responses\UnauthorizedRequestResponse;
@@ -23,7 +22,6 @@ class FavoriteController extends Controller
      * @return Response
      */
     #[OpenApi\Operation]
-    #[OpenApi\RequestBody(factory: AddFavoriteRequestBody::class)]
     #[OpenApi\Response(factory: AddFavoriteResponse::class)]
     #[OpenApi\Response(factory: NotFoundResponse::class)]
     #[OpenApi\Response(factory: UnauthorizedRequestResponse::class)]
