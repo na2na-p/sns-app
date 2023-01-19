@@ -77,6 +77,7 @@ class MessagesController extends Controller
             ->withCount(['favorites' => function (Builder $query) use ($userId) {
                 $query->where('user_id', $userId);
             }])
+            ->with('user')
             ->when($lastMessageId, function (Builder $query) use ($lastMessageId) {
                 $query->where('id', '<', $lastMessageId);
             })
@@ -86,7 +87,7 @@ class MessagesController extends Controller
 
         $response = $messages->map(fn (Message $message): array => [
             'id' => $message->id,
-            'user_id' => $message->user_id,
+            'created_by' => $message->user->name,
             'body' => $message->body,
             'created_at' => $message->created_at,
             'isFavorite' => $message->favorites->isNotEmpty(),
