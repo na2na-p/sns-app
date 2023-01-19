@@ -26,8 +26,8 @@ class MessageListResponse extends ResponseFactory
                             Schema::object()
                                 ->properties(
                                     Schema::string('id'),
-                                    Schema::string('user_id'),
                                     Schema::string('body'),
+                                    Schema::string('created_by'),
                                     Schema::string('created_at'),
                                     Schema::boolean('isFavorite'),
                                     Schema::integer('favoritesCount'),
