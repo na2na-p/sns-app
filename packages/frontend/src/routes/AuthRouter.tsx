@@ -29,10 +29,5 @@ export const GuestRoute = (props: AuthRouterProps) => {
 	if (!check.checked) {
 		return <div>Loading...</div>;
 	}
-
-	if (check.isAuthenticated) {
-		return <Navigate to={routes.timeline.path()} />;
-	}
-
 	return <>{children}</>;
 };

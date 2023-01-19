@@ -11,11 +11,8 @@ import { useHooks } from './hooks';
 import SHADOW from './SHADOW';
 
 const Login = () => {
-	const { register, handleSubmit, onSubmit, errors } = useHooks();
-	const navigate = useNavigate();
-	const signUpNavigate = () => {
-		navigate(routes.signUp.path());
-	};
+	const { signUpNavigate, register, handleSubmit, onSubmit, errors } = useHooks();
+
 	return (
 		<Box sx={{
 			position: 'absolute',

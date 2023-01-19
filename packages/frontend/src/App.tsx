@@ -15,8 +15,8 @@ const App = () => {
 					height: '100vh'
 				}}
 			>
-				<Header />
 				<BrowserRouter>
+					<Header />
 					<Routes>
 						<Route
 							path={routes.login.path()}
@@ -25,6 +25,10 @@ const App = () => {
 						<Route
 							path={routes.signUp.path()}
 							element={<GuestRoute>{routes.signUp.component}</GuestRoute>}
+						/>
+						<Route
+							path={routes.userInfoUpdate.path()}
+							element={<PrivateRoute>{routes.userInfoUpdate.component}</PrivateRoute>}
 						/>
 						<Route
 							path={routes.timeline.path()}

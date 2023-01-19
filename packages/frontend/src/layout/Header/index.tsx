@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import Typography from '@/components/dataDisplay/Typography';
 import EditIcon from '@/components/icons/EditIcon';
 import LogoutIcon from '@/components/icons/LogoutIcon';
@@ -8,12 +10,14 @@ import Toolbar from '@/components/navigation/Toolbar';
 import AppBar from '@/components/surfaces/AppBar';
 import useLogout from '@/hooks/api/useLogout';
 import useAuth from '@/hooks/useAuth';
+import routes from '@/routes';
 
 const APP_NAME = 'sns-app';
 
 const Header = () => {
 	const { isAuthenticated } = useAuth();
 	const { mutate } = useLogout();
+	const navigate = useNavigate();
 	return (
 		<Box>
 			<AppBar position="static">
@@ -27,6 +31,10 @@ const Header = () => {
 								color="inherit"
 								label="情報編集"
 								startIcon={<EditIcon />}
+								onClick={() => {
+									// history.pushState(null, '', routes.userInfoUpdate.path());
+									navigate(routes.userInfoUpdate.path());
+								}}
 							/>
 							<Button
 								color="inherit"
@@ -34,7 +42,7 @@ const Header = () => {
 								startIcon={<LogoutIcon />}
 								onClick={() => {
 									mutate();
-									history.pushState(null, '', '/');
+									navigate(routes.login.path());
 								}}
 							/>
 						</Stack>
