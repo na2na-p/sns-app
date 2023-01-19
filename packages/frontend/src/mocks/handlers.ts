@@ -21,26 +21,26 @@ const handlers = [
 	}),
 	rest.post(`${BASE_URI}/ping`, (req, res, ctx) => {
 		return res(ctx.json({ message: 'pong' }));
-	}),
-	rest.post(`${BASE_URI}${ENDPOINTS_BASE.users}`, async (req, res, ctx) => {
-		const json = await req.json();
-		handler.createUser(json);
-		const result = handler.userFindByEmail({
-			email: json.email
-		});
-		if (isNil(result)) {
-			ctx.status(500);
-			return;
-		}
-		ctx.json({
-			userId: result.user.id,
-			name: result.user.name,
-			email: result.user.email,
-			created_at: result.user.created_at,
-			updated_at: result.user.updated_at
-		} satisfies CreateUserReturnType);
-		return;
 	})
+	// rest.post(`${BASE_URI}${ENDPOINTS_BASE.users}`, async (req, res, ctx) => {
+	// 	const json = await req.json();
+	// 	handler.createUser(json);
+	// 	const result = handler.userFindByEmail({
+	// 		email: json.email
+	// 	});
+	// 	if (isNil(result)) {
+	// 		ctx.status(500);
+	// 		return;
+	// 	}
+	// 	ctx.json({
+	// 		userId: result.user.id,
+	// 		name: result.user.name,
+	// 		email: result.user.email,
+	// 		created_at: result.user.created_at,
+	// 		updated_at: result.user.updated_at
+	// 	} satisfies CreateUserReturnType);
+	// 	return;
+	// })
 ];
 
 export default handlers;

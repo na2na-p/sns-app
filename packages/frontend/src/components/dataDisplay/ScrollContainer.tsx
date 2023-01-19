@@ -1,12 +1,13 @@
+import type { SxProps, Theme } from '@mui/material';
 import type { StackProps as MuiStackProps } from '@mui/material/Stack';
 
 import Box from '@/components/layout/Box';
 import mergeSx from '@/utils/mergeSx';
 
-
 const DEFAULT_SX = {
-	overflowY: 'auto'
-};
+	overflowY: 'auto',
+	height: '100%'
+} satisfies SxProps<Theme>;
 
 export type StackProps = MuiStackProps;
 

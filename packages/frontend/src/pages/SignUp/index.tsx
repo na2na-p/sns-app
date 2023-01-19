@@ -10,11 +10,11 @@ import routes from '@/routes';
 import { useHooks } from './hooks';
 import SHADOW from './SHADOW';
 
-const Login = () => {
+const SignUp = () => {
 	const { register, handleSubmit, onSubmit, errors } = useHooks();
 	const navigate = useNavigate();
-	const signUpNavigate = () => {
-		navigate(routes.signUp.path());
+	const loginNavigate = () => {
+		navigate(routes.login.path());
 	};
 	return (
 		<Box sx={{
@@ -27,7 +27,7 @@ const Login = () => {
 				<Card
 					sx={{
 						width: 500,
-						height: 325,
+						height: 500,
 						radius: 4,
 						border: `solid 1px #E4E5E6`,
 						boxShadow: SHADOW,
@@ -38,36 +38,60 @@ const Login = () => {
 						<TextInput
 							required
 							type="email"
-							placeholder="Email"
+							placeholder="メールアドレスを入力"
 							{...register('email')}
 							error={'email' in errors}
 							helperText={errors.email?.message}
 						/>
 						<TextInput
 							required
+							type='text'
+							placeholder="ニックネームを入力"
+							{...register('name')}
+							error={'Nickname' in errors}
+							helperText={errors.email?.message}
+						/>
+						<TextInput
+							required
 							type="password"
-							placeholder="Password"
+							placeholder="パスワードを入力"
 							{...register('password')}
 							error={'password' in errors}
 							helperText={errors.password?.message}
 						/>
-						<Button
-							color="primary"
-							variant="contained"
-							label="ログイン"
-							size="large"
-							onClick={handleSubmit(onSubmit)}
+						<TextInput
+							required
+							type="password"
+							placeholder="パスワードを再入力"
+							{...register('passwordConfirm')}
+							error={'passwordConfirm' in errors}
+							helperText={errors.password?.message}
 						/>
 					</Stack>
 				</Card>
-				<Button
-					label='新規登録はこちら'
-					variant="outlined"
-					onClick={signUpNavigate}
-				/>
+				<Stack direction="row" width='100%' sx={{
+					justifyContent: 'space-between'
+				}}>
+					<Button
+						label='戻る'
+						variant="outlined"
+						onClick={loginNavigate}
+						sx={{
+							width: '100%'
+						}}
+					/>
+					<Button
+						label='登録する'
+						variant="contained"
+						onClick={handleSubmit(onSubmit)}
+						sx={{
+							width: '100%'
+						}}
+					/>
+				</Stack>
 			</Stack>
 		</Box>
 	);
 };
 
-export default Login;
+export default SignUp;

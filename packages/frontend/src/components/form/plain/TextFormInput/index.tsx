@@ -1,6 +1,18 @@
-import type { TextFieldProps } from '@/components/input/TextInput';
-import TextField from '@/components/input/TextInput';
+import { forwardRef } from 'react';
 
-export type { TextFieldProps };
+import type { TextInputProps } from '@/components/input/TextInput';
+import TextInput from '@/components/input/TextInput';
 
-export default TextField;
+export type TextFormInputProps = TextInputProps;
+
+const TextFormInput = forwardRef<TextInputProps>((props, ref) => {
+	const { ...restProps } = props;
+	return (
+		<TextInput
+			{...restProps}
+			inputRef={ref}
+		/>
+	);
+});
+
+export default TextFormInput;

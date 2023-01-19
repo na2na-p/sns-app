@@ -10,26 +10,6 @@
         }
     ],
     "paths": {
-        "\/api\/v1\/users\/me": {
-            "get": {
-                "summary": "ログイン済みかどうかの判定用エンドポイント",
-                "responses": {
-                    "200": {
-                        "description": "Check who am I",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "$ref": "#\/components\/schemas\/UserResponse"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            }
-        },
         "\/api\/v1\/users": {
             "post": {
                 "summary": "ユーザ登録用エンドポイント",
@@ -38,7 +18,23 @@
                     "content": {
                         "application\/json": {
                             "schema": {
-                                "$ref": "#\/components\/schemas\/SignupRequestBody"
+                                "type": "object",
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
                             }
                         }
                     },
@@ -68,101 +64,6 @@
                 }
             }
         },
-        "\/api\/v1\/users\/{userId}": {
-            "put": {
-                "summary": "ユーザ情報更新用エンドポイント",
-                "parameters": [
-                    {
-                        "name": "userId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": " Update user info Request Body",
-                    "content": {
-                        "application\/json": {
-                            "schema": {
-                                "$ref": "#\/components\/schemas\/UpdateUserRequestBody"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Update Successful",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "$ref": "#\/components\/schemas\/UserResponse"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "$ref": "#\/components\/schemas\/BadRequestResponse"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            }
-        },
-        "\/api\/v1\/users\/{userId}\/password": {
-            "put": {
-                "summary": "パスワード更新用エンドポイント",
-                "parameters": [
-                    {
-                        "name": "userId",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "Update user password Request Body",
-                    "content": {
-                        "application\/json": {
-                            "schema": {
-                                "$ref": "#\/components\/schemas\/UpdateUserPasswordRequestBody"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Password Update Successful"
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "$ref": "#\/components\/schemas\/BadRequestResponse"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            }
-        },
         "\/api\/v1\/login": {
             "post": {
                 "summary": "ログイン用エンドポイント",
@@ -171,7 +72,19 @@
                     "content": {
                         "application\/json": {
                             "schema": {
-                                "$ref": "#\/components\/schemas\/LoginRequestBody"
+                                "type": "object",
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
                             }
                         }
                     },
@@ -179,14 +92,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Login Successful",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "$ref": "#\/components\/schemas\/UserResponse"
-                                }
-                            }
-                        }
+                        "description": "Login Successful"
                     },
                     "400": {
                         "description": "Bad Request",
@@ -194,6 +100,16 @@
                             "application\/json": {
                                 "schema": {
                                     "$ref": "#\/components\/schemas\/BadRequestResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ForbiddenResponse"
                                 }
                             }
                         }
@@ -221,114 +137,16 @@
                 }
             }
         },
-        "\/api\/v1\/messages": {
-            "post": {
-                "summary": "メッセージ投稿用エンドポイント",
-                "requestBody": {
-                    "description": "Message Create Request Body",
-                    "content": {
-                        "application\/json": {
-                            "schema": {
-                                "$ref": "#\/components\/schemas\/MessageCreateBody"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "Message Create Successful"
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "$ref": "#\/components\/schemas\/BadRequestResponse"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            },
+        "\/api\/v1\/users\/me": {
             "get": {
-                "summary": "メッセージ取得用エンドポイント",
-                "requestBody": {
-                    "description": "Message Create Request Body",
-                    "content": {
-                        "application\/json": {
-                            "schema": {
-                                "$ref": "#\/components\/schemas\/MessageCreateBody"
-                            }
-                        }
-                    },
-                    "required": true
-                },
+                "summary": "ログイン済みかどうかの判定用エンドポイント",
                 "responses": {
                     "200": {
-                        "description": "Get Message List",
+                        "description": "Check who am I",
                         "content": {
                             "application\/json": {
                                 "schema": {
-                                    "$ref": "#\/components\/schemas\/MessageListResponse"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "$ref": "#\/components\/schemas\/BadRequestResponse"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized"
-                    }
-                }
-            }
-        },
-        "\/api\/v1\/messages\/{messageId}\/favorite": {
-            "put": {
-                "summary": "お気に入り登録用エンドポイント",
-                "parameters": [
-                    {
-                        "name": "messageId",
-                        "in": "path",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "FavoriteReverse Request Body",
-                    "content": {
-                        "application\/json": {
-                            "schema": {
-                                "$ref": "#\/components\/schemas\/FavoriteReverseRequestBody"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "FavoriteReverse Successful"
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "$ref": "#\/components\/schemas\/BadRequestResponse"
+                                    "$ref": "#\/components\/schemas\/UserResponse"
                                 }
                             }
                         }
@@ -348,142 +166,19 @@
                     "message": {
                         "type": "string",
                         "nullable": true
-                    }
-                }
-            },
-            "FavoriteReverseRequestBody": {
-                "type": "object",
-                "required": [
-                    "isFavorite"
-                ],
-                "properties": {
-                    "isFavorite": {
-                        "type": "boolean"
-                    }
-                }
-            },
-            "LoginRequestBody": {
-                "type": "object",
-                "required": [
-                    "email",
-                    "password"
-                ],
-                "properties": {
-                    "email": {
-                        "type": "string"
                     },
-                    "password": {
-                        "type": "string"
+                    "errors": {
+                        "type": "object",
+                        "nullable": true
                     }
                 }
             },
-            "MessageCreateBody": {
-                "type": "object",
-                "required": [
-                    "body"
-                ],
-                "properties": {
-                    "body": {
-                        "type": "string"
-                    }
-                }
-            },
-            "MessageListRequestBody": {
-                "type": "object",
-                "properties": {
-                    "perPage": {
-                        "type": "integer"
-                    },
-                    "lastMessageId": {
-                        "type": "string"
-                    }
-                }
-            },
-            "MessageListResponse": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "required": [
-                        "id",
-                        "user_id",
-                        "body",
-                        "created_at",
-                        "isFavorite",
-                        "favoritesCount"
-                    ],
-                    "properties": {
-                        "id": {
-                            "type": "string"
-                        },
-                        "user_id": {
-                            "type": "string"
-                        },
-                        "body": {
-                            "type": "string"
-                        },
-                        "created_at": {
-                            "type": "string"
-                        },
-                        "isFavorite": {
-                            "type": "boolean"
-                        },
-                        "favoritesCount": {
-                            "type": "integer"
-                        }
-                    }
-                }
-            },
-            "NotFoundResponse": {
+            "ForbiddenResponse": {
                 "type": "object",
                 "properties": {
                     "message": {
                         "type": "string",
                         "nullable": true
-                    }
-                }
-            },
-            "SignupRequestBody": {
-                "type": "object",
-                "required": [
-                    "name",
-                    "email",
-                    "password"
-                ],
-                "properties": {
-                    "name": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "string"
-                    },
-                    "password": {
-                        "type": "string"
-                    }
-                }
-            },
-            "UpdateUserPasswordRequestBody": {
-                "type": "object",
-                "required": [
-                    "password"
-                ],
-                "properties": {
-                    "password": {
-                        "type": "string"
-                    }
-                }
-            },
-            "UpdateUserRequestBody": {
-                "type": "object",
-                "required": [
-                    "name",
-                    "email"
-                ],
-                "properties": {
-                    "name": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "string"
                     }
                 }
             },

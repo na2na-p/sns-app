@@ -47,6 +47,13 @@ module.exports = {
 		'comma-dangle': ['error', 'never'],
 		'object-curly-spacing': ['error', 'always'],
 		'no-unused-vars': 'off',
+		'@typescript-eslint/no-unused-vars': [
+			'error',
+			{
+				'varsIgnorePattern': '^_',
+				'argsIgnorePattern': '^_'
+			}
+		],
 		'react-refresh/only-export-components': 'warn',
 		'react/jsx-tag-spacing': 2,
 		'spaced-comment': ['error', 'always', { markers: ['/ <reference'] }],
