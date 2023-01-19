@@ -15,6 +15,9 @@ swagger-ui:
 	(cd utils && docker compose up swagger_ui -d --no-recreate )
 	open http://localhost:8080/
 
+ci-db-prepare:
+	(curl -XPOST -H "Content-type: application/json" -d '{"name": "bar","email": "foo@example.com","password": "aaaaAAAA"}' 'http://localhost:80/api/v1/users')
+
 erd-generate:
 	(cd utils && docker compose run --rm utils yarn prisma:generate)
 
