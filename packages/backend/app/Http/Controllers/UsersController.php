@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PasswordUpdateRequest;
 use App\Http\Requests\SignupRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\OpenApi\RequestBodies\SignupRequestBody;
 use App\OpenApi\Responses\BadRequestResponse;
@@ -63,7 +65,7 @@ class UsersController extends Controller
     #[OpenApi\Response(factory: UnauthorizedRequestResponse::class)]
     public function findUser(Request $request): Response
     {
-        $user = $request->user();
+        $user = Auth::user();
         assert($user !== null);
 
         return response([
@@ -71,5 +73,48 @@ class UsersController extends Controller
             'name' => $user->name,
             'email' => $user->email,
         ]);
+    }
+
+    /**
+     * ユーザ情報更新用エンドポイント
+     *
+     * @param  UpdateUserRequest  $request
+     * @return Response
+     */
+    public function updateUser(UpdateUserRequest $request): Response
+    {
+        $user = Auth::user();
+        assert($user !== null);
+
+        $validated = $request->validated();
+
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+        $user->save();
+
+        return response([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+        ]);
+    }
+
+    /**
+     * パスワード更新用エンドポイント
+     *
+     * @param  PasswordUpdateRequest  $request
+     * @return Response
+     */
+    public function updatePassword(PasswordUpdateRequest $request): Response
+    {
+        $user = Auth::user();
+        assert($user !== null);
+
+        $validated = $request->validated();
+
+        $user->password = Hash::make($validated['newPassword']);
+        $user->save();
+
+        return response(null, 200);
     }
 }

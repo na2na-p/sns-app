@@ -8,6 +8,7 @@ use App\Models\Message;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Ramsey\Uuid\Uuid;
 
 class MessagesController extends Controller
@@ -44,7 +45,7 @@ class MessagesController extends Controller
      */
     public function listMessage(ListMessageRequest $request): JsonResponse|Response
     {
-        $user = $request->user();
+        $user = Auth::user();
         assert($user !== null);
 
         $validated = $request->validated();

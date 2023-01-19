@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Favorite;
 use App\Models\Message;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Ramsey\Uuid\Uuid;
 
 class FavoriteController extends Controller
@@ -13,13 +13,12 @@ class FavoriteController extends Controller
     /**
      * お気に入り登録用エンドポイント
      *
-     * @param  Request  $request
      * @param  string  $messageId
      * @return Response
      */
-    public function addFavorite(Request $request, string $messageId): Response
+    public function addFavorite(string $messageId): Response
     {
-        $user = $request->user();
+        $user = Auth::user();
         assert($user !== null);
         $userId = $user->id;
 
