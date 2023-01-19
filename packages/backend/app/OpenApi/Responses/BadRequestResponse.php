@@ -2,9 +2,9 @@
 
 namespace App\OpenApi\Responses;
 
-use App\OpenApi\Schemas\BadRequestResponseSchema;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\MediaType;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Response;
+use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Vyuldashev\LaravelOpenApi\Factories\ResponseFactory;
 
 class BadRequestResponse extends ResponseFactory
@@ -15,7 +15,11 @@ class BadRequestResponse extends ResponseFactory
             ->description('Bad Request')
             ->content(
                 MediaType::json()
-                    ->schema(BadRequestResponseSchema::ref())
+                    ->schema(Schema::object('BadRequestResponse')
+                        ->properties(
+                            Schema::string('message')->nullable(),
+                            Schema::object('errors')->nullable()
+                        ))
             );
     }
 }
