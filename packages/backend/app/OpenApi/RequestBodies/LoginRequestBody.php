@@ -2,13 +2,19 @@
 
 namespace App\OpenApi\RequestBodies;
 
-use App\OpenApi\Schemas\LoginRequestBodySchema;
+use GoldSpecDigital\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\MediaType;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\RequestBody;
+use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Vyuldashev\LaravelOpenApi\Factories\RequestBodyFactory;
 
 class LoginRequestBody extends RequestBodyFactory
 {
+    /**
+     * @return RequestBody
+     *
+     * @throws InvalidArgumentException
+     */
     public function build(): RequestBody
     {
         return RequestBody::create('Login')
@@ -16,7 +22,12 @@ class LoginRequestBody extends RequestBodyFactory
             ->required()
             ->content(
                 MediaType::json()->schema(
-                    LoginRequestBodySchema::ref()
+                    Schema::object('LoginRequestBody')
+                        ->properties(
+                            Schema::string('email'),
+                            Schema::string('password'),
+                        )
+                        ->required('email', 'password')
                 )
             );
     }

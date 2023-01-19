@@ -2,7 +2,6 @@
 
 namespace App\OpenApi\Responses;
 
-use App\OpenApi\Schemas\BadRequestResponseSchema;
 use App\OpenApi\Schemas\ForbiddenResponseSchema;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\MediaType;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Response;

@@ -17,7 +17,7 @@ class BadRequestResponseSchema extends SchemaFactory implements Reusable
         return Schema::object('BadRequestResponse')
             ->properties(
                 Schema::string('message')->nullable(),
-                Schema::string('errors')->nullable()
+                Schema::object('errors')->nullable()
             );
     }
 }

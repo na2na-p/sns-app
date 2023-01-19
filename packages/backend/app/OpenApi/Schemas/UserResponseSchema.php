@@ -12,19 +12,17 @@ class UserResponseSchema extends SchemaFactory implements Reusable
 {
     /**
      * @return SchemaContract
+     *
+     * @throws InvalidArgumentException
      */
     public function build(): SchemaContract
     {
-        try {
-            return Schema::object('UserResponse')
-                ->properties(
-                    Schema::string('id'),
-                    Schema::string('name'),
-                    Schema::string('email'),
-                )
-                ->required('id', 'name', 'email');
-        } catch (InvalidArgumentException $e) {
-            dd($e);
-        }
+        return Schema::object('UserResponse')
+            ->properties(
+                Schema::string('id'),
+                Schema::string('name'),
+                Schema::string('email'),
+            )
+            ->required('id', 'name', 'email');
     }
 }
