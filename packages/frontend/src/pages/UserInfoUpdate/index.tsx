@@ -6,10 +6,10 @@ import Button from '@/components/input/Button';
 import TextInput from '@/components/input/TextInput';
 import Box from '@/components/layout/Box';
 import Stack from '@/components/layout/Stack';
+import SHADOW from '@/constants/SHADOW';
 import routes from '@/routes';
 
 import { useHooks } from './hooks';
-import SHADOW from './SHADOW';
 
 const SignUp = () => {
 	const { register, handleSubmit, onSubmit, errors } = useHooks();
