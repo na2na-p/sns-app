@@ -37,12 +37,15 @@ class Favorite extends Model
 
     protected $keyType = 'string';
 
-    protected $guarded = [
+    protected $fillable = [
         'id',
-        'created_at',
-        'updated_at',
         'message_id',
         'user_id',
+    ];
+
+    protected $guarded = [
+        'created_at',
+        'updated_at',
     ];
 
     /**

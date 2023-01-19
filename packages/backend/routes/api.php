@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MessagesController;
@@ -36,6 +37,7 @@ Route::prefix('/v1')->group(function () {
                 Route::post('/', 'createMessage');
                 Route::get('/', 'listMessage');
             });
+            Route::put('/{messageId}/favorite', [FavoriteController::class, 'addFavorite']);
         });
     });
 });
