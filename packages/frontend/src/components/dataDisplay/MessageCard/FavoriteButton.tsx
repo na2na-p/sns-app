@@ -34,7 +34,9 @@ const FavoriteButton = ({
 			color="primary"
 			onClick={() => {
 				favorite(messageId);
-				setFavoriteState(!favoriteState);
+				// trueへの一方通行
+				// favoriteStateが初期
+				setFavoriteState(favoriteState === isFavorited ? true : favoriteState);
 				setFavoriteCount(favoriteCount === count ? count + 1 : favoriteCount);
 			}}
 		/>
