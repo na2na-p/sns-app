@@ -6,5 +6,6 @@
  */
 
 export type PutApiV1UsersMePasswordBody = {
-  password: string;
+  currentPassword: string;
+  newPassword: string;
 };
