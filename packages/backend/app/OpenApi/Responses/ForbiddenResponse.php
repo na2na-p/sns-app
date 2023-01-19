@@ -2,9 +2,9 @@
 
 namespace App\OpenApi\Responses;
 
-use App\OpenApi\Schemas\ForbiddenResponseSchema;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\MediaType;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Response;
+use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Vyuldashev\LaravelOpenApi\Factories\ResponseFactory;
 
 class ForbiddenResponse extends ResponseFactory
@@ -15,7 +15,12 @@ class ForbiddenResponse extends ResponseFactory
             ->description('Forbidden')
             ->content(
                 MediaType::json()
-                    ->schema(ForbiddenResponseSchema::ref())
+                    ->schema(
+                        Schema::object('ForbiddenResponse')
+                            ->properties(
+                                Schema::string('message')->nullable(),
+                            )
+                    )
             );
     }
 }

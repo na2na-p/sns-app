@@ -7,19 +7,19 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\Response;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Vyuldashev\LaravelOpenApi\Factories\ResponseFactory;
 
-class BadRequestResponse extends ResponseFactory
+class NotFoundResponse extends ResponseFactory
 {
     public function build(): Response
     {
-        return Response::badRequest()
-            ->description('Bad Request')
+        return Response::notFound()
+            ->description('Not Found')
             ->content(
-                MediaType::json()
-                    ->schema(Schema::object('BadRequestResponse')
+                MediaType::json()->schema(
+                    Schema::object('NotFoundResponse')
                         ->properties(
-                            Schema::string('message')->nullable(),
-                            Schema::object('errors')->nullable()
-                        ))
+                            Schema::string('message')->nullable()
+                        )
+                )
             );
     }
 }
