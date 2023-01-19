@@ -31,24 +31,15 @@ class FavoriteController extends Controller
             ], 404);
         }
 
-        $isAlreadyFavorite = $message->favorites->contains(function (Favorite $favorite) use ($userId) {
-            return $favorite->user_id === $userId;
-        });
+        Favorite::updateOrCreate([
+            'user_id' => $userId,
+            'message_id' => $messageId,
+        ], [
+            'id' => Uuid::uuid7()->toString(),
+            'user_id' => $userId,
+            'message_id' => $messageId,
+        ]);
 
-        if ($isAlreadyFavorite) {
-            $favorite = $message->favorites->first(function (Favorite $favorite) use ($userId) {
-                return $favorite->user_id === $userId;
-            });
-            assert($favorite !== null);
-            $favorite->touch();
-            return response(null, 200);
-        }
-
-        $favorite = new Favorite();
-        $favorite->id = Uuid::uuid7()->toString();
-        $favorite->user_id = $userId;
-        $favorite->message_id = $messageId;
-        $favorite->save();
         return response(null, 200);
     }
 }
