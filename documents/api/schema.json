@@ -402,10 +402,10 @@
                                             "id": {
                                                 "type": "string"
                                             },
-                                            "user_id": {
+                                            "body": {
                                                 "type": "string"
                                             },
-                                            "body": {
+                                            "created_by": {
                                                 "type": "string"
                                             },
                                             "created_at": {
