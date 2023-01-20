@@ -34,7 +34,7 @@ class UsersControllerTest extends TestCase
         $response = $this->post('/api/v1/users', [
             'name' => fake()->name(),
             'email' => fake()->safeEmail(),
-            'password' => fake()->password(),
+            'password' => fake()->password(8, 32),
         ]);
         $response->assertStatus(ResponseAlias::HTTP_CREATED);
     }
@@ -50,8 +50,8 @@ class UsersControllerTest extends TestCase
     {
         $response = $this->post('/api/v1/users', [
             'name' => Str::random(random_int(65, 9999)),
-            'email' => 'bar@example.com',
-            'password' => 'aaaaAAAA',
+            'email' => fake()->safeEmail(),
+            'password' => fake()->password(8, 32),
         ]);
         $response->assertStatus(ResponseAlias::HTTP_BAD_REQUEST);
         $response->assertJson([
@@ -65,7 +65,7 @@ class UsersControllerTest extends TestCase
     }
 
     /**
-     * ユーザの名前の文字が極端に大きい場合にバリデーションが正しく動作するか
+     * ユーザのメールアドレスの形式が不正な場合にバリデーションが正しく動作するか
      *
      * @return void
      *
@@ -76,7 +76,7 @@ class UsersControllerTest extends TestCase
         $response = $this->post('/api/v1/users', [
             'name' => fake()->name(),
             'email' => Str::random(random_int(1, 255)),
-            'password' => 'aaaaAAAA',
+            'password' => fake()->password(8, 32),
         ]);
         $response->assertStatus(ResponseAlias::HTTP_BAD_REQUEST);
         $response->assertJson([
@@ -107,7 +107,7 @@ class UsersControllerTest extends TestCase
         $response = $this->post('/api/v1/users', [
             'name' => fake()->name(),
             'email' => $email,
-            'password' => 'aaaaAAAA',
+            'password' => fake()->password(8, 32),
         ]);
         $response->assertStatus(ResponseAlias::HTTP_BAD_REQUEST);
         $response->assertJson([
@@ -168,5 +168,31 @@ class UsersControllerTest extends TestCase
                 ],
             ],
         ]);
+    }
+
+    /**
+     * ユーザの登録後にログインした状態になっているか
+     *
+     * @return void
+     *
+     * @throws Exception
+     */
+    public function testSignUpAndLogin(): void
+    {
+        $response = $this->post('/api/v1/users', [
+            'name' => fake()->name(),
+            'email' => fake()->safeEmail(),
+            'password' => fake()->password(8, 32),
+        ]);
+        $response->assertStatus(ResponseAlias::HTTP_CREATED);
+
+        $response = $this->get('/api/v1/users/me');
+        $response->assertStatus(ResponseAlias::HTTP_OK);
+        $response->assertJsonStructure([
+            'id',
+            'name',
+            'email',
+        ]
+        );
     }
 }
