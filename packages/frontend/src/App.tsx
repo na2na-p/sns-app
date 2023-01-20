@@ -38,6 +38,11 @@ const App = () => {
 							path={routes.timeline.path()}
 							element={<PrivateRoute>{routes.timeline.component}</PrivateRoute>}
 						/>
+						{/* 該当がなければtimelineへ */}
+						<Route
+							path="*"
+							element={<PrivateRoute>{routes.timeline.component}</PrivateRoute>}
+						/>
 					</Routes>
 				</BrowserRouter>
 			</Stack>
