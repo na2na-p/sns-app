@@ -1,5 +1,4 @@
-name: Test(Backend)
-
+name: Frontend-Build-Test
 on:
   push:
     branches:
@@ -12,23 +11,16 @@ on:
       - ready_for_review
     branches:
       - main
-
 jobs:
-  Test-Backend:
+  jest:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup CI
         run: make setup-ci
-      - name: Test
-        run: make backend-test
-  Lint-Backend:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup CI
-        run: make setup-ci
-      - name: Lint
-        run: make backend-lint
+      - name: Build
+        run: make frontend-build

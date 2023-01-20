@@ -5,6 +5,7 @@ namespace App\Models;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Carbon;
@@ -35,9 +36,13 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $favorites_count
  * @property-read Collection|Message[] $messages
  * @property-read int|null $messages_count
+ *
+ * @method static \Database\Factories\UserFactory factory(...$parameters)
  */
 class User extends Authenticatable
 {
+    use HasFactory;
+
     public $incrementing = false;
 
     protected $keyType = 'string';
