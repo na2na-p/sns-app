@@ -98,10 +98,15 @@ class UsersControllerTest extends TestCase
      */
     public function testEdgeSignUpWithDuplicateEmail(): void
     {
-        $user = User::factory()->create();
+        $email = fake()->safeEmail();
+        User::factory()->create(
+            [
+                'email' => $email,
+            ]
+        );
         $response = $this->post('/api/v1/users', [
             'name' => fake()->name(),
-            'email' => $user->email,
+            'email' => $email,
             'password' => 'aaaaAAAA',
         ]);
         $response->assertStatus(ResponseAlias::HTTP_BAD_REQUEST);
