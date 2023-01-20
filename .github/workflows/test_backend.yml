@@ -53,4 +53,6 @@ jobs:
       - name: Setup CI
         run: make setup-ci
       - name: Lint
-        run: make backend-lint
+        run: make backend-lint-ci
+      - name: Insights
+        run: make backend-insight-ci
