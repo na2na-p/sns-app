@@ -10,7 +10,7 @@ use Str;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Tests\TestCase;
 
-class SignUpRouteTest extends TestCase
+class SignUpUsersControllerTest extends TestCase
 {
     use RefreshDatabase;
 
