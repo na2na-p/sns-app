@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Http\Requests\SignupRequest;
 use App\Models\User;
-use Exception;
 use Hash;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Str;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Tests\TestCase;
 
@@ -38,9 +38,9 @@ class SignUpUsersControllerTest extends TestCase
     {
         $this->assertDatabaseCount('users', 0);
 
-        $name = fake()->name;
-        $email = fake()->email;
-        $password = fake()->password(8, 32);
+        $name = 'test';
+        $email = 'test@example.com';
+        $password = 'password';
         $response = $this->post('/api/v1/users', [
             'name' => $name,
             'email' => $email,
@@ -65,133 +65,107 @@ class SignUpUsersControllerTest extends TestCase
     }
 
     /**
-     * ユーザの名前の文字が極端に大きい場合にバリデーションが正しく動作するか
+     * バリデーションテスト
      *
+     * @dataProvider signupUsersArgsValidationDataProvider
+     *
+     * @param  array  $data
+     * @param  array  $errors
      * @return void
-     *
-     * @throws Exception
      */
-    public function testEdgeSignUpWithNameLengthOutObBounds(): void
+    public function testSignupUsersArgsValidation(array $data, array $errors): void
     {
-        $response = $this->post('/api/v1/users', [
-            'name' => Str::random(random_int(65, 9999)),
-            'email' => fake()->safeEmail(),
-            'password' => fake()->password(8, 32),
-        ]);
-        $response->assertStatus(ResponseAlias::HTTP_BAD_REQUEST);
-        $response->assertJson([
-            'message' => 'The given data was invalid.',
-            'errors' => [
-                'name' => [
-                    'The name must not be greater than 64 characters.',
-                ],
-            ],
-        ]);
-    }
-
-    /**
-     * ユーザのメールアドレスの形式が不正な場合にバリデーションが正しく動作するか
-     *
-     * @return void
-     *
-     * @throws Exception
-     */
-    public function testEdgeSignUpWithNonEmailType(): void
-    {
-        $response = $this->post('/api/v1/users', [
-            'name' => fake()->name(),
-            'email' => Str::random(random_int(1, 255)),
-            'password' => fake()->password(8, 32),
-        ]);
-        $response->assertStatus(ResponseAlias::HTTP_BAD_REQUEST);
-        $response->assertJson([
-            'message' => 'The given data was invalid.',
-            'errors' => [
-                'email' => [
-                    'The email must be a valid email address.',
-                ],
-            ],
-        ]);
-    }
-
-    /**
-     * ユーザのメールアドレスが重複している場合にバリデーションが正しく動作するか
-     *
-     * @return void
-     *
-     * @throws Exception
-     */
-    public function testEdgeSignUpWithDuplicateEmail(): void
-    {
-        $email = fake()->safeEmail();
+        $email = 'test@example.com';
         User::factory()->create(
             [
                 'email' => $email,
             ]
         );
-        $response = $this->post('/api/v1/users', [
-            'name' => fake()->name(),
-            'email' => $email,
-            'password' => fake()->password(8, 32),
-        ]);
-        $response->assertStatus(ResponseAlias::HTTP_BAD_REQUEST);
-        $response->assertJson([
-            'message' => 'The given data was invalid.',
-            'errors' => [
-                'email' => [
-                    'The email has already been taken.',
-                ],
-            ],
-        ]);
+
+        $request = new SignupRequest();
+        $rules = $request->rules();
+        $validator = Validator::make($data, $rules);
+
+        $result = $validator->passes();
+
+        $this->assertEquals(false, $result);
+        $this->assertEquals($errors, $validator->errors()->toArray());
     }
 
     /**
-     * ユーザのパスワードが極端に短い場合にバリデーションが正しく動作するか
-     *
-     * @return void
-     *
-     * @throws Exception
+     * テストに渡すデータ
      */
-    public function testEdgeSignUpWithPasswordLengthOutObBounds(): void
+    public function signupUsersArgsValidationDataProvider(): array
     {
-        $response = $this->post('/api/v1/users', [
-            'name' => fake()->name(),
-            'email' => fake()->safeEmail(),
-            'password' => Str::random(random_int(1, 7)),
-        ]);
-        $response->assertStatus(ResponseAlias::HTTP_BAD_REQUEST);
-        $response->assertJson([
-            'message' => 'The given data was invalid.',
-            'errors' => [
-                'password' => [
-                    'The password must be at least 8 characters.',
+        return [
+            'フィールドが空' => [
+                'data' => [],
+                'errors' => [
+                    'name' => ['The name field is required.'],
+                    'email' => ['The email field is required.'],
+                    'password' => ['The password field is required.'],
                 ],
             ],
-        ]);
-    }
-
-    /**
-     * ユーザのパスワードが極端に長い場合にバリデーションが正しく動作するか
-     *
-     * @return void
-     *
-     * @throws Exception
-     */
-    public function testEdgeSignUpWithPasswordLengthOutObBounds2(): void
-    {
-        $response = $this->post('/api/v1/users', [
-            'name' => fake()->name(),
-            'email' => fake()->safeEmail(),
-            'password' => Str::random(random_int(32, 9999)),
-        ]);
-        $response->assertStatus(ResponseAlias::HTTP_BAD_REQUEST);
-        $response->assertJson([
-            'message' => 'The given data was invalid.',
-            'errors' => [
-                'password' => [
-                    'The password must not be greater than 32 characters.',
+            'メールアドレスがすでに存在する' => [
+                'data' => [
+                    'name' => 'test',
+                    'email' => 'test@example.com',
+                    'password' => 'password',
+                ],
+                'errors' => [
+                    'email' => ['The email has already been taken.'],
                 ],
             ],
-        ]);
+            'メールアドレスの形式が不正' => [
+                'data' => [
+                    'name' => 'test',
+                    'email' => 'invalid-email',
+                    'password' => 'password',
+                ],
+                'errors' => [
+                    'email' => ['The email must be a valid email address.'],
+                ],
+            ],
+            'Edge: 実在するがRFC違反メールアドレス' => [
+                'data' => [
+                    'name' => 'test',
+                    'email' => 'ab..cd@example.com',
+                    'password' => 'password',
+                ],
+                'errors' => [
+                    'email' => ['The email must be a valid email address.'],
+                ],
+            ],
+            'Edge: 実在するがRFC違反メールアドレス2' => [
+                'data' => [
+                    'name' => 'test',
+                    'email' => 'ab[cd@example.com',
+                    'password' => 'password',
+                ],
+                'errors' => [
+                    'email' => ['The email must be a valid email address.'],
+                ],
+            ],
+            //            'Edge: メールアドレス' => [
+            //                'data' => [
+            //                    'name' => "test",
+            //                    'email' => '”ab..cd”@example.com',
+            //                    'password' => 'password',
+            //                ],
+            //                'errors' => []
+            //            ],
+            '文字数が多すぎる' => [
+                'data' => [
+                    'name' => str_repeat('a', 65),
+                    'email' => str_repeat('a', 244).'@example.com',
+                    'password' => str_repeat('a', 33),
+                ],
+                'errors' => [
+                    'name' => ['The name must not be greater than 64 characters.'],
+                    'email' => ['The email must not be greater than 255 characters.'],
+                    'password' => ['The password must not be greater than 32 characters.'],
+                ],
+            ],
+        ];
     }
 }
