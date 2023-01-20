@@ -19,15 +19,44 @@ class LoginControllerTest extends TestCase
     public function testLogin(): void
     {
         $this->assertGuest();
+
         $password = 'password';
         User::factory()->create();
         $user = User::first();
+
+        $response = $this->post('/api/v1/login', [
+            'email' => $user->email,
+            'password' => $password,
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertAuthenticated();
+    }
+
+    /**
+     * すでにログインしている場合はセッションを破棄して再ログインさせたか
+     *
+     * @return void
+     */
+    public function testReLoginWithoutLogout(): void
+    {
+        $this->assertGuest();
+
+        $password = 'password';
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $this->assertAuthenticated();
+        $beforeSessionId = session()->getId();
+
         $response = $this->post('/api/v1/login', [
             'email' => $user->email,
             'password' => $password,
         ]);
         $response->assertStatus(200);
         $this->assertAuthenticated();
+        $afterSessionId = session()->getId();
+
+        $this->assertNotEquals($beforeSessionId, $afterSessionId);
     }
 
     /**
