@@ -39,7 +39,7 @@ class SignUpRouteTest extends TestCase
 
         $name = fake()->name;
         $email = fake()->email;
-        $password = fake()->password(8,32);
+        $password = fake()->password(8, 32);
         $response = $this->post('/api/v1/users', [
             'name' => $name,
             'email' => $email,
