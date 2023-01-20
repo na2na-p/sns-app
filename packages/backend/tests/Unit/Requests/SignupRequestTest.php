@@ -11,6 +11,18 @@ use Tests\TestCase;
 class SignupRequestTest extends TestCase
 {
     use RefreshDatabase;
+    protected SignupRequest $request;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->request = new SignupRequest();
+    }
+
+    public function testInstanceOf(): void
+    {
+        $this->assertInstanceOf(SignupRequest::class, $this->request);
+    }
 
     /**
      * バリデーションテスト
@@ -30,8 +42,7 @@ class SignupRequestTest extends TestCase
             ]
         );
 
-        $request = new SignupRequest();
-        $rules = $request->rules();
+        $rules = $this->request->rules();
         $validator = Validator::make($data, $rules);
 
         $result = $validator->passes();
