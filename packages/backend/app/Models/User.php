@@ -36,6 +36,8 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $favorites_count
  * @property-read Collection|Message[] $messages
  * @property-read int|null $messages_count
+ *
+ * @method static \Database\Factories\UserFactory factory(...$parameters)
  */
 class User extends Authenticatable
 {
