@@ -9,7 +9,7 @@ use Vyuldashev\LaravelOpenApi\Factories\ParametersFactory;
 class ListMessagesParameters extends ParametersFactory
 {
     /**
-     * @return Parameter[]
+     * @return array<Parameter>
      */
     public function build(): array
     {

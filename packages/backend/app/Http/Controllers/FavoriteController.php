@@ -19,6 +19,7 @@ class FavoriteController extends Controller
      * お気に入り登録用エンドポイント
      *
      * @param  string  $messageId
+     *
      * @return Response
      */
     #[OpenApi\Operation]

@@ -32,7 +32,7 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Eloquent
  *
- * @property-read Collection|Favorite[] $favorites
+ * @property-read Collection|array<Favorite> $favorites
  * @property-read int|null $favorites_count
  * @property-read User $user
  *

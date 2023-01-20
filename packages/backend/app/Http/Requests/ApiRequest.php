@@ -16,10 +16,22 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 abstract class ApiRequest extends FormRequest
 {
     /**
+     * @return T
+     */
+    public function validated($key = null, $default = null)
+    {
+        $validated = parent::validated($key, $default);
+        assert(is_array($validated));
+
+        return $validated;
+    }
+
+    /**
      * @Override
      * 勝手にリダイレクトさせない
      *
      * @param  Validator  $validator
+     *
      * @return void
      *
      * @throws HttpResponseException
@@ -32,16 +44,5 @@ abstract class ApiRequest extends FormRequest
         ];
 
         throw new HttpResponseException(response()->json($data, 400));
-    }
-
-    /**
-     * @return T
-     */
-    public function validated($key = null, $default = null)
-    {
-        $validated = parent::validated($key, $default);
-        assert(is_array($validated));
-
-        return $validated;
     }
 }
