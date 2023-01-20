@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
 use Exception;
+use Hash;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Str;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -22,6 +23,9 @@ class SignUpRouteTest extends TestCase
     {
         $response = $this->get('/api/v1/users/me');
         $response->assertStatus(ResponseAlias::HTTP_UNAUTHORIZED);
+        $response->assertJson([
+            'message' => 'Unauthorized',
+        ]);
     }
 
     /**
@@ -31,12 +35,24 @@ class SignUpRouteTest extends TestCase
      */
     public function testSignUp(): void
     {
+        $this->assertDatabaseCount('users', 0);
+
+        $name = fake()->name;
+        $email = fake()->email;
+        $password = fake()->password(8,32);
         $response = $this->post('/api/v1/users', [
-            'name' => fake()->name(),
-            'email' => fake()->safeEmail(),
-            'password' => fake()->password(8, 32),
+            'name' => $name,
+            'email' => $email,
+            'password' => $password,
         ]);
         $response->assertStatus(ResponseAlias::HTTP_CREATED);
+
+        $this->assertDatabaseCount('users', 1);
+        $user = User::first();
+        $this->assertEquals($name, $user->name);
+        $this->assertEquals($email, $user->email);
+        $this->assertNotEquals($password, $user->password);
+        $this->assertEquals(true, Hash::check($password, $user->password));
     }
 
     /**
