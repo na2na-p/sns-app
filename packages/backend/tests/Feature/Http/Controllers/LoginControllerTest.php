@@ -84,16 +84,22 @@ class LoginControllerTest extends TestCase
     public function signupUsersArgsValidationDataProvider(): array
     {
         return [
-            'emailが空' => [
+            'メールアドレスが間違っている' => [
                 'data' => [
-                    'email' => 'some@example.com',
+                    'email' => 'invalid@example.com',
+                    'password' => 'password',
+                ],
+            ],
+            'パスワードが間違っている' => [
+                'data' => [
+                    'email' => 'bar@example.com',
                     'password' => 'invalidPassword',
                 ],
             ],
-            'passwordが空' => [
+            'どちらも間違っている' => [
                 'data' => [
-                    'email' => 'bar@example.com',
-                    'password' => '________',
+                    'email' => 'invalid@example.com',
+                    'password' => 'invalidPassword',
                 ],
             ],
         ];

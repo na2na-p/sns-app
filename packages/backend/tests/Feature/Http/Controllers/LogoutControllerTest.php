@@ -25,4 +25,17 @@ class LogoutControllerTest extends TestCase
         $response->assertStatus(ResponseAlias::HTTP_OK);
         $this->assertGuest();
     }
+
+    /**
+     * ログアウト済みの際に正しいレスポンスを返すか
+     *
+     * @return void
+     */
+    public function testLogoutWithAlreadyLoggedOut(): void
+    {
+        $this->assertGuest();
+        $response = $this->post('/api/v1/logout');
+        $response->assertStatus(ResponseAlias::HTTP_BAD_REQUEST);
+        $this->assertGuest();
+    }
 }
