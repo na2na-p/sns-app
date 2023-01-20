@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import Stack from '@/components/layout/Stack';
 import Header from '@/layout/Header';
@@ -38,10 +38,9 @@ const App = () => {
 							path={routes.timeline.path()}
 							element={<PrivateRoute>{routes.timeline.component}</PrivateRoute>}
 						/>
-						{/* 該当がなければtimelineへ */}
 						<Route
 							path="*"
-							element={<PrivateRoute>{routes.timeline.component}</PrivateRoute>}
+							element={<Navigate to={routes.timeline.path()} />}
 						/>
 					</Routes>
 				</BrowserRouter>
