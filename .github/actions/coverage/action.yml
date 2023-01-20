@@ -1,0 +1,19 @@
+name: Clover Code Coverage Report With Comment Edit
+description: Comments a pull request with the code coverage
+author: na2na
+branding:
+  icon: check-square
+  color: green
+inputs:
+  github-token:
+    description: Github token
+    required: true
+  clover-file:
+    description: The location of the clover.info file
+    required: false
+  clover-base:
+    description: The location of the clover file for the base branch
+    required: false
+runs:
+  using: node16
+  main: dist/main.js

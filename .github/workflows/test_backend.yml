@@ -29,20 +29,20 @@ jobs:
         run: make setup-ci
       - name: Test
         run: make backend-test
-      - name: Hide Duplicate Comment with Coverage Summary
-        if: github.event_name == 'pull_request'
-        uses: kamatama41/hide-pr-comments-action@v0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          author: 2na2
-          # Coverage after mergingから始まる正規表現
-          message_regex: "Coverage after merging*"
+      # - name: Hide Duplicate Comment with Coverage Summary
+      #   if: github.event_name == 'pull_request'
+      #   uses: kamatama41/hide-pr-comments-action@v0
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     author: 2na2
+      #     # Coverage after mergingから始まる正規表現
+      #     message_regex: "Coverage after merging*"
       - name: Shaping
         if: github.event_name == 'pull_request'
         run: sed -i -e 's/\/var\/www\/html/packages\/backend/g' ./packages/backend/clover.xml
       - name: Coverage Summary
         if: github.event_name == 'pull_request'
-        uses: danhunsaker/clover-reporter-action@v0.2.17-clover
+        uses: ./.github/actions/coverage
         with:
           github-token: ${{ steps.generate_token.outputs.token }}
           clover-file: ./packages/backend/clover.xml
