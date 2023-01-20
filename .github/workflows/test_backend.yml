@@ -19,10 +19,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Generate github token
+        id: generate_token
+        uses: ./.github/actions/github-app-token
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
       - name: Setup CI
         run: make setup-ci
       - name: Test
         run: make backend-test
+      - name: Shaping
+        if: github.event_name == 'pull_request'
+        run: sed -i -e 's/\/var\/www\/html/packages\/backend/g' ./packages/backend/clover.xml
+      - name: Coverage Summary
+        if: github.event_name == 'pull_request'
+        uses: danhunsaker/clover-reporter-action@v0.2.17-clover
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          clover-file: ./packages/backend/clover.xml
   Lint-Backend:
     runs-on: ubuntu-latest
     steps:

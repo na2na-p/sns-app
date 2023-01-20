@@ -54,7 +54,7 @@ backend-destroy:
 	(cd packages/backend && ${SAIL} down -v)
 
 backend-test:
-	(cd packages/backend && ${SAIL} test)
+	(cd packages/backend && ${SAIL} test --coverage --coverage-clover clover.xml  )
 
 backend-lint:
 	(cd packages/backend && ${SAIL} pint)
