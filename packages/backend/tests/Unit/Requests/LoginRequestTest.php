@@ -65,7 +65,6 @@ class LoginRequestTest extends TestCase
             ],
             '文字数が多すぎる' => [
                 'data' => [
-                    'name' => str_repeat('a', 65),
                     'email' => str_repeat('a', 244).'@example.com',
                     'password' => str_repeat('a', 33),
                 ],
