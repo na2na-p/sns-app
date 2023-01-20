@@ -9,7 +9,7 @@ use Str;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Tests\TestCase;
 
-class UsersControllerTest extends TestCase
+class SignUpRouteTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -192,7 +192,6 @@ class UsersControllerTest extends TestCase
             'id',
             'name',
             'email',
-        ]
-        );
+        ]);
     }
 }
