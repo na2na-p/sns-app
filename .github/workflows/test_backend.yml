@@ -29,13 +29,14 @@ jobs:
         run: make setup-ci
       - name: Test
         run: make backend-test
-      - name: Delete Duplicate Comment with Coverage Summary
+      - name: Hide Duplicate Comment with Coverage Summary
         if: github.event_name == 'pull_request'
         uses: kamatama41/hide-pr-comments-action@v0
         with:
-          github-token: ${{ steps.generate_token.outputs.token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           author: 2na2
-          message_regex: "Coverage after merging"
+          # Coverage after mergingから始まる正規表現
+          message_regex: "Coverage after merging*"
       - name: Shaping
         if: github.event_name == 'pull_request'
         run: sed -i -e 's/\/var\/www\/html/packages\/backend/g' ./packages/backend/clover.xml
