@@ -54,7 +54,7 @@ backend-destroy:
 	(cd packages/backend && ${SAIL} down -v)
 
 backend-test:
-	(cd packages/backend && ${SAIL} test --coverage)
+	(cd packages/backend && ${SAIL} test --coverage --coverage-text 2>&1 | tee coverage.log  )
 
 backend-lint:
 	(cd packages/backend && ${SAIL} pint)
