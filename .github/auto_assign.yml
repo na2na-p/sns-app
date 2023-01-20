@@ -9,10 +9,11 @@ reviewers:
   - DddEndow
   - kuboshiba
   - schrosis
+  - d2verb
 
 # A number of reviewers added to the pull request
 # Set 0 to add all the reviewers (default: 0)
-numberOfReviewers: 3
+numberOfReviewers: 4
 # A list of assignees, overrides reviewers if set
 # assignees:
 #   - assigneeA
