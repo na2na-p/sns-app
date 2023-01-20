@@ -29,26 +29,15 @@ jobs:
         run: make setup-ci
       - name: Test
         run: make backend-test
-      - name: Sed Coverage Report
+      - name: Shaping
         if: github.event_name == 'pull_request'
-        run: |
-          sed -E "s/"$'\E'"\[([0-9]{1,2}(;[0-9]{1,2})*)?m//g" | \
-          grep "Code Coverage Report:" -A6 ./packages/backend/coverage.log | sed -e "s/^ *//" | sed -e "s/ *$//" | sed -e "/^ *$/d" > ./packages/backend/coverage-summary.log
-      - name: Read coverage summary
+        run: sed -i -e 's/\/var\/www\/html/packages\/backend/g' ./packages/backend/clover.xml
+      - name: Coverage Summary
         if: github.event_name == 'pull_request'
-        id: coverage-summary
-        uses: juliangruber/read-file-action@v1
+        uses: danhunsaker/clover-reporter-action@v0.2.17-clover
         with:
-          path: ./packages/backend/coverage-summary.log
-      - name: Comment Coverage Summary
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: github.event_name == 'pull_request'
-        with:
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-          header: coverage-summary
-          message: |
-            ## Coverage Summary
-            ${{ steps.coverage-summary.outputs.content }}
+          github-token: ${{ steps.generate_token.outputs.token }}
+          clover-file: ./packages/backend/clover.xml
   Lint-Backend:
     runs-on: ubuntu-latest
     steps:
