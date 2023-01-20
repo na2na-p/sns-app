@@ -30,6 +30,7 @@ class SignUpUsersControllerTest extends TestCase
 
     /**
      * ユーザ登録が正しく動作するか
+     * 登録後はログイン状態になるか
      *
      * @return void
      */
@@ -53,6 +54,14 @@ class SignUpUsersControllerTest extends TestCase
         $this->assertEquals($email, $user->email);
         $this->assertNotEquals($password, $user->password);
         $this->assertEquals(true, Hash::check($password, $user->password));
+
+        $response = $this->get('/api/v1/users/me');
+        $response->assertStatus(ResponseAlias::HTTP_OK);
+        $response->assertJsonStructure([
+            'id',
+            'name',
+            'email',
+        ]);
     }
 
     /**
@@ -183,31 +192,6 @@ class SignUpUsersControllerTest extends TestCase
                     'The password must not be greater than 32 characters.',
                 ],
             ],
-        ]);
-    }
-
-    /**
-     * ユーザの登録後にログインした状態になっているか
-     *
-     * @return void
-     *
-     * @throws Exception
-     */
-    public function testSignUpAndLogin(): void
-    {
-        $response = $this->post('/api/v1/users', [
-            'name' => fake()->name(),
-            'email' => fake()->safeEmail(),
-            'password' => fake()->password(8, 32),
-        ]);
-        $response->assertStatus(ResponseAlias::HTTP_CREATED);
-
-        $response = $this->get('/api/v1/users/me');
-        $response->assertStatus(ResponseAlias::HTTP_OK);
-        $response->assertJsonStructure([
-            'id',
-            'name',
-            'email',
         ]);
     }
 }
