@@ -69,6 +69,7 @@ backend-lint:
 backend-lint-ci:
 	(cd packages/backend && ${SAIL} pint)
 	@make backend-phpstan
+	@make backend-insight-ci
 
 backend-oas-generate:
 	(cd packages/backend && ${SAIL} artisan openapi:generate > $(shell pwd)/documents/api/schema.json)
