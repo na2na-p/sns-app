@@ -30,6 +30,12 @@ jobs:
         run: |
           make frontend-setup && \
           make frontend-build
+      - name: Generate github token
+        id: generate_token
+        uses: ./.github/actions/github-app-token
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@1
         with:
@@ -37,7 +43,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           projectName: ${{ env.REPOSITORY_NAME }}
           directory: ./packages/frontend/dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          gitHubToken: ${{ steps.generate_token.outputs.token }}
   CachePurge:
     runs-on: ubuntu-latest
     needs: Publish
