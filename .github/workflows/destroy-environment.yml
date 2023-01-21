@@ -1,0 +1,44 @@
+name: Destroy preview environment
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - run: echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}" >> $GITHUB_ENV
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Generate github token
+        id: generate_token
+        uses: ./.github/actions/github-app-token
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+      - name: Destroy preview environment
+        # Preview: (`pr number`/merge)の物を消す
+        if: github.event.pull_request.merged == true
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          script: |
+            const [owner, repo] = process.env.GITHUB_REPOSITORY.split('/')
+            const prNumber = process.env.GITHUB_REF.split('/')[2]
+            const environmentName = `${prNumber}/merge`
+            const { data: { id: environmentId } } = await github.repos.getEnvironment({
+              owner,
+              repo,
+              environment_name: environmentName
+            })
+            await github.repos.deleteEnvironment({
+              owner,
+              repo,
+              environment_id: environmentId
+            })
