@@ -5,10 +5,6 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 3.0"
     }
-    http = {
-      source  = "hashicorp/http"
-      version = "~> 3.2"
-    }
   }
   backend "s3" {
     bucket         = "na2na-terraform-states"
