@@ -12,21 +12,11 @@ resource "aws_instance" "na2na-sns-app-backend" {
   instance_type          = "t2.micro"
   iam_instance_profile   = var.iam_instance_profile_name
   user_data              = file("./setup.sh")
+  associate_public_ip_address = false
 
   tags = {
     Name = var.instance_tag_name
   }
-}
-
-# Elastic IP
-resource "aws_eip" "na2na-sns-app-backend" {
-  instance = aws_instance.na2na-sns-app-backend.id
-  vpc      = true
-}
-
-# Output PublicIp
-output "public_ip" {
-  value = aws_eip.na2na-sns-app-backend.public_ip
 }
 
 # Key Pair
