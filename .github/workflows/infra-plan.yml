@@ -16,6 +16,7 @@ on:
 jobs:
   EC2-Plan:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'na2na-p' || github.event.pull_request.user.login == 'renovate[bot]'
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -35,7 +36,7 @@ jobs:
         run: |
           cd packages/infra/ec2 &&
           cp terraform.tfvars.example terraform.tfvars
-          touch setup.sh
+          cp setup_base.sh setup.sh
       - name: setup terraform
         uses: hashicorp/setup-terraform@v2
         with:
@@ -52,4 +53,4 @@ jobs:
       - name: terraform plan
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
-        run: cd packages/infra/ec2 && tfcmt plan -patch -- terraform plan -no-color -input=false
+        run: tfcmt plan -patch -- make backend-infra-plan-ci

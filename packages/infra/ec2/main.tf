@@ -10,6 +10,13 @@ terraform {
       version = "~> 2.0"
     }
   }
+  backend "s3" {
+    bucket         = "na2na-terraform-states"
+    region         = "ap-northeast-1"
+    key            = "sns-app/terraform.tfstate"
+    encrypt        = true
+    dynamodb_table = "na2na-sns-app-iac-backend"
+  }
 }
 
 variable "availability_zone" {
