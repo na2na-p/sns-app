@@ -84,5 +84,11 @@ backend-phpstan:
 backend-infra-deploy:
 	(cd packages/infra/ec2 && cp setup_base.sh setup.sh && cat .credencials/cf_tunnel.sh >> setup.sh && terraform apply)
 
+backend-infra-plan:
+	(cd packages/infra/ec2 && cp setup_base.sh setup.sh && cat .credencials/cf_tunnel.sh >> setup.sh && terraform plan)
+
+backend-infra-plan-ci:
+	(cd packages/infra/ec2 && cp setup_base.sh setup.sh && cat .credencials/cf_tunnel.sh >> setup.sh && terraform plan -no-color -input=false)
+
 backend-infra-destroy:
 	(cd packages/infra/ec2 && terraform destroy)
