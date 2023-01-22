@@ -11,10 +11,11 @@ terraform {
     }
   }
   backend "s3" {
-    bucket  = "na2na-terraform-states"
-    region  = "ap-northeast-1"
-    key     = "sns-app/terraform.tfstate"
-    encrypt = true
+    bucket         = "na2na-terraform-states"
+    region         = "ap-northeast-1"
+    key            = "sns-app/terraform.tfstate"
+    encrypt        = true
+    dynamodb_table = "na2na-sns-app-iac-backend"
   }
 }
 
