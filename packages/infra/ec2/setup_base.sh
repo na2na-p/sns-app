@@ -16,7 +16,7 @@ cd /home/ec2-user
 sudo chown -R ec2-user .git/
 sudo -u ec2-user git clone https://github.com/na2na-p/sns-app.git
 cd sns-app
-make setup-local
+sudo -u ec2-user make setup-local
 
 curl -L --output cloudflared.rpm https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-x86_64.rpm && 
 sudo yum localinstall -y cloudflared.rpm && 
