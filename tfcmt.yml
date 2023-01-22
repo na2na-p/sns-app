@@ -1,0 +1,13 @@
+templates:
+  plan_title: "## {{if eq .ExitCode 1}}:x: {{end}}Backend Infra Plan Result{{if .Vars.target}} ({{.Vars.target}}){{end}}"
+terraform:
+  plan:
+    when_add_or_update_only:
+      label: "{{if .Vars.target}}{{.Vars.target}}/{{end}}Infra/add-or-update"
+      label_color: 1d76db # blue
+    when_destroy:
+      label: "{{if .Vars.target}}{{.Vars.target}}/{{end}}Infra/destroy"
+      label_color: d93f0b # red
+    when_no_changes:
+      label: "{{if .Vars.target}}{{.Vars.target}}/{{end}}Infra/no-changes"
+      label_color: 0e8a16 # green
