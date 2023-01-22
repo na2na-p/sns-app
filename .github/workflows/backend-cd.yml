@@ -1,0 +1,30 @@
+name: Backend CD
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+  workflow_dispatch:
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+      - name: Deploy
+        id: exec
+        run: |
+          export RESPONSE=$(aws ssm send-command --document-name "AWS-RunShellScript" --document-version "1" --targets '[{"Key":"tag:Name","Values":["na2na-sns-app-backend"]}]' --parameters '{"commands":["cd /home/ec2-user/sns-app","sudo -u ec2-user git fetch","sudo -u ec2-user make backend-down","sudo -u ec2-user git reset --hard origin/main","sudo -u ec2-user make backend-setup"],"workingDirectory":[""],"executionTimeout":["3600"]}' --timeout-seconds 600 --max-concurrency "50" --max-errors "0" --region ap-northeast-1)
+          export COMMAND_ID=$(echo $RESPONSE | jq .Command.CommandId)
+          echo "::set-output name=commandId::${COMMAND_ID}"
+      - name: Check Run Command Result
+        run: |
+          bash -x ./.github/scripts/check_command_result.sh ${{ steps.exec.outputs.commandId }}
