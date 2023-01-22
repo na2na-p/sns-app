@@ -80,3 +80,9 @@ backend-annotation:
 
 backend-phpstan:
 	(cd packages/backend && ${BACKEND_ENV} vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=2G)
+
+backend-infra-deploy:
+	(cd packages/infra/ec2 && cp setup_base.sh setup.sh && cat .credencials/cf_tunnel.sh >> setup.sh && terraform apply)
+
+backend-infra-destroy:
+	(cd packages/infra/ec2 && terraform destroy)
