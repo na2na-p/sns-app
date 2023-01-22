@@ -82,13 +82,13 @@ backend-phpstan:
 	(cd packages/backend && ${BACKEND_ENV} vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=2G)
 
 backend-infra-deploy:
-	(cd packages/infra/ec2 && cp setup_base.sh setup.sh && cat .credencials/cf_tunnel.sh >> setup.sh && terraform apply)
+	(cd packages/infra/ec2 && cp setup_base.sh setup.sh && cat .credentials/cf_tunnel.sh >> setup.sh && terraform apply)
 
 backend-infra-plan:
-	(cd packages/infra/ec2 && cp setup_base.sh setup.sh && cat .credencials/cf_tunnel.sh >> setup.sh && terraform plan)
+	(cd packages/infra/ec2 && cp setup_base.sh setup.sh && cat .credentials/cf_tunnel.sh >> setup.sh && terraform plan)
 
 backend-infra-plan-ci:
-	(cd packages/infra/ec2 && cp setup_base.sh setup.sh && cat .credencials/cf_tunnel.sh >> setup.sh && terraform plan -no-color -input=false)
+	(cd packages/infra/ec2 && cp setup_base.sh setup.sh && cat .credentials/cf_tunnel.sh >> setup.sh && terraform plan -no-color -input=false)
 
 backend-infra-destroy:
 	(cd packages/infra/ec2 && terraform destroy)
