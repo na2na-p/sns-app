@@ -16,6 +16,10 @@ jobs:
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
+      - name: setup tf files
+        run: |
+          cd packages/infra/ec2 &&
+          cp terraform.tfvars.example terraform.tfvars
       - name: setup terraform
         uses: hashicorp/setup-terraform@v2
         with:

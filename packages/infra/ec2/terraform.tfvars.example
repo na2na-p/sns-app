@@ -1,0 +1,3 @@
+availability_zone = "ap-northeast-1a"
+instance_tag_name = "backend-ci"
+iam_instance_profile_name = "na2na-ci_ssm"
