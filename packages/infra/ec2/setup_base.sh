@@ -13,11 +13,9 @@ sudo curl \
 sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
 sudo ln -s /usr/local/lib/docker/cli-plugins/docker-compose /usr/bin/docker-compose
 cd /home/ec2-user
-git clone https://github.com/na2na-p/sns-app.git
-sudo chmod -R 777 sns-app
-sudo chown -R ec2-user:ec2-user sns-app
+sudo chown -R ec2-user .git/
+sudo -u ec2-user git clone https://github.com/na2na-p/sns-app.git
 cd sns-app
-git config --add safe.directory /home/ec2-user/sns-app
 make setup-local
 
 curl -L --output cloudflared.rpm https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-x86_64.rpm && 
