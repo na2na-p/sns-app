@@ -17,6 +17,7 @@ git clone https://github.com/na2na-p/sns-app.git
 sudo chmod -R 777 sns-app
 sudo chown -R ec2-user:ec2-user sns-app
 cd sns-app
+git config --add safe.directory /home/ec2-user/sns-app
 make setup-local
 
 curl -L --output cloudflared.rpm https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-x86_64.rpm && 
