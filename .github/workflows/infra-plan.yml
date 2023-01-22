@@ -37,8 +37,6 @@ jobs:
           cd packages/infra/ec2 &&
           cp terraform.tfvars.example terraform.tfvars
           cp setup_base.sh setup.sh
-          echo "${{ secrets.CF_TUNNEL_INSTALL }}" > .credentials/cf_tunnel.sh
-          echo "" >> .credentials/cf_tunnel.sh
       - name: setup terraform
         uses: hashicorp/setup-terraform@v2
         with:

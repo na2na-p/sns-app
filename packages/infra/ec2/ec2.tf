@@ -12,8 +12,12 @@ resource "aws_instance" "na2na-sns-app-backend" {
   iam_instance_profile        = var.iam_instance_profile_name
   user_data                   = file("./setup.sh")
   associate_public_ip_address = true
-
   tags = {
     Name = var.instance_tag_name
+  }
+  lifecycle {
+    ignore_changes = [
+      user_data,
+    ]
   }
 }
