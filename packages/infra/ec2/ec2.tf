@@ -10,11 +10,11 @@ resource "aws_instance" "na2na-sns-app-backend" {
   subnet_id              = aws_subnet.public.id
   key_name               = aws_key_pair.na2na-sns-app-backend.id
   instance_type          = "t2.micro"
-
-  user_data = file("./setup.sh")
+  iam_instance_profile   = var.iam_instance_profile_name
+  user_data              = file("./setup.sh")
 
   tags = {
-    Name = "na2na-sns-app-backend"
+    Name = var.instance_tag_name
   }
 }
 

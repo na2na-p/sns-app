@@ -15,3 +15,11 @@ terraform {
 variable "availability_zone" {
   type = string
 }
+
+variable "instance_tag_name" {
+  type = string
+}
+
+variable "iam_instance_profile_name" {
+  type = string
+}
