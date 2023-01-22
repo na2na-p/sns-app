@@ -26,5 +26,5 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "backend_for_ssm_for_ssm_attachment0" {
   role       = aws_iam_role.sns-app-backend_for_ssm.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
