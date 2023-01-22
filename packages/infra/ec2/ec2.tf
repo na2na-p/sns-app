@@ -11,6 +11,7 @@ resource "aws_instance" "na2na-sns-app-backend" {
   instance_type               = "t2.micro"
   iam_instance_profile        = var.iam_instance_profile_name
   user_data                   = file("./setup.sh")
+  user_data_replace_on_change = false
   associate_public_ip_address = true
   tags = {
     Name = var.instance_tag_name
