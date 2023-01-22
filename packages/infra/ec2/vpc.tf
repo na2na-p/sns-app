@@ -1,17 +1,3 @@
-data "http" "ifconfig" {
-  url = "http://ipv4.icanhazip.com/"
-}
-
-variable "allowed-cidr" {
-  default = null
-  type    = string
-}
-
-locals {
-  current-ip   = chomp(data.http.ifconfig.response_body)
-  allowed-cidr = (var.allowed-cidr == null) ? "${local.current-ip}/32" : var.allowed-cidr
-}
-
 # VPC
 resource "aws_vpc" "na2na-sns-app-backend" {
   cidr_block           = "10.0.0.0/16"
@@ -72,16 +58,6 @@ resource "aws_security_group" "na2na-sns-app-backend" {
   tags = {
     Name = "na2na-sns-app-backend"
   }
-}
-
-# インバウンドルール(ssh接続用)
-resource "aws_security_group_rule" "in_ssh" {
-  security_group_id = aws_security_group.na2na-sns-app-backend.id
-  type              = "ingress"
-  cidr_blocks       = [local.allowed-cidr]
-  from_port         = 22
-  to_port           = 22
-  protocol          = "tcp"
 }
 
 # アウトバウンドルール(全開放)
