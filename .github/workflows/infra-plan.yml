@@ -16,6 +16,7 @@ on:
 jobs:
   EC2-Plan:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'na2na-p' || github.event.pull_request.user.login == 'renovate[bot]'
     steps:
       - name: checkout
         uses: actions/checkout@v3
