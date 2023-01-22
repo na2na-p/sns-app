@@ -1,4 +1,4 @@
 以下のものを準備しましょう。
 
-- id_ed25519.pub
-- cf_tunnel.sh
+- `cf_tunnel.sh`
+  `If you already have cloudflared installed on your machine:`とある方のコピペしたものだけで大丈夫
