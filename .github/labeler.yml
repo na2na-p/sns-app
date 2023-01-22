@@ -1,2 +1,3 @@
 Frontend: "packages/frontend/**/*"
 Backend: "packages/backend/**/*"
+Infra: "packages/infra/**/*"
