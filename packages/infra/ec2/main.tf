@@ -10,6 +10,12 @@ terraform {
       version = "~> 2.0"
     }
   }
+  backend "s3" {
+    bucket  = "na2na-terraform-states"
+    region  = "ap-northeast-1"
+    key     = "sns-app/terraform.tfstate"
+    encrypt = true
+  }
 }
 
 variable "availability_zone" {
