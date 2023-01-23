@@ -20,35 +20,26 @@ class UpdateUserInfoRequestTest extends TestCase
         $this->request = new UpdateUserRequest();
     }
 
-    public function testInstanceOf(): void
-    {
-        $this->assertInstanceOf(UpdateUserRequest::class, $this->request);
-    }
-
     /**
      * バリデーションテスト
      *
      * @dataProvider updateUserInfoArgsValidationDataProvider
      *
-     * @param  array  $data
-     * @param  array  $errors
+     * @param array $data
+     * @param array $errors
+     * @param bool $expect
      * @return void
      */
-    public function testSignupUsersArgsValidation(array $data, array $errors): void
+    public function testSignupUsersArgsValidation(array $data, array $errors, bool $expect): void
     {
-        $email = 'test@example.com';
-        User::factory()->create(
-            [
-                'email' => $email,
-            ]
-        );
+        User::factory()->create();
 
         $rules = $this->request->rules();
         $validator = Validator::make($data, $rules);
 
         $result = $validator->passes();
 
-        $this->assertEquals(false, $result);
+        $this->assertEquals($expect, $result);
         $this->assertEquals($errors, $validator->errors()->toArray());
     }
 
@@ -58,21 +49,31 @@ class UpdateUserInfoRequestTest extends TestCase
     public function updateUserInfoArgsValidationDataProvider(): array
     {
         return [
+            '正常系' => [
+                'data' => [
+                    'name' => 'test',
+                    'email' => 'hoge@example.com',
+                ],
+                'errors' => [],
+                'expect' => true,
+            ],
             'フィールドが空' => [
                 'data' => [],
                 'errors' => [
                     'name' => ['The name field is required.'],
                     'email' => ['The email field is required.'],
                 ],
+                'expect' => false,
             ],
             'メールアドレスがすでに存在する' => [
                 'data' => [
                     'name' => 'test',
-                    'email' => 'test@example.com',
+                    'email' => 'bar@example.com',
                 ],
                 'errors' => [
                     'email' => ['The email has already been taken.'],
                 ],
+                'expect' => false,
             ],
             'メールアドレスの形式が不正' => [
                 'data' => [
@@ -82,6 +83,7 @@ class UpdateUserInfoRequestTest extends TestCase
                 'errors' => [
                     'email' => ['The email must be a valid email address.'],
                 ],
+                'expect' => false,
             ],
             'Edge: 実在するがRFC違反メールアドレス' => [
                 'data' => [
@@ -91,6 +93,7 @@ class UpdateUserInfoRequestTest extends TestCase
                 'errors' => [
                     'email' => ['The email must be a valid email address.'],
                 ],
+                'expect' => false,
             ],
             'Edge: 実在するがRFC違反メールアドレス2' => [
                 'data' => [
@@ -100,6 +103,7 @@ class UpdateUserInfoRequestTest extends TestCase
                 'errors' => [
                     'email' => ['The email must be a valid email address.'],
                 ],
+                'expect' => false,
             ],
             //            'Edge: メールアドレス' => [
             //                'data' => [
@@ -117,6 +121,7 @@ class UpdateUserInfoRequestTest extends TestCase
                     'name' => ['The name must not be greater than 64 characters.'],
                     'email' => ['The email must not be greater than 255 characters.'],
                 ],
+                'expect' => false,
             ],
         ];
     }

@@ -20,21 +20,17 @@ class SignupRequestTest extends TestCase
         $this->request = new SignupRequest();
     }
 
-    public function testInstanceOf(): void
-    {
-        $this->assertInstanceOf(SignupRequest::class, $this->request);
-    }
-
     /**
      * バリデーションテスト
      *
      * @dataProvider signupUsersArgsValidationDataProvider
      *
-     * @param  array  $data
-     * @param  array  $errors
+     * @param array $data
+     * @param array $errors
+     * @param bool $expect
      * @return void
      */
-    public function testSignupUsersArgsValidation(array $data, array $errors): void
+    public function testSignupUsersArgsValidation(array $data, array $errors, bool $expect): void
     {
         $email = 'test@example.com';
         User::factory()->create(
@@ -48,7 +44,7 @@ class SignupRequestTest extends TestCase
 
         $result = $validator->passes();
 
-        $this->assertEquals(false, $result);
+        $this->assertEquals($expect, $result);
         $this->assertEquals($errors, $validator->errors()->toArray());
     }
 
@@ -58,6 +54,15 @@ class SignupRequestTest extends TestCase
     public function signupUsersArgsValidationDataProvider(): array
     {
         return [
+            '正常系' => [
+                'data' => [
+                    'name' => 'test',
+                    'email' => 'foo@example.com',
+                    'password' => 'password',
+                ],
+                'errors' => [],
+                'expect' => true,
+            ],
             'フィールドが空' => [
                 'data' => [],
                 'errors' => [
@@ -65,6 +70,7 @@ class SignupRequestTest extends TestCase
                     'email' => ['The email field is required.'],
                     'password' => ['The password field is required.'],
                 ],
+                "expect" => false,
             ],
             'メールアドレスがすでに存在する' => [
                 'data' => [
@@ -75,6 +81,7 @@ class SignupRequestTest extends TestCase
                 'errors' => [
                     'email' => ['The email has already been taken.'],
                 ],
+                'expect' => false,
             ],
             'メールアドレスの形式が不正' => [
                 'data' => [
@@ -85,6 +92,7 @@ class SignupRequestTest extends TestCase
                 'errors' => [
                     'email' => ['The email must be a valid email address.'],
                 ],
+                'expect' => false,
             ],
             'Edge: 実在するがRFC違反メールアドレス' => [
                 'data' => [
@@ -95,6 +103,7 @@ class SignupRequestTest extends TestCase
                 'errors' => [
                     'email' => ['The email must be a valid email address.'],
                 ],
+                'expect' => false,
             ],
             'Edge: 実在するがRFC違反メールアドレス2' => [
                 'data' => [
@@ -105,6 +114,7 @@ class SignupRequestTest extends TestCase
                 'errors' => [
                     'email' => ['The email must be a valid email address.'],
                 ],
+                'expect' => false,
             ],
             //            'Edge: メールアドレス' => [
             //                'data' => [
@@ -117,7 +127,7 @@ class SignupRequestTest extends TestCase
             '文字数が多すぎる' => [
                 'data' => [
                     'name' => str_repeat('a', 65),
-                    'email' => str_repeat('a', 244).'@example.com',
+                    'email' => str_repeat('a', 244) . '@example.com',
                     'password' => str_repeat('a', 33),
                 ],
                 'errors' => [
@@ -125,6 +135,7 @@ class SignupRequestTest extends TestCase
                     'email' => ['The email must not be greater than 255 characters.'],
                     'password' => ['The password must not be greater than 32 characters.'],
                 ],
+                'expect' => false,
             ],
         ];
     }
