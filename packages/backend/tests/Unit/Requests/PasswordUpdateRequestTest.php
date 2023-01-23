@@ -22,53 +22,39 @@ class PasswordUpdateRequestTest extends TestCase
     }
 
     /**
-     * バリデーションテスト
+     * バリデーションテスト(異常系)
      *
-     * @dataProvider signupUsersArgsValidationDataProvider
+     * @dataProvider signupUsersArgsValidationInvalidDataProvider
      *
      * @param  array  $data
      * @param  array  $errors
      * @return void
      */
-    public function testSignupUsersArgsValidation(array $data, array $errors, bool $expect): void
+    public function testSignupUsersArgsValidation(array $data, array $errors): void
     {
-        $currentPassword = 'password';
-        $user = User::factory()->create(
-            [
-                'password' => Hash::make($currentPassword),
-            ]
-        );
+        $user = User::factory()->create();
         $this->actingAs($user);
         $rules = $this->request->rules();
         $validator = Validator::make($data, $rules);
 
         $result = $validator->passes();
 
-        $this->assertEquals($expect, $result);
+        $this->assertEquals(false, $result);
         $this->assertEquals($errors, $validator->errors()->toArray());
     }
 
     /**
-     * テストに渡すデータ
+     * 異常系テストに渡すデータ
      */
-    public function signupUsersArgsValidationDataProvider(): array
+    public function signupUsersArgsValidationInvalidDataProvider(): array
     {
         return [
-            '正常系' => [
-                'data' => [
-                    'currentPassword' => 'password',
-                    'newPassword' => 'new-password',
-                ],
-                'errors' => [],
-                'expected' => true,
-            ],
             'フィールドが空' => [
                 'data' => [],
                 'errors' => [
                     'currentPassword' => ['The current password field is required.'],
                     'newPassword' => ['The new password field is required.'],
                 ],
-                'expect' => false,
             ],
             '文字数が多すぎる' => [
                 'data' => [
@@ -78,7 +64,6 @@ class PasswordUpdateRequestTest extends TestCase
                 'errors' => [
                     'newPassword' => ['The new password must not be greater than 32 characters.'],
                 ],
-                'expect' => false,
             ],
             '現在のパスワードと異なる' => [
                 'data' => [
@@ -88,7 +73,41 @@ class PasswordUpdateRequestTest extends TestCase
                 'errors' => [
                     'currentPassword' => ['The password is incorrect.'],
                 ],
-                'expect' => false,
+            ],
+        ];
+    }
+
+    /**
+     * バリデーションテスト(正常系)
+     *
+     * @dataProvider signupUsersArgsValidationValidDataProvider
+     *
+     * @param  array  $data
+     * @return void
+     */
+    public function testSignupUsersArgsValidationValid(array $data): void
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $rules = $this->request->rules();
+        $validator = Validator::make($data, $rules);
+
+        $result = $validator->passes();
+
+        $this->assertEquals(true, $result);
+    }
+
+    /**
+     * 正常系テストに渡すデータ
+     */
+    public function signupUsersArgsValidationValidDataProvider(): array
+    {
+        return [
+            '正常系' => [
+                'data' => [
+                    'currentPassword' => 'password',
+                    'newPassword' => 'new-password',
+                ],
             ],
         ];
     }
