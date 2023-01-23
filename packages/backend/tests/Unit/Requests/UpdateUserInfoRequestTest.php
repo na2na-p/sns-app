@@ -31,7 +31,9 @@ class UpdateUserInfoRequestTest extends TestCase
      */
     public function testSignupUsersArgsValidationFailed(array $data, array $errors): void
     {
-        User::factory()->create();
+        User::factory()->create([
+            'email' => 'bar@example.com',
+        ]);
 
         $rules = $this->request->rules();
         $validator = Validator::make($data, $rules);

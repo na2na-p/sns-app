@@ -2,22 +2,23 @@
 
 namespace Database\Factories;
 
+use App\Models\Favorite;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Ramsey\Uuid\Uuid;
 
 /**
- * @extends Factory<User>
+ * @extends Factory<Favorite>
  */
-class UserFactory extends Factory
+class FavoriteFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = User::class;
+    protected $model = Favorite::class;
 
     /**
      * Define the model's default state.
@@ -30,9 +31,8 @@ class UserFactory extends Factory
 
         return [
             'id' => $uuid->toString(),
-            'name' => 'foo',
-            'email' => fake()->safeEmail(),
-            'password' => Hash::make('password'),
+            'user_id' => User::factory(),
+            'message_id' => Message::factory(),
         ];
     }
 }

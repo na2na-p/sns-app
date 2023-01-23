@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Database\Factories\MessageFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -33,9 +35,13 @@ use Illuminate\Support\Carbon;
  * @property-read Collection|Favorite[] $favorites
  * @property-read int|null $favorites_count
  * @property-read User $user
+ *
+ * @method static MessageFactory factory(...$parameters)
  */
 class Message extends Model
 {
+    use HasFactory;
+
     public $incrementing = false;
 
     protected $keyType = 'string';

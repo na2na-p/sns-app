@@ -52,7 +52,6 @@ class SignUpUsersControllerTest extends TestCase
         $this->assertEquals($email, $user->email);
         $this->assertNotEquals($password, $user->password);
         $this->assertEquals(true, Hash::check($password, $user->password));
-
         $this->assertAuthenticated();
     }
 }

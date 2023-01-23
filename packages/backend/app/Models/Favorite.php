@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Database\Factories\FavoriteFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
@@ -30,9 +32,13 @@ use Illuminate\Support\Carbon;
  *
  * @property-read Message $message
  * @property-read User $user
+ *
+ * @method static FavoriteFactory factory(...$parameters)
  */
 class Favorite extends Model
 {
+    use HasFactory;
+
     public $incrementing = false;
 
     protected $keyType = 'string';
