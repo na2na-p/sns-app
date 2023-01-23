@@ -30,9 +30,9 @@ class UserFactory extends Factory
 
         return [
             'id' => $uuid->toString(),
-            'name' => $this->faker->name(),
-            'email' => $this->faker->safeEmail(),
-            'password' => Hash::make($this->faker->password()),
+            'name' => 'foo',
+            'email' => 'bar@example.com',
+            'password' => Hash::make('password'),
         ];
     }
 }

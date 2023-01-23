@@ -11,6 +11,7 @@ use Tests\TestCase;
 class SignupRequestTest extends TestCase
 {
     use RefreshDatabase;
+
     protected SignupRequest $request;
 
     protected function setUp(): void
