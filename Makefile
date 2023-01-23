@@ -98,4 +98,4 @@ backend-infra-destroy:
 	(cd packages/infra/ec2 && terraform destroy)
 
 slide-build:
-	(cd packages/intern-silde && yarn install && yarn build)
+	(cd packages/intern-slide && yarn install && yarn build)
