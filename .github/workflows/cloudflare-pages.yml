@@ -1,4 +1,4 @@
-name: Cloudflare Pages
+name: Cloudflare Pages Frontend Deploy
 
 on:
   push:

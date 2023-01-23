@@ -1,4 +1,4 @@
-name: Cloudflare Pages
+name: Cloudflare Pages Slide Deploy
 
 on:
   push:
