@@ -34,6 +34,8 @@ use Illuminate\Support\Carbon;
  * @property-read Collection|Favorite[] $favorites
  * @property-read int|null $favorites_count
  * @property-read User $user
+ *
+ * @method static \Database\Factories\MessageFactory factory(...$parameters)
  */
 class Message extends Model
 {
