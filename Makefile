@@ -11,6 +11,10 @@ setup-ci:
 	@make frontend-setup
 	@make backend-setup
 
+swagger-ui:
+	(cd utils && docker compose up swagger_ui -d --no-recreate )
+	open http://localhost:8080/
+
 erd-generate:
 	(cd utils && docker compose run --rm utils yarn prisma:generate)
 
