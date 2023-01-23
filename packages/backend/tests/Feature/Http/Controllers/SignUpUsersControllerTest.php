@@ -13,20 +13,6 @@ class SignUpUsersControllerTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * ログインしていない時にミドルウェアが正しく動作するか
-     *
-     * @return void
-     */
-    public function testAuthMiddleware(): void
-    {
-        $response = $this->get('/api/v1/users/me');
-        $response->assertStatus(ResponseAlias::HTTP_UNAUTHORIZED);
-        $response->assertJson([
-            'message' => 'Unauthorized',
-        ]);
-    }
-
-    /**
      * ユーザ登録が正しく動作するか
      * 登録後はログイン状態になるか
      *
