@@ -12,17 +12,6 @@ use Tests\TestCase;
 class ListMessageMessagesControllerTest extends TestCase
 {
     use RefreshDatabase;
-    private User $user;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        Message::factory()->count(10)->create();
-
-        $this->user = User::factory()->create();
-        $this->actingAs($this->user);
-    }
 
     /**
      * メッセージ取得できるか
@@ -31,6 +20,11 @@ class ListMessageMessagesControllerTest extends TestCase
      */
     public function testListMessage(): void
     {
+        Message::factory()->count(10)->create();
+
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
         $response = $this->get('/api/v1/messages');
         $response->assertStatus(ResponseAlias::HTTP_OK);
 
@@ -55,6 +49,11 @@ class ListMessageMessagesControllerTest extends TestCase
      */
     public function testListMessageWithLastMessageId(): void
     {
+        Message::factory()->count(10)->create();
+
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
         $message = Message::orderBy('id', 'desc')->limit(2)->get();
         $queryLastMessageId = $message->first()->id;
         $responseHeadMessageId = $message->last()->id;
@@ -87,6 +86,11 @@ class ListMessageMessagesControllerTest extends TestCase
      */
     public function testListMessageWithPerPage(): void
     {
+        Message::factory()->count(10)->create();
+
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
         $perPage = 5;
         $response = $this->get('/api/v1/messages?perPage='.$perPage);
         $response->assertStatus(ResponseAlias::HTTP_OK);
@@ -112,6 +116,11 @@ class ListMessageMessagesControllerTest extends TestCase
      */
     public function testListMessageWithLastMessageIdAndPerPage(): void
     {
+        Message::factory()->count(10)->create();
+
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
         $perPage = 5;
         $message = Message::orderBy('id', 'desc')->limit(2)->get();
         $queryLastMessageId = $message->first()->id;
@@ -145,9 +154,14 @@ class ListMessageMessagesControllerTest extends TestCase
      */
     public function testListMessageWithAlreadyFavorited(): void
     {
+        Message::factory()->count(10)->create();
+
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
         $message = Message::first();
         Favorite::factory()->create([
-            'user_id' => $this->user->id,
+            'user_id' => $user->id,
             'message_id' => $message->id,
         ]);
 
@@ -180,6 +194,11 @@ class ListMessageMessagesControllerTest extends TestCase
      */
     public function testListMessageWithAlreadyFavoritedByOthers(): void
     {
+        Message::factory()->count(10)->create();
+
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
         $favoritter = User::factory()->create();
 
         $message = Message::first();
