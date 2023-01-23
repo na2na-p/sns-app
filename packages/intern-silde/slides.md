@@ -2,7 +2,7 @@
 title: na2na-p/yumemi-intern-slide
 download: false
 lineNumbers: true
-class: "text-center"
+class: text-center
 theme: apple-basic
 ---
 
@@ -509,6 +509,49 @@ class SessionAuthMiddleware
 
 ## バックエンド構築
 
+- ルーティングはまとめてスッキリ書こう(一部抜粋)
+
+```php
+Route::prefix('/v1')->group(function () {
+    Route::middleware('sessionAuth')->group(function () {
+        Route::prefix('/users')->group(function () {
+            Route::controller(UsersController::class)->group(function () {
+                Route::get('/me', 'findUser');
+                Route::put('/me', 'updateUser');
+                Route::put('/me/password', 'updatePassword');
+            });
+        });
+        Route::prefix('/messages')->group(function () {
+            Route::controller(MessagesController::class)->group(function () {
+                Route::post('/', 'createMessage');
+                Route::get('/', 'listMessage');
+            });
+            Route::put('/{messageId}/favorite', [FavoriteController::class, 'addFavorite']);
+        });
+    });
+});
+```
+
+<style>
+    li {
+     	font-size: 1.2em;
+      margin-left: 50px;
+    	padding-bottom: 0.4em;
+    }
+    li li {
+    	font-size: 1em;
+      padding-bottom: 0.1em;
+    }
+</style>
+
+---
+
+# 開発
+
+<br>
+
+## バックエンド構築
+
 - Eloquent の`with`便利
 - Eloquent Model の良さを殺さない書き方をしましょう
   - 必要な時以外できる限り query, select を使用するのは避ける
@@ -589,3 +632,128 @@ $messages = Message::with('favorites')
       padding-bottom: 0.1em;
     }
 </style>
+
+---
+
+# 目次
+
+- 今回の目標
+- 課題
+- 設計
+- 開発 ⇦
+  - フローなど
+  - CI/CD 準備
+  - バックエンド構築
+  - フロントエンド構築 ⇦
+  - インフラ構築
+- デモ
+- 振り返り
+
+<style>
+  li {
+   	font-size: 1.2em;
+    margin-left: 50px;
+  	padding-bottom: 0.4em;
+  }
+  li li {
+  	font-size: 1em;
+    padding-bottom: 0.1em;
+  }
+</style>
+
+---
+
+# 開発
+
+<br>
+
+## フロントエンド構築
+
+- TypeScript で書く
+- MUI 利用
+- フォームには下記を利用
+  - react-hook-form
+  - yup
+
+<style>
+    li {
+     	font-size: 1.2em;
+      margin-left: 50px;
+    	padding-bottom: 0.4em;
+    }
+    li li {
+    	font-size: 1em;
+      padding-bottom: 0.1em;
+    }
+  </style>
+
+---
+
+# 開発
+
+<br>
+
+## フロントエンド構築
+
+- スキーマ駆動開発で幸せになりましょう
+- 型は Orval によって自動生成
+  - 自動生成された TanStack Query のクライアントが壊れていて使い物にならなくて悲しい
+
+```ts
+export type GetApiV1Messages200Item = {
+	id: string;
+	body: string;
+	created_by: string;
+	created_at: string;
+	isFavorite: boolean;
+	favoritesCount: number;
+};
+```
+
+<style>
+    li {
+     	font-size: 1.2em;
+      margin-left: 50px;
+    	padding-bottom: 0.4em;
+    }
+    li li {
+    	font-size: 1em;
+      padding-bottom: 0.1em;
+    }
+  </style>
+
+---
+
+# 目次
+
+- 今回の目標
+- 課題
+- 設計
+- 開発 ⇦
+  - フローなど
+  - CI/CD 準備
+  - バックエンド構築
+  - フロントエンド構築
+  - インフラ構築 ⇦
+- デモ
+- 振り返り
+
+<style>
+  li {
+   	font-size: 1.2em;
+    margin-left: 50px;
+  	padding-bottom: 0.4em;
+  }
+  li li {
+  	font-size: 1em;
+    padding-bottom: 0.1em;
+  }
+</style>
+
+---
+
+# 開発
+
+<br>
+
+## インフラ構築
