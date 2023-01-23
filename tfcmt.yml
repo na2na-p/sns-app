@@ -9,5 +9,5 @@ terraform:
       label: "{{if .Vars.target}}{{.Vars.target}}/{{end}}Infra/destroy"
       label_color: d93f0b # red
     when_no_changes:
-      label:
-      label_color:
+      label: "{{if .Vars.target}}{{.Vars.target}}/{{end}}Infra/no-changes"
+      label_color: 0e8a16 # green
