@@ -31,7 +31,7 @@ class CreateMessageMessagesControllerTest extends TestCase
         $response->assertStatus(ResponseAlias::HTTP_CREATED);
 
         $this->assertDatabaseCount('messages', 1);
-        $user = Message::first();
-        $this->assertEquals($body, $user->body);
+        $message = Message::first();
+        $this->assertEquals($body, $message->body);
     }
 }
