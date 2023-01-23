@@ -19,11 +19,6 @@ class MessageCreateRequestTest extends TestCase
         $this->request = new MessageCreateRequest();
     }
 
-    public function testInstanceOf(): void
-    {
-        $this->assertInstanceOf(MessageCreateRequest::class, $this->request);
-    }
-
     /**
      * バリデーションテスト
      *
@@ -31,16 +26,17 @@ class MessageCreateRequestTest extends TestCase
      *
      * @param  array  $data
      * @param  array  $errors
+     * @param  bool  $expect
      * @return void
      */
-    public function testSignupUsersArgsValidation(array $data, array $errors): void
+    public function testSignupUsersArgsValidation(array $data, array $errors, bool $expect): void
     {
         $rules = $this->request->rules();
         $validator = Validator::make($data, $rules);
 
         $result = $validator->passes();
 
-        $this->assertEquals(false, $result);
+        $this->assertEquals($expect, $result);
         $this->assertEquals($errors, $validator->errors()->toArray());
     }
 
@@ -50,11 +46,19 @@ class MessageCreateRequestTest extends TestCase
     public function signupUsersArgsValidationDataProvider(): array
     {
         return [
+            '正常系' => [
+                'data' => [
+                    'body' => 'test',
+                ],
+                'errors' => [],
+                'expect' => true,
+            ],
             'フィールドが空' => [
                 'data' => [],
                 'errors' => [
                     'body' => ['The body field is required.'],
                 ],
+                'expect' => false,
             ],
             '文字数が多すぎる' => [
                 'data' => [
@@ -63,6 +67,7 @@ class MessageCreateRequestTest extends TestCase
                 'errors' => [
                     'body' => ['The body must not be greater than 140 characters.'],
                 ],
+                'expect' => false,
             ],
             //            'Edge: 絵文字でも正しくカウントできる' => [
             //                'data' => [
