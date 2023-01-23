@@ -20,45 +20,36 @@ class MessageCreateRequestTest extends TestCase
     }
 
     /**
-     * バリデーションテスト
+     * バリデーションテスト(異常系)
      *
-     * @dataProvider signupUsersArgsValidationDataProvider
+     * @dataProvider signupUsersArgsValidationInvalidDataProvider
      *
      * @param  array  $data
      * @param  array  $errors
-     * @param  bool  $expect
      * @return void
      */
-    public function testSignupUsersArgsValidation(array $data, array $errors, bool $expect): void
+    public function testSignupUsersArgsValidationFailed(array $data, array $errors): void
     {
         $rules = $this->request->rules();
         $validator = Validator::make($data, $rules);
 
         $result = $validator->passes();
 
-        $this->assertEquals($expect, $result);
+        $this->assertEquals(false, $result);
         $this->assertEquals($errors, $validator->errors()->toArray());
     }
 
     /**
-     * テストに渡すデータ
+     * 異常系テストに渡すデータ
      */
-    public function signupUsersArgsValidationDataProvider(): array
+    public function signupUsersArgsValidationInvalidDataProvider(): array
     {
         return [
-            '正常系' => [
-                'data' => [
-                    'body' => 'test',
-                ],
-                'errors' => [],
-                'expect' => true,
-            ],
             'フィールドが空' => [
                 'data' => [],
                 'errors' => [
                     'body' => ['The body field is required.'],
                 ],
-                'expect' => false,
             ],
             '文字数が多すぎる' => [
                 'data' => [
@@ -67,7 +58,6 @@ class MessageCreateRequestTest extends TestCase
                 'errors' => [
                     'body' => ['The body must not be greater than 140 characters.'],
                 ],
-                'expect' => false,
             ],
             //            'Edge: 絵文字でも正しくカウントできる' => [
             //                'data' => [
@@ -77,6 +67,38 @@ class MessageCreateRequestTest extends TestCase
             //                    'body' => ['The body must not be greater than 140 characters.'],
             //                ],
             //            ],
+        ];
+    }
+
+    /**
+     * バリデーションテスト(正常系)
+     *
+     * @dataProvider signupUsersArgsValidationValidDataProvider
+     *
+     * @param  array  $data
+     * @return void
+     */
+    public function testSignupUsersArgsValidationSuccess(array $data): void
+    {
+        $rules = $this->request->rules();
+        $validator = Validator::make($data, $rules);
+
+        $result = $validator->passes();
+
+        $this->assertEquals(true, $result);
+    }
+
+    /**
+     * 正常系テストに渡すデータ
+     */
+    public function signupUsersArgsValidationValidDataProvider(): array
+    {
+        return [
+            '正常系' => [
+                'data' => [
+                    'body' => 'test',
+                ],
+            ],
         ];
     }
 }
