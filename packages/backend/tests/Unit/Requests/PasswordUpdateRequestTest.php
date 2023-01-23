@@ -21,11 +21,6 @@ class PasswordUpdateRequestTest extends TestCase
         $this->request = new PasswordUpdateRequest();
     }
 
-    public function testInstanceOf(): void
-    {
-        $this->assertInstanceOf(PasswordUpdateRequest::class, $this->request);
-    }
-
     /**
      * バリデーションテスト
      *
@@ -35,7 +30,7 @@ class PasswordUpdateRequestTest extends TestCase
      * @param  array  $errors
      * @return void
      */
-    public function testSignupUsersArgsValidation(array $data, array $errors): void
+    public function testSignupUsersArgsValidation(array $data, array $errors, bool $expect): void
     {
         $currentPassword = 'password';
         $user = User::factory()->create(
@@ -49,7 +44,7 @@ class PasswordUpdateRequestTest extends TestCase
 
         $result = $validator->passes();
 
-        $this->assertEquals(false, $result);
+        $this->assertEquals($expect, $result);
         $this->assertEquals($errors, $validator->errors()->toArray());
     }
 
@@ -59,12 +54,21 @@ class PasswordUpdateRequestTest extends TestCase
     public function signupUsersArgsValidationDataProvider(): array
     {
         return [
+            '正常系' => [
+                'data' => [
+                    'currentPassword' => 'password',
+                    'newPassword' => 'new-password',
+                ],
+                'errors' => [],
+                'expected' => true,
+            ],
             'フィールドが空' => [
                 'data' => [],
                 'errors' => [
                     'currentPassword' => ['The current password field is required.'],
                     'newPassword' => ['The new password field is required.'],
                 ],
+                'expect' => false,
             ],
             '文字数が多すぎる' => [
                 'data' => [
@@ -74,6 +78,7 @@ class PasswordUpdateRequestTest extends TestCase
                 'errors' => [
                     'newPassword' => ['The new password must not be greater than 32 characters.'],
                 ],
+                'expect' => false,
             ],
             '現在のパスワードと異なる' => [
                 'data' => [
@@ -83,6 +88,7 @@ class PasswordUpdateRequestTest extends TestCase
                 'errors' => [
                     'currentPassword' => ['The password is incorrect.'],
                 ],
+                'expect' => false,
             ],
         ];
     }
