@@ -31,12 +31,8 @@ class FavoriteFactory extends Factory
 
         return [
             'id' => $uuid->toString(),
-            'user_id' => function () {
-                return User::factory()->create()->id;
-            },
-            'message_id' => function () {
-                return Message::factory()->create()->id;
-            },
+            'user_id' => User::factory(),
+            'message_id' => Message::factory(),
         ];
     }
 }

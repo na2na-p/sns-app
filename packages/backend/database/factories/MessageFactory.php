@@ -31,9 +31,7 @@ class MessageFactory extends Factory
         return [
             'id' => $uuid->toString(),
             'body' => 'Hello, world!',
-            'user_id' => function () {
-                return User::factory()->create()->id;
-            },
+            'user_id' => User::factory(),
         ];
     }
 }
