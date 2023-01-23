@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\UserFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -37,7 +38,7 @@ use Illuminate\Support\Carbon;
  * @property-read Collection|Message[] $messages
  * @property-read int|null $messages_count
  *
- * @method static \Database\Factories\UserFactory factory(...$parameters)
+ * @method static UserFactory factory(...$parameters)
  */
 class User extends Authenticatable
 {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\MessageFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -35,7 +36,7 @@ use Illuminate\Support\Carbon;
  * @property-read int|null $favorites_count
  * @property-read User $user
  *
- * @method static \Database\Factories\MessageFactory factory(...$parameters)
+ * @method static MessageFactory factory(...$parameters)
  */
 class Message extends Model
 {
