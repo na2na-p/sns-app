@@ -25,9 +25,9 @@ class UpdateUserInfoRequestTest extends TestCase
      *
      * @dataProvider updateUserInfoArgsValidationDataProvider
      *
-     * @param array $data
-     * @param array $errors
-     * @param bool $expect
+     * @param  array  $data
+     * @param  array  $errors
+     * @param  bool  $expect
      * @return void
      */
     public function testSignupUsersArgsValidation(array $data, array $errors, bool $expect): void

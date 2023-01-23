@@ -21,9 +21,9 @@ class LoginRequestTest extends TestCase
      *
      * @dataProvider loginArgsValidationDataProvider
      *
-     * @param array $data
-     * @param array $errors
-     * @param bool $expect
+     * @param  array  $data
+     * @param  array  $errors
+     * @param  bool  $expect
      * @return void
      */
     public function testLoginsArgsValidation(array $data, array $errors, bool $expect): void
@@ -71,7 +71,7 @@ class LoginRequestTest extends TestCase
             ],
             '文字数が多すぎる' => [
                 'data' => [
-                    'email' => str_repeat('a', 244) . '@example.com',
+                    'email' => str_repeat('a', 244).'@example.com',
                     'password' => str_repeat('a', 33),
                 ],
                 'errors' => [

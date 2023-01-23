@@ -25,9 +25,9 @@ class SignupRequestTest extends TestCase
      *
      * @dataProvider signupUsersArgsValidationDataProvider
      *
-     * @param array $data
-     * @param array $errors
-     * @param bool $expect
+     * @param  array  $data
+     * @param  array  $errors
+     * @param  bool  $expect
      * @return void
      */
     public function testSignupUsersArgsValidation(array $data, array $errors, bool $expect): void
@@ -70,7 +70,7 @@ class SignupRequestTest extends TestCase
                     'email' => ['The email field is required.'],
                     'password' => ['The password field is required.'],
                 ],
-                "expect" => false,
+                'expect' => false,
             ],
             'メールアドレスがすでに存在する' => [
                 'data' => [
@@ -127,7 +127,7 @@ class SignupRequestTest extends TestCase
             '文字数が多すぎる' => [
                 'data' => [
                     'name' => str_repeat('a', 65),
-                    'email' => str_repeat('a', 244) . '@example.com',
+                    'email' => str_repeat('a', 244).'@example.com',
                     'password' => str_repeat('a', 33),
                 ],
                 'errors' => [
