@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Models\Favorite;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -11,12 +12,16 @@ use Tests\TestCase;
 class ListMessageMessagesControllerTest extends TestCase
 {
     use RefreshDatabase;
+    private User $user;
 
     public function setUp(): void
     {
         parent::setUp();
 
         Message::factory()->count(10)->create();
+
+        $this->user = User::factory()->create();
+        $this->actingAs($this->user);
     }
 
     /**
@@ -24,11 +29,8 @@ class ListMessageMessagesControllerTest extends TestCase
      *
      * @return void
      */
-    public function testMessageCreate(): void
+    public function testListMessage(): void
     {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-
         $response = $this->get('/api/v1/messages');
         $response->assertStatus(ResponseAlias::HTTP_OK);
 
@@ -40,11 +42,8 @@ class ListMessageMessagesControllerTest extends TestCase
      *
      * @return void
      */
-    public function testMessageCreateWithLastMessageId(): void
+    public function testListMessageWithLastMessageId(): void
     {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-
         $message = Message::orderBy('id', 'desc')->limit(2)->get();
         $queryLastMessageId = $message->first()->id;
         $responseHeadMessageId = $message->last()->id;
@@ -64,11 +63,8 @@ class ListMessageMessagesControllerTest extends TestCase
      *
      * @return void
      */
-    public function testMessageCreateWithPerPage(): void
+    public function testListMessageWithPerPage(): void
     {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-
         $perPage = 5;
         $response = $this->get('/api/v1/messages?perPage='.$perPage);
         $response->assertStatus(ResponseAlias::HTTP_OK);
@@ -81,11 +77,8 @@ class ListMessageMessagesControllerTest extends TestCase
      *
      * @return void
      */
-    public function testMessageCreateWithLastMessageIdAndPerPage(): void
+    public function testListMessageWithLastMessageIdAndPerPage(): void
     {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-
         $perPage = 5;
         $message = Message::orderBy('id', 'desc')->limit(2)->get();
         $queryLastMessageId = $message->first()->id;
@@ -98,6 +91,56 @@ class ListMessageMessagesControllerTest extends TestCase
 
         $response->assertJsonFragment([
             'id' => $responseHeadMessageId,
+        ]);
+    }
+
+    /**
+     * 自分のお気に入り済みのメッセージが含まれる場合にただしくレスポンスできるか
+     *
+     * @return void
+     */
+    public function testListMessageWithAlreadyFavorited(): void
+    {
+        $message = Message::first();
+        Favorite::factory()->create([
+            'user_id' => $this->user->id,
+            'message_id' => $message->id,
+        ]);
+
+        $response = $this->get('/api/v1/messages');
+        $response->assertStatus(ResponseAlias::HTTP_OK);
+
+        $response->assertJsonCount(10);
+
+        $response->assertJsonFragment([
+            'id' => $message->id,
+            'isFavorite' => true,
+        ]);
+    }
+
+    /**
+     * 他人のお気に入り済みのメッセージが含まれる場合にただしくレスポンスできるか
+     *
+     * @return void
+     */
+    public function testListMessageWithAlreadyFavoritedByOthers(): void
+    {
+        $favoritter = User::factory()->create();
+
+        $message = Message::first();
+        Favorite::factory()->create([
+            'user_id' => $favoritter->id,
+            'message_id' => $message->id,
+        ]);
+
+        $response = $this->get('/api/v1/messages');
+        $response->assertStatus(ResponseAlias::HTTP_OK);
+
+        $response->assertJsonCount(10);
+
+        $response->assertJsonFragment([
+            'id' => $message->id,
+            'isFavorite' => false,
         ]);
     }
 }
