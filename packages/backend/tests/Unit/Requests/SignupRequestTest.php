@@ -21,16 +21,15 @@ class SignupRequestTest extends TestCase
     }
 
     /**
-     * バリデーションテスト
+     * バリデーションテスト(異常系)
      *
-     * @dataProvider signupUsersArgsValidationDataProvider
+     * @dataProvider signupUsersArgsValidationInvalidDataProvider
      *
      * @param  array  $data
      * @param  array  $errors
-     * @param  bool  $expect
      * @return void
      */
-    public function testSignupUsersArgsValidation(array $data, array $errors, bool $expect): void
+    public function testSignupUsersArgsValidationFailed(array $data, array $errors): void
     {
         $email = 'test@example.com';
         User::factory()->create(
@@ -44,25 +43,16 @@ class SignupRequestTest extends TestCase
 
         $result = $validator->passes();
 
-        $this->assertEquals($expect, $result);
+        $this->assertEquals(false, $result);
         $this->assertEquals($errors, $validator->errors()->toArray());
     }
 
     /**
-     * テストに渡すデータ
+     * 異常系テストに渡すデータ
      */
-    public function signupUsersArgsValidationDataProvider(): array
+    public function signupUsersArgsValidationInvalidDataProvider(): array
     {
         return [
-            '正常系' => [
-                'data' => [
-                    'name' => 'test',
-                    'email' => 'foo@example.com',
-                    'password' => 'password',
-                ],
-                'errors' => [],
-                'expect' => true,
-            ],
             'フィールドが空' => [
                 'data' => [],
                 'errors' => [
@@ -70,7 +60,6 @@ class SignupRequestTest extends TestCase
                     'email' => ['The email field is required.'],
                     'password' => ['The password field is required.'],
                 ],
-                'expect' => false,
             ],
             'メールアドレスがすでに存在する' => [
                 'data' => [
@@ -81,7 +70,6 @@ class SignupRequestTest extends TestCase
                 'errors' => [
                     'email' => ['The email has already been taken.'],
                 ],
-                'expect' => false,
             ],
             'メールアドレスの形式が不正' => [
                 'data' => [
@@ -92,7 +80,6 @@ class SignupRequestTest extends TestCase
                 'errors' => [
                     'email' => ['The email must be a valid email address.'],
                 ],
-                'expect' => false,
             ],
             'Edge: 実在するがRFC違反メールアドレス' => [
                 'data' => [
@@ -103,7 +90,6 @@ class SignupRequestTest extends TestCase
                 'errors' => [
                     'email' => ['The email must be a valid email address.'],
                 ],
-                'expect' => false,
             ],
             'Edge: 実在するがRFC違反メールアドレス2' => [
                 'data' => [
@@ -114,7 +100,6 @@ class SignupRequestTest extends TestCase
                 'errors' => [
                     'email' => ['The email must be a valid email address.'],
                 ],
-                'expect' => false,
             ],
             //            'Edge: メールアドレス' => [
             //                'data' => [
@@ -135,7 +120,40 @@ class SignupRequestTest extends TestCase
                     'email' => ['The email must not be greater than 255 characters.'],
                     'password' => ['The password must not be greater than 32 characters.'],
                 ],
-                'expect' => false,
+            ],
+        ];
+    }
+
+    /**
+     * バリデーションテスト(正常系)
+     *
+     * @dataProvider SignupUsersArgsValidationValidDataProvider
+     *
+     * @param  array  $data
+     * @return void
+     */
+    public function testSignupUsersArgsValidationSuccess(array $data): void
+    {
+        $rules = $this->request->rules();
+        $validator = Validator::make($data, $rules);
+
+        $result = $validator->passes();
+
+        $this->assertEquals(true, $result);
+    }
+
+    /**
+     * 正常系テストに渡すデータ
+     */
+    public function SignupUsersArgsValidationValidDataProvider(): array
+    {
+        return [
+            '正常系' => [
+                'data' => [
+                    'name' => 'test',
+                    'email' => 'foo@example.com',
+                    'password' => 'password',
+                ],
             ],
         ];
     }

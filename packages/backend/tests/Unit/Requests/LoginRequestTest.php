@@ -19,45 +19,35 @@ class LoginRequestTest extends TestCase
     /**
      * バリデーションテスト
      *
-     * @dataProvider loginArgsValidationDataProvider
+     * @dataProvider loginArgsValidationInvalidDataProvider
      *
      * @param  array  $data
      * @param  array  $errors
-     * @param  bool  $expect
      * @return void
      */
-    public function testLoginsArgsValidation(array $data, array $errors, bool $expect): void
+    public function testLoginsArgsValidationFailed(array $data, array $errors): void
     {
         $rules = $this->request->rules();
         $validator = Validator::make($data, $rules);
 
         $result = $validator->passes();
 
-        $this->assertEquals($expect, $result);
+        $this->assertEquals(false, $result);
         $this->assertEquals($errors, $validator->errors()->toArray());
     }
 
     /**
-     * テストに渡すデータ
+     * 異常系テストに渡すデータ
      */
-    public function loginArgsValidationDataProvider(): array
+    public function loginArgsValidationInvalidDataProvider(): array
     {
         return [
-            '正常系' => [
-                'data' => [
-                    'email' => 'bar@example.com',
-                    'password' => 'password',
-                ],
-                'errors' => [],
-                'expect' => true,
-            ],
             'フィールドが空' => [
                 'data' => [],
                 'errors' => [
                     'email' => ['The email field is required.'],
                     'password' => ['The password field is required.'],
                 ],
-                'expect' => false,
             ],
             'メールアドレスの形式が不正' => [
                 'data' => [
@@ -67,7 +57,6 @@ class LoginRequestTest extends TestCase
                 'errors' => [
                     'email' => ['The email must be a valid email address.'],
                 ],
-                'expect' => false,
             ],
             '文字数が多すぎる' => [
                 'data' => [
@@ -78,7 +67,39 @@ class LoginRequestTest extends TestCase
                     'email' => ['The email must not be greater than 255 characters.'],
                     'password' => ['The password must not be greater than 32 characters.'],
                 ],
-                'expect' => false,
+            ],
+        ];
+    }
+
+    /**
+     * バリデーションテスト(正常系)
+     *
+     * @dataProvider loginArgsValidationValidDataProvider
+     *
+     * @param  array  $data
+     * @return void
+     */
+    public function testLoginsArgsValidationSuccess(array $data): void
+    {
+        $rules = $this->request->rules();
+        $validator = Validator::make($data, $rules);
+
+        $result = $validator->passes();
+
+        $this->assertEquals(true, $result);
+    }
+
+    /**
+     * テストに渡すデータ
+     */
+    public function loginArgsValidationValidDataProvider(): array
+    {
+        return [
+            '正常系' => [
+                'data' => [
+                    'email' => 'bar@example.com',
+                    'password' => 'password',
+                ],
             ],
         ];
     }
