@@ -36,6 +36,6 @@ class PasswordUpdateUsersControllerTest extends TestCase
         $user->refresh();
 
         $this->assertNotEquals($previousHashedPassword, $user->password);
-        $this->assertEquals(true, Hash::check($newPassword, $user->password));
+        $this->assertTrue(Hash::check($newPassword, $user->password));
     }
 }
