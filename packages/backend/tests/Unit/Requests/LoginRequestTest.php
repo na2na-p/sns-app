@@ -16,21 +16,16 @@ class LoginRequestTest extends TestCase
         $this->request = new LoginRequest();
     }
 
-    public function testInstanceOf(): void
-    {
-        $this->assertInstanceOf(LoginRequest::class, $this->request);
-    }
-
     /**
      * バリデーションテスト
      *
-     * @dataProvider loginArgsValidationDataProvider
+     * @dataProvider loginArgsValidationInvalidDataProvider
      *
      * @param  array  $data
      * @param  array  $errors
      * @return void
      */
-    public function testLoginsArgsValidation(array $data, array $errors): void
+    public function testLoginsArgsValidationFailed(array $data, array $errors): void
     {
         $rules = $this->request->rules();
         $validator = Validator::make($data, $rules);
@@ -42,9 +37,9 @@ class LoginRequestTest extends TestCase
     }
 
     /**
-     * テストに渡すデータ
+     * 異常系テストに渡すデータ
      */
-    public function loginArgsValidationDataProvider(): array
+    public function loginArgsValidationInvalidDataProvider(): array
     {
         return [
             'フィールドが空' => [
@@ -71,6 +66,39 @@ class LoginRequestTest extends TestCase
                 'errors' => [
                     'email' => ['The email must not be greater than 255 characters.'],
                     'password' => ['The password must not be greater than 32 characters.'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * バリデーションテスト(正常系)
+     *
+     * @dataProvider loginArgsValidationValidDataProvider
+     *
+     * @param  array  $data
+     * @return void
+     */
+    public function testLoginsArgsValidationSuccess(array $data): void
+    {
+        $rules = $this->request->rules();
+        $validator = Validator::make($data, $rules);
+
+        $result = $validator->passes();
+
+        $this->assertEquals(true, $result);
+    }
+
+    /**
+     * テストに渡すデータ
+     */
+    public function loginArgsValidationValidDataProvider(): array
+    {
+        return [
+            '正常系' => [
+                'data' => [
+                    'email' => 'bar@example.com',
+                    'password' => 'password',
                 ],
             ],
         ];

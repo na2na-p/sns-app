@@ -2,28 +2,28 @@
 
 namespace tests\Unit\Requests;
 
-use App\Http\Requests\SignupRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Validator;
 use Tests\TestCase;
 
-class SignupRequestTest extends TestCase
+class UpdateUserInfoRequestTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected SignupRequest $request;
+    protected UpdateUserRequest $request;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->request = new SignupRequest();
+        $this->request = new UpdateUserRequest();
     }
 
     /**
      * バリデーションテスト(異常系)
      *
-     * @dataProvider signupUsersArgsValidationInvalidDataProvider
+     * @dataProvider updateUserInfoArgsInvalidDataProvider
      *
      * @param  array  $data
      * @param  array  $errors
@@ -31,12 +31,7 @@ class SignupRequestTest extends TestCase
      */
     public function testSignupUsersArgsValidationFailed(array $data, array $errors): void
     {
-        $email = 'test@example.com';
-        User::factory()->create(
-            [
-                'email' => $email,
-            ]
-        );
+        User::factory()->create();
 
         $rules = $this->request->rules();
         $validator = Validator::make($data, $rules);
@@ -50,7 +45,7 @@ class SignupRequestTest extends TestCase
     /**
      * 異常系テストに渡すデータ
      */
-    public function signupUsersArgsValidationInvalidDataProvider(): array
+    public function updateUserInfoArgsInvalidDataProvider(): array
     {
         return [
             'フィールドが空' => [
@@ -58,14 +53,12 @@ class SignupRequestTest extends TestCase
                 'errors' => [
                     'name' => ['The name field is required.'],
                     'email' => ['The email field is required.'],
-                    'password' => ['The password field is required.'],
                 ],
             ],
             'メールアドレスがすでに存在する' => [
                 'data' => [
                     'name' => 'test',
-                    'email' => 'test@example.com',
-                    'password' => 'password',
+                    'email' => 'bar@example.com',
                 ],
                 'errors' => [
                     'email' => ['The email has already been taken.'],
@@ -75,7 +68,6 @@ class SignupRequestTest extends TestCase
                 'data' => [
                     'name' => 'test',
                     'email' => 'invalid-email',
-                    'password' => 'password',
                 ],
                 'errors' => [
                     'email' => ['The email must be a valid email address.'],
@@ -85,7 +77,6 @@ class SignupRequestTest extends TestCase
                 'data' => [
                     'name' => 'test',
                     'email' => 'ab..cd@example.com',
-                    'password' => 'password',
                 ],
                 'errors' => [
                     'email' => ['The email must be a valid email address.'],
@@ -95,7 +86,6 @@ class SignupRequestTest extends TestCase
                 'data' => [
                     'name' => 'test',
                     'email' => 'ab[cd@example.com',
-                    'password' => 'password',
                 ],
                 'errors' => [
                     'email' => ['The email must be a valid email address.'],
@@ -105,7 +95,6 @@ class SignupRequestTest extends TestCase
             //                'data' => [
             //                    'name' => "test",
             //                    'email' => '”ab..cd”@example.com',
-            //                    'password' => 'password',
             //                ],
             //                'errors' => []
             //            ],
@@ -113,12 +102,10 @@ class SignupRequestTest extends TestCase
                 'data' => [
                     'name' => str_repeat('a', 65),
                     'email' => str_repeat('a', 244).'@example.com',
-                    'password' => str_repeat('a', 33),
                 ],
                 'errors' => [
                     'name' => ['The name must not be greater than 64 characters.'],
                     'email' => ['The email must not be greater than 255 characters.'],
-                    'password' => ['The password must not be greater than 32 characters.'],
                 ],
             ],
         ];
@@ -127,13 +114,15 @@ class SignupRequestTest extends TestCase
     /**
      * バリデーションテスト(正常系)
      *
-     * @dataProvider SignupUsersArgsValidationValidDataProvider
+     * @dataProvider updateUserInfoArgsValidDataProvider
      *
      * @param  array  $data
      * @return void
      */
     public function testSignupUsersArgsValidationSuccess(array $data): void
     {
+        User::factory()->create();
+
         $rules = $this->request->rules();
         $validator = Validator::make($data, $rules);
 
@@ -145,14 +134,13 @@ class SignupRequestTest extends TestCase
     /**
      * 正常系テストに渡すデータ
      */
-    public function SignupUsersArgsValidationValidDataProvider(): array
+    public function updateUserInfoArgsValidDataProvider(): array
     {
         return [
             '正常系' => [
                 'data' => [
                     'name' => 'test',
-                    'email' => 'foo@example.com',
-                    'password' => 'password',
+                    'email' => 'hoge@example.com',
                 ],
             ],
         ];
