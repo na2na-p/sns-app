@@ -31,7 +31,7 @@ class UserFactory extends Factory
         return [
             'id' => $uuid->toString(),
             'name' => 'foo',
-            'email' => 'bar@example.com',
+            'email' => fake()->safeEmail(),
             'password' => Hash::make('password'),
         ];
     }
