@@ -70,7 +70,7 @@ theme: apple-basic
 
 # 今回の目標
 
-- Hello PHP
+- Hello PHP!
 
   - そもそも PHP が久しぶり
   - 型の付いた現代の PHP はどんなもの？
@@ -79,6 +79,7 @@ theme: apple-basic
 
 - テストを書こう
   - Stop! 猛コード・ノーテスト開発
+  - テストケースの考え方
 
 <style>
   li {
@@ -131,6 +132,12 @@ theme: apple-basic
 Twitter ライクな Web アプリケーションを作成する  
 バックエンドには Laravel を使用するが、そのほかは自由
 
+<style>
+  p {
+   	font-size: 1.3em;
+  }
+</style>
+
 ---
 
 # 課題
@@ -141,13 +148,14 @@ Twitter ライクな Web アプリケーションを作成する
 
 <br>
 
-| バックエンド   | Laravel 9                     |
-| -------------- | ----------------------------- |
-| フロントエンド | React 18 + TypeScript         |
-| データベース   | MySQL 8.0                     |
-| インフラ       | AWS (IaC 利用)                |
-| CI/CD          | Github Actions(GitHub-hosted) |
-| 認証           | Session Auth                  |
+| エディタ       | IntelliJ IDEA Ultimate / VSCode                                          |
+| -------------- | ------------------------------------------------------------------------ |
+| バックエンド   | Laravel 9                                                                |
+| フロントエンド | React 18 + TypeScript                                                    |
+| データベース   | MySQL 8.0                                                                |
+| インフラ       | AWS (IaC 利用、バックエンド) / Cloudflare (バックエンド, フロントエンド) |
+| CI/CD          | Github Actions(GitHub-hosted)                                            |
+| 認証           | Session Auth                                                             |
 
 ---
 
@@ -330,8 +338,9 @@ Export した SVG を[Github](https://github.com/na2na-p/sns-app/tree/main/docum
 
 ## CI/CD 構築
 
+- ライブラリ等の更新は Renovate に丸投げ
 - バックエンドではテストで利用するコマンドを質問して Makefile から利用可能に
-- Nod.js 環境で使う CI はなんとなく理解してるのでサクッと
+- Node.js 環境で使う CI はなんとなく理解してるのでサクッと
 - フロントエンド CD は Cloudflare Pages へ。ビルドテストも兼ねています。
   - デプロイ後はキャッシュパージしましょう
 - バックエンド CD は AWS EC2 へ
@@ -384,9 +393,11 @@ Export した SVG を[Github](https://github.com/na2na-p/sns-app/tree/main/docum
 
 ## CI/CD 構築
 
-PR のたびにこういう光景が広がります。
+PR のたびにこういう光景が広がります。これでも見切れていますが。
 
-![check](https://misskey.na2na.dev/media/media/c6a97f66-94a5-49cd-9221-d467b7ac2bf2.png)
+<!-- モノレポの辛いところで、関係ない分野のテストも通らないとマージされないのが -->
+
+![check](https://misskey.na2na.dev/media/media/595bb658-4c63-49e9-b380-de533a4b7f3c.png)
 
 <style>
   li {
@@ -429,3 +440,152 @@ PR のたびにこういう光景が広がります。
 </style>
 
 ---
+
+# 開発
+
+<br>
+
+## バックエンド構築
+
+- Laravel で API サーバの構築
+- CORS の設定周りがかなり雑になってしまった
+
+<style>
+    li {
+     	font-size: 1.2em;
+      margin-left: 50px;
+    	padding-bottom: 0.4em;
+    }
+    li li {
+    	font-size: 1em;
+      padding-bottom: 0.1em;
+    }
+</style>
+
+---
+
+# 開発
+
+<br>
+
+## バックエンド構築
+
+- 初期からある認証用ミドルウェアでは不満があったので、自前で作成したものを適用
+  <!-- - 具体的には認証していない場合絶対に`/login`にリダイレクトさせようとする挙動 -->
+
+```php
+class SessionAuthMiddleware
+{
+		// PHPDoc省略
+    public function handle(Request $request, Closure $next)
+    {
+        if (is_null($request->user())) {
+            return response([
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+        return $next($request);
+    }
+}
+```
+
+<style>
+    li {
+     	font-size: 1.2em;
+      margin-left: 50px;
+    	padding-bottom: 0.4em;
+    }
+    li li {
+    	font-size: 1em;
+      padding-bottom: 0.1em;
+    }
+</style>
+
+---
+
+# 開発
+
+<br>
+
+## バックエンド構築
+
+- Eloquent の`with`便利
+- Eloquent Model の良さを殺さない書き方をしましょう
+  - 必要な時以外できる限り query, select を使用するのは避ける
+
+```php
+$messages = Message::with('favorites')
+		->withCount(['favorites' => function (Builder $query) use ($userId) {
+				$query->where('user_id', $userId);
+		}])
+		->with('user')
+		->when($lastMessageId, function (Builder $query) use ($lastMessageId) {
+				$query->where('id', '<', $lastMessageId);
+		})
+		->orderBy('id', 'desc')
+		->take($perPage)
+		->get();
+```
+
+<style>
+    li {
+     	font-size: 1.2em;
+      margin-left: 50px;
+    	padding-bottom: 0.4em;
+    }
+    li li {
+    	font-size: 1em;
+      padding-bottom: 0.1em;
+    }
+</style>
+
+---
+
+# 開発
+
+<br>
+
+## バックエンド構築
+
+- OpenAPI のスキーマ生成を Laravel の実装から行うように
+  - 出来上がったスキーマをもとにテストが生成できたら嬉しい
+  - フロントエンドも型安全になって嬉しい
+
+<style>
+    li {
+     	font-size: 1.2em;
+      margin-left: 50px;
+    	padding-bottom: 0.4em;
+    }
+    li li {
+    	font-size: 1em;
+      padding-bottom: 0.1em;
+    }
+</style>
+
+---
+
+# 開発
+
+<br>
+
+## バックエンド構築
+
+- テスト実装
+  - DRY 原則に背いたテストコードを書くことも多々ある。むしろ愚直に書くべき。
+  - 更新後の値もきちんと確認しよう、更新できて終わりではない
+  - テストの意図が伝わりやすいテストを書こう
+- カバレッジは確認しておこう
+  - 今回は 1 箇所の漏れに気づけた
+
+<style>
+    li {
+     	font-size: 1.2em;
+      margin-left: 50px;
+    	padding-bottom: 0.4em;
+    }
+    li li {
+    	font-size: 1em;
+      padding-bottom: 0.1em;
+    }
+</style>
