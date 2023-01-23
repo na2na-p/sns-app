@@ -96,3 +96,6 @@ backend-infra-plan-ci:
 
 backend-infra-destroy:
 	(cd packages/infra/ec2 && terraform destroy)
+
+slide-build:
+	(cd packages/intern-silde && yarn install && yarn build)
