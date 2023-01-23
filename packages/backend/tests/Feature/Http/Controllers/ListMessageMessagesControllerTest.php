@@ -35,6 +35,17 @@ class ListMessageMessagesControllerTest extends TestCase
         $response->assertStatus(ResponseAlias::HTTP_OK);
 
         $response->assertJsonCount(10);
+
+        $response->assertJsonStructure([
+            '*' => [
+                'id',
+                'body',
+                'created_by',
+                'created_at',
+                'favoritesCount',
+                'isFavorite',
+            ],
+        ]);
     }
 
     /**
@@ -53,6 +64,17 @@ class ListMessageMessagesControllerTest extends TestCase
 
         $response->assertJsonCount(9);
 
+        $response->assertJsonStructure([
+            '*' => [
+                'id',
+                'body',
+                'created_by',
+                'created_at',
+                'favoritesCount',
+                'isFavorite',
+            ],
+        ]);
+
         $response->assertJsonFragment([
             'id' => $responseHeadMessageId,
         ]);
@@ -70,6 +92,17 @@ class ListMessageMessagesControllerTest extends TestCase
         $response->assertStatus(ResponseAlias::HTTP_OK);
 
         $response->assertJsonCount(5);
+
+        $response->assertJsonStructure([
+            '*' => [
+                'id',
+                'body',
+                'created_by',
+                'created_at',
+                'favoritesCount',
+                'isFavorite',
+            ],
+        ]);
     }
 
     /**
@@ -88,6 +121,17 @@ class ListMessageMessagesControllerTest extends TestCase
         $response->assertStatus(ResponseAlias::HTTP_OK);
 
         $response->assertJsonCount(5);
+
+        $response->assertJsonStructure([
+            '*' => [
+                'id',
+                'body',
+                'created_by',
+                'created_at',
+                'favoritesCount',
+                'isFavorite',
+            ],
+        ]);
 
         $response->assertJsonFragment([
             'id' => $responseHeadMessageId,
@@ -111,6 +155,17 @@ class ListMessageMessagesControllerTest extends TestCase
         $response->assertStatus(ResponseAlias::HTTP_OK);
 
         $response->assertJsonCount(10);
+
+        $response->assertJsonStructure([
+            '*' => [
+                'id',
+                'body',
+                'created_by',
+                'created_at',
+                'favoritesCount',
+                'isFavorite',
+            ],
+        ]);
 
         $response->assertJsonFragment([
             'id' => $message->id,
@@ -137,6 +192,17 @@ class ListMessageMessagesControllerTest extends TestCase
         $response->assertStatus(ResponseAlias::HTTP_OK);
 
         $response->assertJsonCount(10);
+
+        $response->assertJsonStructure([
+            '*' => [
+                'id',
+                'body',
+                'created_by',
+                'created_at',
+                'favoritesCount',
+                'isFavorite',
+            ],
+        ]);
 
         $response->assertJsonFragment([
             'id' => $message->id,
