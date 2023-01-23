@@ -3,7 +3,7 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Tests\TestCase;
@@ -21,13 +21,11 @@ class PasswordUpdateUsersControllerTest extends TestCase
     {
         $previousPassword = 'password';
         $newPassword = 'new_password';
-        $user = User::factory()->create([
-            'password' => Hash::make($previousPassword),
-        ]);
+        $user = User::factory()->create();
         $this->actingAs($user);
         $this->assertAuthenticated();
 
-        $previousHashedPassword = $user->password;
+        $previousHashedPassword = Hash::make($previousPassword);
 
         $response = $this->put('/api/v1/users/me/password', [
             'currentPassword' => $previousPassword,
@@ -36,6 +34,8 @@ class PasswordUpdateUsersControllerTest extends TestCase
         $response->assertStatus(ResponseAlias::HTTP_OK);
 
         $user->refresh();
+
         $this->assertNotEquals($previousHashedPassword, $user->password);
+        $this->assertEquals(true, Hash::check($newPassword, $user->password));
     }
 }
