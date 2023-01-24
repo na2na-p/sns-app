@@ -164,8 +164,8 @@ Twitter ライクな Web アプリケーションを作成する
 
 | エディタ       | IntelliJ IDEA Ultimate / VSCode                                          |
 | -------------- | ------------------------------------------------------------------------ |
-| バックエンド   | Laravel 9                                                                |
-| フロントエンド | React 18 + TypeScript                                                    |
+| バックエンド   | Laravel 9 + PHP 8.2.1 (sail 利用)                                        |
+| フロントエンド | React 18 + TypeScript 4.9.4                                              |
 | データベース   | MySQL 8.0                                                                |
 | インフラ       | AWS (IaC 利用、バックエンド) / Cloudflare (バックエンド, フロントエンド) |
 | CI/CD          | Github Actions(GitHub-hosted)                                            |
