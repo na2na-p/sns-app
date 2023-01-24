@@ -12,7 +12,7 @@ theme: apple-basic
 
 ## A.Yamamoto
 
-## 2023.1.11 ~ 2021.2.24
+## 2023.1.11 ~ 2023.1.24
 
 ---
 
@@ -166,6 +166,10 @@ Twitter ライクな Web アプリケーションを作成する
   }
 </style>
 
+<!--
+バックエンドはLaravelにすること以外は自由だったので、文字通り本当に自由にやりました。出来はともかくとして満足行くまでいろんなことを試せました。
+-->
+
 ---
 
 # 課題
@@ -267,6 +271,10 @@ OpenAPI スキーマとして吐き出したものを[Github](https://github.com
 [Figma](https://www.figma.com/file/q1SkYbpqk9w0Pt07ukiE6e/sns-app?node-id=0%3A3&t=LOSFTrDgMrSbfr5p-0)
 
 Export した SVG を[Github](https://github.com/na2na-p/sns-app/tree/main/documents/ui)にも置いてあります
+
+<!--
+SwaggerUIを別タブで表示する
+-->
 
 ---
 
