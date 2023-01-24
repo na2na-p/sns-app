@@ -27,6 +27,7 @@ export const useHooks = ({ handleClose, messages, setMessages }: UseHooksType) =
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors, isValid }
 	} = useForm<PostApiV1MessagesBody>({
 		resolver: yupResolver(schema)
@@ -52,6 +53,7 @@ export const useHooks = ({ handleClose, messages, setMessages }: UseHooksType) =
 	const onSubmit: SubmitHandler<PostApiV1MessagesBody> = (data) => {
 		mutate(data);
 		refetch();
+		reset();
 		handleClose();
 	};
 
