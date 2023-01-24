@@ -3,7 +3,8 @@
 	"private": true,
 	"scripts": {
 		"build": "slidev build",
-		"dev": "slidev"
+		"dev": "slidev",
+		"export": "slidev export"
 	},
 	"dependencies": {
 		"@slidev/cli": "^0.38.4",
