@@ -394,7 +394,7 @@ Export した SVG を[Github](https://github.com/na2na-p/sns-app/tree/main/docum
 
 ## CI/CD 構築
 
-PR のたびにこういう光景が広がります。これでも見切れていますが。
+PR のたびにこういう光景が広がります。これでも見切れていますが。~~モノレポの辛いところ~~
 
 <!-- モノレポの辛いところで、関係ない分野のテストも通らないとマージされないのが -->
 
@@ -762,6 +762,19 @@ export type GetApiV1Messages200Item = {
 とてもかんたんな構成図
 
 ![構成図](https://misskey.na2na.dev/media/media/9f6070d8-a7f1-44bd-b4b5-4ec17eb6f931.png)
+
+---
+
+# 開発
+
+<br>
+
+## インフラ構築
+
+AWS EC2 は IaC 利用しました。  
+tfstate は S3 で管理し、DynamoDB を利用して排他制御をしています。
+
+~~排他制御の影響で main からリベースしたものを矢継ぎ早に force push すると CI 上で動かしている `terraform plan` が落ちる...~~
 
 ---
 
