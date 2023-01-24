@@ -663,6 +663,7 @@ $messages = Message::with('favorites')
 ## バックエンド構築
 
 - OpenAPI のスキーマ生成を Laravel の実装から行うように
+  - `"vyuldashev/laravel-openapi": "^1.8"`を利用しました
   - 出来上がったスキーマをもとにテストが生成できたら嬉しい
   - フロントエンドも型安全になって嬉しい
 
@@ -949,6 +950,10 @@ Cloudflare の WAF もこんな感じで簡単にセットができます
     padding-bottom: 0.1em;
   }
 </style>
+
+<!--
+ZoomでURL共有します。
+-->
 
 ---
 
