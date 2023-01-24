@@ -109,6 +109,20 @@ theme: apple-basic
 
 ---
 
+# 今回の目標
+
+<br>
+
+## 完成形
+
+![image](https://misskey.na2na.dev/media/media/8cb37c77-efa4-40f1-9a7b-0606145d79e7.png)
+
+<!--
+完成形のイメージ画像です。縦幅見切れちゃうのでこのサイズで一旦勘弁してください。
+-->
+
+---
+
 # 目次
 
 - 今回の目標
