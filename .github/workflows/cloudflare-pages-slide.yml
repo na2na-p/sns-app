@@ -1,4 +1,4 @@
-name: Cloudflare Pages Frontend Deploy
+name: Cloudflare Pages Slide Deploy
 
 on:
   push:
@@ -14,7 +14,7 @@ on:
       - main
 
 env:
-  BASE_URL: https://sns-app.na2na.dev
+  BASE_URL: https://na2na-sns-app-slide.na2na.dev
 
 jobs:
   Publish:
@@ -25,11 +25,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - run: echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}" >> $GITHUB_ENV
       - name: build
         run: |
-          make frontend-setup && \
-          make frontend-build
+          make slide-build
       - name: Generate github token
         id: generate_token
         uses: ./.github/actions/github-app-token
@@ -41,8 +39,8 @@ jobs:
         with:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          projectName: ${{ env.REPOSITORY_NAME }}
-          directory: ./packages/frontend/dist
+          projectName: na2na-sns-app-slide
+          directory: ./packages/intern-slide/dist
           gitHubToken: ${{ steps.generate_token.outputs.token }}
   CachePurge:
     runs-on: ubuntu-latest
