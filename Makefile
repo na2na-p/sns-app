@@ -39,6 +39,7 @@ backend-setup:
 	@make backend-up
 	@make backend-generate
 	(cd packages/backend && ${SAIL} pint)
+	@make backend-insight-fix
 
 backend-generate:
 	(cd packages/backend && \
@@ -62,7 +63,13 @@ backend-test:
 
 backend-lint:
 	(cd packages/backend && ${SAIL} pint)
+	@make backend-insight-fix
 	@make backend-phpstan
+
+backend-lint-ci:
+	(cd packages/backend && ${SAIL} pint)
+	@make backend-phpstan
+	@make backend-insight-ci
 
 backend-oas-generate:
 	(cd packages/backend && ${SAIL} artisan openapi:generate > $(shell pwd)/documents/api/schema.json)
@@ -99,3 +106,12 @@ backend-infra-destroy:
 
 slide-build:
 	(cd packages/intern-slide && yarn install && yarn build)
+
+backend-insight:
+	(cd packages/backend && ${SAIL} artisan insights --no-interaction)
+
+backend-insight-fix:
+	(cd packages/backend && ${SAIL}  artisan insights --no-interaction --fix)
+
+backend-insight-ci:
+	(cd packages/backend && ${SAIL} artisan insights -n --ansi --format=github-action)

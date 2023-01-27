@@ -27,6 +27,7 @@ class MessagesController extends Controller
      * メッセージ投稿用エンドポイント
      *
      * @param  MessageCreateRequest  $request
+     *
      * @return Response
      */
     #[OpenApi\Operation]
@@ -54,6 +55,7 @@ class MessagesController extends Controller
      * メッセージ取得用エンドポイント
      *
      * @param  ListMessageRequest  $request
+     *
      * @return JsonResponse|Response
      */
     #[OpenApi\Operation]
@@ -76,7 +78,8 @@ class MessagesController extends Controller
         $messages = Message::with('favorites')
             ->withCount(['favorites' => function (Builder $query) use ($userId) {
                 $query->where('user_id', $userId);
-            }])
+            },
+            ])
             ->with('user')
             ->when($lastMessageId, function (Builder $query) use ($lastMessageId) {
                 $query->where('id', '<', $lastMessageId);

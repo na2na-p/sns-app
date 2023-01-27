@@ -18,6 +18,7 @@ class LoginController extends Controller
      * ログイン用エンドポイント
      *
      * @param  LoginRequest  $request
+     *
      * @return Response
      */
     #[OpenApi\Operation]
