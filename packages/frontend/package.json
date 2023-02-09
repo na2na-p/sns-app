@@ -17,7 +17,7 @@
 	"dependencies": {
 		"@emotion/react": "^11.10.5",
 		"@emotion/styled": "^11.10.5",
-		"@hookform/resolvers": "^2.9.10",
+		"@hookform/resolvers": "^2.9.11",
 		"@mui/icons-material": "^5.11.0",
 		"@mui/material": "^5.11.8",
 		"@tanstack/react-query": "^4.24.4",
@@ -29,7 +29,7 @@
 		"react-infinite-scroller": "^1.2.6",
 		"react-router-dom": "^6.8.1",
 		"yup": "^0.32.11",
-		"zod": "^3.20.2"
+		"zod": "^3.20.6"
 	},
 	"devDependencies": {
 		"@mswjs/data": "^0.11.2",
