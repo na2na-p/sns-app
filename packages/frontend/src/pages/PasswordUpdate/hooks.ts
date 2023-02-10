@@ -29,7 +29,7 @@ export const useHooks = () => {
 			.required('この項目は必須です。')
 			.min(8, '8文字以上で入力してください。')
 			.max(32, '32文字以下で入力してください。')
-			.oneOf([yup.ref('newPassword'), null], 'パスワードが一致しません。')
+			.oneOf([yup.ref('newPassword')], 'パスワードが一致しません。')
 
 	});
 	const {
