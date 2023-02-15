@@ -457,7 +457,6 @@
                     {
                         "name": "messageId",
                         "in": "path",
-                        "description": "",
                         "required": true,
                         "schema": {
                             "type": "string"
