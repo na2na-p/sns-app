@@ -31,14 +31,14 @@ use Illuminate\Support\Carbon;
  * @method static Builder|User wherePassword($value)
  * @method static Builder|User whereUpdatedAt($value)
  *
- * @mixin Eloquent
- *
  * @property-read Collection|Favorite[] $favorites
  * @property-read int|null $favorites_count
  * @property-read Collection|Message[] $messages
  * @property-read int|null $messages_count
  *
  * @method static UserFactory factory(...$parameters)
+ *
+ * @mixin Eloquent
  */
 class User extends Authenticatable
 {

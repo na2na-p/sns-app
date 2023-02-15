@@ -13,8 +13,6 @@ class LoginControllerTest extends TestCase
 
     /**
      * ログインが正しく動作するか
-     *
-     * @return void
      */
     public function testLogin(): void
     {
@@ -35,8 +33,6 @@ class LoginControllerTest extends TestCase
 
     /**
      * すでにログインしている場合はセッションを破棄して再ログインさせたか
-     *
-     * @return void
      */
     public function testReLoginWithoutLogout(): void
     {
@@ -63,9 +59,6 @@ class LoginControllerTest extends TestCase
      * IDパスワードが間違っている場合に正しく弾けるか
      *
      * @dataProvider signupUsersArgsValidationDataProvider
-     *
-     * @param  array  $data
-     * @return void
      */
     public function testLoginWithInvalidArgs(array $data): void
     {

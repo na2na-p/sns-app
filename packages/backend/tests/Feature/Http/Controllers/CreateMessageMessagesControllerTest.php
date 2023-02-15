@@ -14,8 +14,6 @@ class CreateMessageMessagesControllerTest extends TestCase
 
     /**
      * メッセージ投稿できるか
-     *
-     * @return void
      */
     public function testMessageCreate(): void
     {

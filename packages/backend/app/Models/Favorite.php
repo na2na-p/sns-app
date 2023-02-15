@@ -28,12 +28,12 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Favorite whereUpdatedAt($value)
  * @method static Builder|Favorite whereUserId($value)
  *
- * @mixin Eloquent
- *
  * @property-read Message $message
  * @property-read User $user
  *
  * @method static FavoriteFactory factory(...$parameters)
+ *
+ * @mixin Eloquent
  */
 class Favorite extends Model
 {

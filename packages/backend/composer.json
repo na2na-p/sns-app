@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2.3",
+        "php": "^8.2.2",
         "guzzlehttp/guzzle": "^7.5.0",
         "laravel/framework": "^9.52.0",
         "laravel/sanctum": "^3.2.1",
@@ -26,6 +26,7 @@
         "nunomaduro/larastan": "^2.4.0",
         "phpstan/phpstan": "^1.9.17",
         "phpunit/phpunit": "^9.6.3",
+        "roave/security-advisories": "dev-latest",
         "spatie/laravel-ignition": "^1.6.4"
     },
     "autoload": {

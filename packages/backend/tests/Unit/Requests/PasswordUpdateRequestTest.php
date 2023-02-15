@@ -24,10 +24,6 @@ class PasswordUpdateRequestTest extends TestCase
      * バリデーションテスト(異常系)
      *
      * @dataProvider signupUsersArgsValidationInvalidDataProvider
-     *
-     * @param  array  $data
-     * @param  array  $errors
-     * @return void
      */
     public function testSignupUsersArgsValidation(array $data, array $errors): void
     {
@@ -80,9 +76,6 @@ class PasswordUpdateRequestTest extends TestCase
      * バリデーションテスト(正常系)
      *
      * @dataProvider signupUsersArgsValidationValidDataProvider
-     *
-     * @param  array  $data
-     * @return void
      */
     public function testSignupUsersArgsValidationValid(array $data): void
     {

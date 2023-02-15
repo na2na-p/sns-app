@@ -24,10 +24,6 @@ class SignupRequestTest extends TestCase
      * バリデーションテスト(異常系)
      *
      * @dataProvider signupUsersArgsValidationInvalidDataProvider
-     *
-     * @param  array  $data
-     * @param  array  $errors
-     * @return void
      */
     public function testSignupUsersArgsValidationFailed(array $data, array $errors): void
     {
@@ -128,9 +124,6 @@ class SignupRequestTest extends TestCase
      * バリデーションテスト(正常系)
      *
      * @dataProvider SignupUsersArgsValidationValidDataProvider
-     *
-     * @param  array  $data
-     * @return void
      */
     public function testSignupUsersArgsValidationSuccess(array $data): void
     {

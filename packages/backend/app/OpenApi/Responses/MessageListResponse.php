@@ -11,8 +11,6 @@ use Vyuldashev\LaravelOpenApi\Factories\ResponseFactory;
 class MessageListResponse extends ResponseFactory
 {
     /**
-     * @return Response
-     *
      * @throws InvalidArgumentException
      */
     public function build(): Response

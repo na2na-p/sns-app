@@ -30,13 +30,13 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Message whereUpdatedAt($value)
  * @method static Builder|Message whereUserId($value)
  *
- * @mixin Eloquent
- *
  * @property-read Collection|Favorite[] $favorites
  * @property-read int|null $favorites_count
  * @property-read User $user
  *
  * @method static MessageFactory factory(...$parameters)
+ *
+ * @mixin Eloquent
  */
 class Message extends Model
 {

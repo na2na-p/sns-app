@@ -20,10 +20,6 @@ class LoginRequestTest extends TestCase
      * バリデーションテスト
      *
      * @dataProvider loginArgsValidationInvalidDataProvider
-     *
-     * @param  array  $data
-     * @param  array  $errors
-     * @return void
      */
     public function testLoginsArgsValidationFailed(array $data, array $errors): void
     {
@@ -75,9 +71,6 @@ class LoginRequestTest extends TestCase
      * バリデーションテスト(正常系)
      *
      * @dataProvider loginArgsValidationValidDataProvider
-     *
-     * @param  array  $data
-     * @return void
      */
     public function testLoginsArgsValidationSuccess(array $data): void
     {

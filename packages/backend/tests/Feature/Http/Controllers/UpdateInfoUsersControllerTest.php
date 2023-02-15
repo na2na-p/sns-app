@@ -13,8 +13,6 @@ class UpdateInfoUsersControllerTest extends TestCase
 
     /**
      * ユーザ情報更新が正しく行えるかテスト
-     *
-     * @return void
      */
     public function testUpdateUser(): void
     {

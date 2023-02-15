@@ -25,9 +25,6 @@ class MessagesController extends Controller
 
     /**
      * メッセージ投稿用エンドポイント
-     *
-     * @param  MessageCreateRequest  $request
-     * @return Response
      */
     #[OpenApi\Operation]
     #[OpenApi\RequestBody(factory: MessageCreateRequestBody::class)]
@@ -52,9 +49,6 @@ class MessagesController extends Controller
 
     /**
      * メッセージ取得用エンドポイント
-     *
-     * @param  ListMessageRequest  $request
-     * @return JsonResponse|Response
      */
     #[OpenApi\Operation]
     #[OpenApi\Parameters(factory: ListMessagesParameters::class)]

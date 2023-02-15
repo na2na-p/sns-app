@@ -23,10 +23,6 @@ class MessageListRequestTest extends TestCase
      * バリデーションテスト(異常系)
      *
      * @dataProvider messagesListArgsValidationInvalidDataProvider
-     *
-     * @param  array  $data
-     * @param  array  $errors
-     * @return void
      */
     public function testMessagesListArgsValidationFailed(array $data, array $errors): void
     {
@@ -60,9 +56,6 @@ class MessageListRequestTest extends TestCase
      * バリデーションテスト(正常系)
      *
      * @dataProvider messagesListArgsValidationValidDataProvider
-     *
-     * @param  array  $data
-     * @return void
      */
     public function testMessagesListArgsValidationSuccess(array $data): void
     {
