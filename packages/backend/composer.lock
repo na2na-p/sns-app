@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9020d2c64594c5c1ade3bc55e80090a6",
+    "content-hash": "38f063f554d51951c07a114d49e91e34",
     "packages": [
         {
             "name": "brick/math",
@@ -6033,23 +6033,23 @@
         },
         {
             "name": "vyuldashev/laravel-openapi",
-            "version": "v1.8.0",
+            "version": "v1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vyuldashev/laravel-openapi.git",
-                "reference": "59b2ceb2846a454a0da36fd49683560257aeae10"
+                "reference": "571d5a223cab96a67a408345f2c89ff6eef6fb3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vyuldashev/laravel-openapi/zipball/59b2ceb2846a454a0da36fd49683560257aeae10",
-                "reference": "59b2ceb2846a454a0da36fd49683560257aeae10",
+                "url": "https://api.github.com/repos/vyuldashev/laravel-openapi/zipball/571d5a223cab96a67a408345f2c89ff6eef6fb3e",
+                "reference": "571d5a223cab96a67a408345f2c89ff6eef6fb3e",
                 "shasum": ""
             },
             "require": {
                 "doctrine/dbal": "^2.6|^3.0",
                 "ext-json": "*",
                 "goldspecdigital/oooas": "^2.7.1",
-                "laravel/framework": "5.8.*|^6.0|^7.0|^8.0|^9.0",
+                "laravel/framework": "5.8.*|^6.0|^7.0|^8.0|^9.0|^10.0",
                 "php": "^8.0",
                 "phpdocumentor/reflection-docblock": "^5.0"
             },
@@ -6092,9 +6092,9 @@
             ],
             "support": {
                 "issues": "https://github.com/vyuldashev/laravel-openapi/issues",
-                "source": "https://github.com/vyuldashev/laravel-openapi/tree/v1.8.0"
+                "source": "https://github.com/vyuldashev/laravel-openapi/tree/v1.9.0"
             },
-            "time": "2022-09-01T22:55:31+00:00"
+            "time": "2023-02-15T16:57:49+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -9797,7 +9797,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.2.2"
+        "php": "^8.2.3"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
