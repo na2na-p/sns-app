@@ -13,8 +13,6 @@ class LogoutController extends Controller
 {
     /**
      * ログアウト用エンドポイント
-     *
-     * @return Response
      */
     #[OpenApi\Operation]
     #[OpenApi\Response(factory: LogoutResponse::class)]

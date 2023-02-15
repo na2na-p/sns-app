@@ -14,8 +14,6 @@ class PasswordUpdateUsersControllerTest extends TestCase
 
     /**
      * パスワード更新
-     *
-     * @return void
      */
     public function testPasswordUpdate(): void
     {

@@ -13,8 +13,6 @@ class FindUserUsersControllerTest extends TestCase
 
     /**
      * ログインしていない時にただしくレスポンスを返せるか
-     *
-     * @return void
      */
     public function testAuthMiddlewareAuthFail(): void
     {
@@ -27,8 +25,6 @@ class FindUserUsersControllerTest extends TestCase
 
     /**
      * ログイン済みの時にただしくレスポンスを返せるか
-     *
-     * @return void
      */
     public function testAuthMiddlewareAuthSuccess(): void
     {

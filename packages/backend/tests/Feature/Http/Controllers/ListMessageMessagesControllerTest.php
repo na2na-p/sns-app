@@ -15,8 +15,6 @@ class ListMessageMessagesControllerTest extends TestCase
 
     /**
      * メッセージ取得できるか
-     *
-     * @return void
      */
     public function testListMessage(): void
     {
@@ -89,8 +87,6 @@ class ListMessageMessagesControllerTest extends TestCase
 
     /**
      * lastMessageIdを利用してメッセージ取得できるか
-     *
-     * @return void
      */
     public function testListMessageWithLastMessageId(): void
     {
@@ -144,8 +140,6 @@ class ListMessageMessagesControllerTest extends TestCase
 
     /**
      * perPageを利用してメッセージ取得できるか
-     *
-     * @return void
      */
     public function testListMessageWithPerPage(): void
     {
@@ -189,8 +183,6 @@ class ListMessageMessagesControllerTest extends TestCase
 
     /**
      * lastMessageIdとperPageを利用してメッセージ取得できるか
-     *
-     * @return void
      */
     public function testListMessageWithLastMessageIdAndPerPage(): void
     {

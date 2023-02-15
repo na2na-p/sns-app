@@ -24,10 +24,6 @@ class UpdateUserInfoRequestTest extends TestCase
      * バリデーションテスト(異常系)
      *
      * @dataProvider updateUserInfoArgsInvalidDataProvider
-     *
-     * @param  array  $data
-     * @param  array  $errors
-     * @return void
      */
     public function testSignupUsersArgsValidationFailed(array $data, array $errors): void
     {
@@ -117,9 +113,6 @@ class UpdateUserInfoRequestTest extends TestCase
      * バリデーションテスト(正常系)
      *
      * @dataProvider updateUserInfoArgsValidDataProvider
-     *
-     * @param  array  $data
-     * @return void
      */
     public function testSignupUsersArgsValidationSuccess(array $data): void
     {

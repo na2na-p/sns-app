@@ -11,8 +11,6 @@ use Vyuldashev\LaravelOpenApi\Factories\SchemaFactory;
 class UserResponseSchema extends SchemaFactory implements Reusable
 {
     /**
-     * @return SchemaContract
-     *
      * @throws InvalidArgumentException
      */
     public function build(): SchemaContract

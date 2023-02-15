@@ -15,8 +15,6 @@ class SignUpUsersControllerTest extends TestCase
     /**
      * ユーザ登録が正しく動作するか
      * 登録後はログイン状態になるか
-     *
-     * @return void
      */
     public function testSignUp(): void
     {

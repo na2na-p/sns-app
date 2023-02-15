@@ -15,8 +15,6 @@ class AddFavoriteFavoritesControllerTest extends TestCase
 
     /**
      * お気に入り登録できるか
-     *
-     * @return void
      */
     public function testAddFavorite(): void
     {
@@ -37,8 +35,6 @@ class AddFavoriteFavoritesControllerTest extends TestCase
 
     /**
      * すでにお気に入り済みの場合、updated_atが更新されるか
-     *
-     * @return void
      */
     public function testAddFavoriteAlreadyFavorite(): void
     {
@@ -69,8 +65,6 @@ class AddFavoriteFavoritesControllerTest extends TestCase
 
     /**
      * 存在しないメッセージにお気に入りした場合
-     *
-     * @return void
      */
     public function testAddFavoriteToFictitiousMessage(): void
     {

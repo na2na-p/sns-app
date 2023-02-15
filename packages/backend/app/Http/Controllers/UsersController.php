@@ -27,9 +27,6 @@ class UsersController extends Controller
 {
     /**
      * ユーザ登録用エンドポイント
-     *
-     * @param  SignupRequest  $request
-     * @return Response
      */
     #[OpenApi\Operation]
     #[OpenApi\RequestBody(factory: SignupRequestBody::class)]
@@ -60,9 +57,6 @@ class UsersController extends Controller
 
     /**
      * ログイン済みかどうかの判定用エンドポイント
-     *
-     * @param  Request  $request
-     * @return Response
      */
     #[OpenApi\Operation]
     #[OpenApi\Response(factory: FindUserResponse::class)]
@@ -81,9 +75,6 @@ class UsersController extends Controller
 
     /**
      * ユーザ情報更新用エンドポイント
-     *
-     * @param  UpdateUserRequest  $request
-     * @return Response
      */
     #[OpenApi\Operation]
     #[OpenApi\RequestBody(factory: UpdateUserRequestBody::class)]
@@ -110,9 +101,6 @@ class UsersController extends Controller
 
     /**
      * パスワード更新用エンドポイント
-     *
-     * @param  PasswordUpdateRequest  $request
-     * @return Response
      */
     #[OpenApi\Operation]
     #[OpenApi\RequestBody(factory: UpdateUserPasswordRequestBody::class)]

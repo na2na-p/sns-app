@@ -13,8 +13,6 @@ class LogoutControllerTest extends TestCase
 
     /**
      * ログアウトが正しく動作するか
-     *
-     * @return void
      */
     public function testLogout(): void
     {
@@ -28,8 +26,6 @@ class LogoutControllerTest extends TestCase
 
     /**
      * ログアウト済みの際に正しいレスポンスを返すか
-     *
-     * @return void
      */
     public function testLogoutWithAlreadyLoggedOut(): void
     {

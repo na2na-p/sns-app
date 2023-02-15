@@ -11,8 +11,6 @@ use Vyuldashev\LaravelOpenApi\Factories\RequestBodyFactory;
 class UpdateUserRequestBody extends RequestBodyFactory
 {
     /**
-     * @return RequestBody
-     *
      * @throws InvalidArgumentException
      */
     public function build(): RequestBody
