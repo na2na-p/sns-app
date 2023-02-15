@@ -8,13 +8,13 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2.2",
+        "php": "^8.2.3",
         "guzzlehttp/guzzle": "^7.5.0",
         "laravel/framework": "^9.52.0",
         "laravel/sanctum": "^3.2.1",
         "laravel/tinker": "^2.8.0",
         "predis/predis": "^2.1.1",
-        "vyuldashev/laravel-openapi": "^1.8"
+        "vyuldashev/laravel-openapi": "^1.9.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13.0",
