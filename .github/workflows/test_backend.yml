@@ -33,7 +33,7 @@ jobs:
         #   restore-keys: |
         #     foo-docker-cache-
       - name: Setup CI
-        run: make setup-ci
+        run: make backend-setup
       - name: Test
         run: make backend-test
       # - name: Delete Duplicate Comment with Coverage Summary
@@ -65,6 +65,6 @@ jobs:
         #   restore-keys: |
         #     foo-docker-cache-
       - name: Setup CI
-        run: make setup-ci
+        run: make backend-setup
       - name: Lint
         run: make backend-lint
