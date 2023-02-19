@@ -80,7 +80,7 @@ backend-route-check:
 
 all-containers-build:
 	@make backend-build
-	(cd utils && docker compose build)
+#	(cd utils && docker compose build)
 
 trivy:
 	trivy image $(shell docker images --format "{{.Repository}}:{{.Tag}}" | grep -v "<none>:<none>")
