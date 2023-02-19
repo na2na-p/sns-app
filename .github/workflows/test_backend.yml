@@ -25,10 +25,8 @@ jobs:
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
-
       - uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
-
       - name: Setup CI
         run: make setup-ci
       - name: Test
@@ -54,6 +52,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
       - name: Setup CI
         run: make setup-ci
       - name: Lint
