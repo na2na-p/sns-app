@@ -76,6 +76,13 @@ backend-oas-generate:
 backend-route-check:
 	(cd packages/backend && ${SAIL} artisan route:list)
 
+all-containers-build:
+	@make backend-build
+#	(cd utils && docker compose build)
+
+trivy:
+	trivy image $(shell docker images --format "{{.Repository}}:{{.Tag}}" | grep -v "<none>:<none>")
+
 tinker:
 	(cd packages/backend && ${SAIL} tinker)
 
