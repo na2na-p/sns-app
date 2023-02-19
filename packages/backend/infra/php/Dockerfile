@@ -1,6 +1,6 @@
-FROM composer:2.5.1 as composer
+FROM composer:2.5.4 as composer
 
-FROM php:8.1-fpm-alpine as app-base
+FROM php:8.2-fpm-alpine as app-base
 
 RUN apk add --no-cache mysql-client msmtp perl wget procps shadow libzip libpng libjpeg-turbo libwebp freetype icu tzdata
 
