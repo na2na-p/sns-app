@@ -25,13 +25,13 @@ jobs:
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
-      - uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-        # TODO: Enable cache key
-        # with:
-        #   key: foo-docker-cache-{hash}
-        #   restore-keys: |
-        #     foo-docker-cache-
+      # TODO: Enable cache
+      # - uses: satackey/action-docker-layer-caching@v0.0.11
+      #   continue-on-error: true
+      # with:
+      #   key: foo-docker-cache-{hash}
+      #   restore-keys: |
+      #     foo-docker-cache-
       - name: Setup CI
         run: make backend-setup
       - name: Test
@@ -57,13 +57,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-        # TODO: Enable cache key
-        # with:
-        #   key: foo-docker-cache-{hash}
-        #   restore-keys: |
-        #     foo-docker-cache-
+      # TODO: Enable cache
+      # - uses: satackey/action-docker-layer-caching@v0.0.11
+      #   continue-on-error: true
+      # with:
+      #   key: foo-docker-cache-{hash}
+      #   restore-keys: |
+      #     foo-docker-cache-
       - name: Setup CI
         run: make backend-setup
       - name: Lint
