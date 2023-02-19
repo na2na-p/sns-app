@@ -1,5 +1,8 @@
+export WWWGROUP=${WWWGROUP:-$(id -g)}
+export WWWUSER=${WWWUSER:-$UID}
 BACKEND_ENV=docker run --rm -i --user $(shell id -u):$(shell id -g) -v $(shell pwd)/packages/backend:/var/www/html -w /var/www/html laravelsail/php82-composer:latest
 SAIL=$(shell pwd)/packages/backend/vendor/bin/sail
+COMPOSER=docker run --rm -i --user `id -u`:`id -g` -v `pwd`:/app composer:2.3.10
 
 setup-local:
 	(cd utils && cp .env_example .env)
@@ -39,6 +42,9 @@ backend-setup:
 	@make backend-up
 	@make backend-generate
 	(cd packages/backend && ${SAIL} pint)
+
+backend-build:
+	(cd packages/backend && ./vendor/bin/sail build ${BUILD_OPTIONS})
 
 backend-generate:
 	(cd packages/backend && \
@@ -96,6 +102,9 @@ backend-infra-plan-ci:
 
 backend-infra-destroy:
 	(cd packages/infra/ec2 && terraform destroy)
+
+backend-composer-update:
+	(cd packages/backend && ${COMPOSER} update)
 
 slide-build:
 	(cd packages/intern-slide && yarn install && yarn build)

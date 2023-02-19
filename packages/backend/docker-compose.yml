@@ -3,16 +3,13 @@ version: '3'
 services:
     laravel.test:
         build:
-            context: ./vendor/laravel/sail/runtimes/8.2
-            dockerfile: Dockerfile
+            context: .
+            dockerfile: ./infra/php/Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
-        image: sail-8.2/app
+                WWWUSER: '${WWWUSER}'
         extra_hosts:
             - 'host.docker.internal:host-gateway'
-        ports:
-            - '${APP_PORT:-80}:80'
-            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
@@ -20,11 +17,29 @@ services:
             XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
         volumes:
             - '.:/var/www/html'
+            - 'php-fpm-socket:/var/run/php-fpm/'
         networks:
             - sail
         depends_on:
             - mysql
             - redis
+    nginx:
+        build:
+            context: ./infra/nginx
+            dockerfile: Dockerfile
+            args:
+                WWWGROUP: '${WWWGROUP}'
+        environment:
+            WWWUSER: '${WWWUSER}'
+        ports:
+            - '${APP_PORT:-80}:80'
+        volumes:
+            - './public:/usr/share/nginx/html/:ro'
+            - 'php-fpm-socket:/var/run/php-fpm/'
+        depends_on:
+            - laravel.test
+        networks:
+            - sail
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
@@ -66,5 +81,5 @@ volumes:
         driver: local
     sail-redis:
         driver: local
-    # sail-meilisearch:
-    #     driver: local
+    php-fpm-socket:
+        driver: local
