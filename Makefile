@@ -44,7 +44,9 @@ backend-setup:
 	(cd packages/backend && ${SAIL} pint)
 
 backend-build:
-	(cd packages/backend && ./vendor/bin/sail build ${BUILD_OPTIONS})
+	(cd packages/backend && \
+	${BACKEND_ENV} composer install --ignore-platform-reqs)
+	(cd packages/backend && ${SAIL} build ${BUILD_OPTIONS})
 
 backend-generate:
 	(cd packages/backend && \
@@ -75,6 +77,13 @@ backend-oas-generate:
 
 backend-route-check:
 	(cd packages/backend && ${SAIL} artisan route:list)
+
+all-containers-build:
+	@make backend-build
+#	(cd utils && docker compose build)
+
+trivy:
+	trivy image $(shell docker images --format "{{.Repository}}:{{.Tag}}" | grep -v "<none>:<none>")
 
 tinker:
 	(cd packages/backend && ${SAIL} tinker)
