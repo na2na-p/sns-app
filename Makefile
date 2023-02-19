@@ -44,7 +44,9 @@ backend-setup:
 	(cd packages/backend && ${SAIL} pint)
 
 backend-build:
-	(cd packages/backend && ./vendor/bin/sail build ${BUILD_OPTIONS})
+	(cd packages/backend && \
+	${BACKEND_ENV} composer install --ignore-platform-reqs)
+	(cd packages/backend && ${SAIL} build ${BUILD_OPTIONS})
 
 backend-generate:
 	(cd packages/backend && \
