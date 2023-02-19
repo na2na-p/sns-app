@@ -42,8 +42,8 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 USER root
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
-RUN apk add --no-cache --virtual .build-deps autoconf gcc g++ make && \
-    pecl install xdebug-3.1.6 && \
+RUN apk add --no-cache --virtual .build-deps linux-headers autoconf gcc g++ make && \
+    pecl install xdebug && \
     docker-php-ext-enable xdebug && \
     apk del .build-deps
 USER sail
