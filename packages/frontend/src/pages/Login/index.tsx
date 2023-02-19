@@ -32,6 +32,7 @@ const Login = () => {
 						<TextInput
 							required
 							type="email"
+							defaultValue='foo@example.com'
 							placeholder="Email"
 							{...register('email')}
 							error={'email' in errors}
@@ -40,6 +41,7 @@ const Login = () => {
 						<TextInput
 							required
 							type="password"
+							defaultValue='aaaaAAAA1234'
 							placeholder="Password"
 							{...register('password')}
 							error={'password' in errors}
