@@ -52,7 +52,7 @@
 		"eslint-plugin-react": "^7.32.2",
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"eslint-plugin-react-refresh": "^0.3.4",
-		"happy-dom": "^8.5.0",
+		"happy-dom": "^8.6.0",
 		"jest-extended": "^3.2.4",
 		"msw": "^1.0.1",
 		"orval": "^6.11.1",
