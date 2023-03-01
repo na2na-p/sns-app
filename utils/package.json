@@ -9,7 +9,7 @@
 	},
 	"devDependencies": {
 		"@mermaid-js/mermaid-cli": "9.4.0",
-		"prisma": "4.10.1",
+		"prisma": "4.11.0",
 		"prisma-erd-generator": "1.2.5"
 	}
 }

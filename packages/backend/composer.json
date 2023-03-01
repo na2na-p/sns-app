@@ -25,7 +25,7 @@
         "nunomaduro/collision": "^6.4.0",
         "nunomaduro/larastan": "^2.4.1",
         "phpstan/phpstan": "^1.10.3",
-        "phpunit/phpunit": "^9.6.3",
+        "phpunit/phpunit": "^9.6.4",
         "roave/security-advisories": "dev-latest",
         "spatie/laravel-ignition": "^1.6.4"
     },
