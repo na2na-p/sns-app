@@ -22,19 +22,19 @@ jobs:
       - name: Build images
         run: |
           make all-containers-build
-      - name: PHP Container Scan
+      - name: Nginx Container Scan
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: "backend-laravel.test:latest"
+          image-ref: "backend-nginx:latest"
           format: "table"
           exit-code: "1"
           ignore-unfixed: true
           vuln-type: "os,library"
           severity: "CRITICAL,HIGH"
-      - name: Nginx Container Scan
+      - name: PHP Container Scan
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: "backend-nginx:latest"
+          image-ref: "backend-laravel.test:latest"
           format: "table"
           exit-code: "1"
           ignore-unfixed: true
