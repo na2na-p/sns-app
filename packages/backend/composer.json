@@ -13,14 +13,14 @@
         "laravel/framework": "^9.52.4",
         "laravel/sanctum": "^3.2.1",
         "laravel/tinker": "^2.8.1",
-        "predis/predis": "^2.1.1",
+        "predis/predis": "^2.1.2",
         "vyuldashev/laravel-openapi": "^1.9.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13.0",
         "fakerphp/faker": "^1.21.0",
         "laravel/pint": "^1.6.0",
-        "laravel/sail": "^1.21.0",
+        "laravel/sail": "^1.21.1",
         "mockery/mockery": "^1.5.1",
         "nunomaduro/collision": "^6.4.0",
         "nunomaduro/larastan": "^2.4.1",
