@@ -56,7 +56,7 @@
 		"jest-extended": "^3.2.4",
 		"msw": "^1.1.0",
 		"orval": "^6.12.0",
-		"react-hook-form": "^7.43.3",
+		"react-hook-form": "^7.43.4",
 		"typescript": "^4.9.5",
 		"vite": "^4.1.4",
 		"vite-tsconfig-paths": "^4.0.5",
