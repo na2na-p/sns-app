@@ -14,17 +14,17 @@
         "laravel/sanctum": "^3.2.1",
         "laravel/tinker": "^2.8.1",
         "predis/predis": "^2.1.2",
-        "vyuldashev/laravel-openapi": "^1.9.0"
+        "vyuldashev/laravel-openapi": "^1.10.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13.0",
         "fakerphp/faker": "^1.21.0",
         "laravel/pint": "^1.6.0",
-        "laravel/sail": "^1.21.1",
+        "laravel/sail": "^1.21.2",
         "mockery/mockery": "^1.5.1",
         "nunomaduro/collision": "^6.4.0",
         "nunomaduro/larastan": "^2.5.1",
-        "phpstan/phpstan": "^1.10.3",
+        "phpstan/phpstan": "^1.10.5",
         "phpunit/phpunit": "^9.6.4",
         "roave/security-advisories": "dev-latest",
         "spatie/laravel-ignition": "^1.6.4"
